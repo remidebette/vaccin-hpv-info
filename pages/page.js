@@ -1,8 +1,8 @@
 import React from 'react';
 import Prismic from 'prismic-javascript'
-import { RichText } from 'prismic-reactjs'
+import {RichText} from 'prismic-reactjs'
 import Layout from '../components/MyLayout'
-import { getMenu } from '../components/Header'
+import {getMenu} from '../components/Header'
 import PrismicConfig from '../prismic-configuration'
 
 const Page = (props) => (
@@ -12,8 +12,8 @@ const Page = (props) => (
     </Layout>
 );
 
-Page.getInitialProps = async function(context) {
-    const { uid } = context.query
+Page.getInitialProps = async function (context) {
+    const {uid} = context.query
     const res = await getPage(uid)
 
     return res

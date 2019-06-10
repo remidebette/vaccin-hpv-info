@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "prismic-nextjs-website",
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@now/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(?<uid>[^/]+)$",
+      "dest": "/page?uid=$uid"
+    }
+  ]
+}

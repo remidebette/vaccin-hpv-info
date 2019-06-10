@@ -1,8 +1,7 @@
-import 'semantic-ui-css/semantic.min.css';
 import {Button} from 'semantic-ui-react';
 import React, {useState, useEffect} from 'react';
 import Layout from '../components/MyLayout'
-import { getMenu } from '../components/Header'
+import {getMenu} from '../components/Header'
 import Prismic from 'prismic-javascript'
 import PrismicConfig from '../prismic-configuration'
 
@@ -26,8 +25,7 @@ const Index = (props) => {
 };
 
 
-
-Index.getInitialProps = async function(context) {
+Index.getInitialProps = async function (context) {
     const req = context.query
     const res = await getPage(req)
 

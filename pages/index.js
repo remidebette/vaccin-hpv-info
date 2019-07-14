@@ -6,19 +6,10 @@ import Prismic from 'prismic-javascript'
 import PrismicConfig from '../prismic-configuration'
 
 const Index = (props) => {
-    const [count, setCount] = useState(0);
-
-
-    useEffect(() => {
-        document.title = `On a cliqué ${count} fois`;
-    });
-
 
     return (
         <Layout menu={props.menu}>
             <h1>Hello World</h1>
-
-            <Button onClick={() => setCount(count + 1)}>Compteur</Button>
 
         </Layout>
     )

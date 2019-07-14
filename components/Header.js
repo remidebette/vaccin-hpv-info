@@ -40,19 +40,35 @@ background-color: rgb(255, 255, 255);
 const Header = (props) => {
     return (
         <header>
-            <Menu fixed='top' borderless className={menuStyle}>
+            <Menu fixed='top' borderless stackable className={menuStyle}>
                 <Container>
-                    <Link href="/">
-                        <Menu.Item header as="a">
-                            Home
-                        </Menu.Item>
-                    </Link>
+
+                    <Dropdown item text="Vaccin HPV info">
+                        <Dropdown.Menu>
+                            <Link href="/">
+                                <Dropdown.Item header as="a">
+                                    <strong>Acceuil</strong>
+                                </Dropdown.Item>
+                            </Link>
+                            {props.menu ? menuLinks(props.menu.data.menu_links) : null}
+
+                            <Link href="/faq">
+                                <Dropdown.Item as="a">
+                                    Foire aux questions
+                                </Dropdown.Item>
+                            </Link>
+                        </Dropdown.Menu>
+                    </Dropdown>
+
 
                     <Menu.Menu position="right">
-                        {props.menu ? menuLinks(props.menu.data.menu_links) : null}
-
-                        <Link href="/etvous">
+                        <Link href="/et-vous">
                             <Menu.Item as="a" key="et-vous">Et vous?
+                            </Menu.Item>
+                        </Link>
+
+                        <Link href="/contactez-nous">
+                            <Menu.Item as="a" key="contactez-nous">Contactez-nous
                             </Menu.Item>
                         </Link>
                     </Menu.Menu>
@@ -66,9 +82,9 @@ const menuLinks = (menu_links) => {
     return menu_links.map((menuLink) => {
         return (
             <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch>
-                <Menu.Item key={menuLink.link.id} as="a">
+                <Dropdown.Item key={menuLink.link.id} as="a">
                     {RichText.asText(menuLink.label)}
-                </Menu.Item>
+                </Dropdown.Item>
             </Link>
         );
     });

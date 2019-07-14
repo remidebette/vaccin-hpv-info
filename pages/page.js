@@ -5,6 +5,7 @@ import {RichText} from 'prismic-reactjs'
 import Error from "./_error";
 import { SliceZone, getMenu, Layout } from "components";
 
+
 const Page = (props) => {
     if (!props.doc) {
         return (
@@ -18,9 +19,7 @@ const Page = (props) => {
                 <h1>{RichText.asText(props.doc.data.title)}</h1>
                 <p>{RichText.asText(props.doc.data.description)}</p>
 
-                <div className='main'>
                     <SliceZone sliceZone={props.doc.data.page_content} />
-                </div>
             </Layout>
         )
     }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
   TextSection,
   Quote,
@@ -6,14 +6,32 @@ import {
   ImageGallery,
   ImageHighlight
 } from './'
+import {Accordion} from "semantic-ui-react";
 
 const SliceZone = ({ sliceZone }) => {
+  const [activeIndex, setActiveIndex] = useState(-1);
+
+  const handleClick = (event, data) => {
+    event.persist();
+    if (data.index === activeIndex) {
+      setActiveIndex(-1)
+    } else {
+    setActiveIndex(data.index)
+    }
+  };
+
   return (
-    <div className='container'>
+     <Accordion fluid styled>
       {sliceZone.map((slice, index) => {
         switch (slice.slice_type) {
           case ('text_section'):
-            return <TextSection slice={slice} key={'slice-' + index} />
+            return <TextSection
+                slice={slice}
+                key={'slice-' + index}
+                index={index}
+                active={activeIndex === index}
+                handleClick={handleClick}
+            />
           case ('quote'):
             return <Quote slice={slice} key={'slice-' + index} />
           case ('full_width_image'):
@@ -26,7 +44,7 @@ const SliceZone = ({ sliceZone }) => {
             return null
         }
       })}
-    </div>
+     </Accordion>
   )
 }
 

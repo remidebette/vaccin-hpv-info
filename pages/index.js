@@ -1,16 +1,51 @@
-import {Button} from 'semantic-ui-react';
+import {Button, Grid, Divider} from 'semantic-ui-react';
 import React, {useState, useEffect} from 'react';
 import Layout from 'components/MyLayout'
 import {getMenu} from 'components/Header'
 import Prismic from 'prismic-javascript'
-import { apiEndpoint } from 'prismic-configuration'
-import {accessToken} from "../prismic-configuration";
+import {apiEndpoint, hrefResolver, linkResolver, accessToken} from 'prismic-configuration'
+import Link from "next/link";
+import {RichText} from "prismic-reactjs";
+
+const menuHome = (menu_links) => {
+    return menu_links.map((menuLink) => {
+        return (
+            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch>
+                <Button key={menuLink.link.id} as="a">
+                    {RichText.asText(menuLink.label)}
+                </Button>
+            </Link>
+        );
+    });
+}
 
 const Index = (props) => {
 
     return (
         <Layout menu={props.menu}>
-            <h1>Hello World</h1>
+            <h1>Vaccin HPV info</h1>
+            <p>Tout ce que vous devez savoir sur la vaccination anti-HPV,
+                une information claire et concise pour les patients produite par des médecins indépendants.
+            </p>
+
+            <Divider hidden/>
+            <Grid>
+                <Grid.Column textAlign="center">
+                    {props.menu ? menuHome(props.menu.data.menu_links) : null}
+
+                    <Divider hidden/>
+
+                    <Link href="/et-vous">
+                        <Button as="a" key="et-vous">Et vous?
+                        </Button>
+                    </Link>
+
+                    <Link href="/contactez-nous">
+                        <Button as="a" key="contactez-nous">Contactez-nous
+                        </Button>
+                    </Link>
+                </Grid.Column>
+            </Grid>
 
         </Layout>
     )
@@ -18,14 +53,14 @@ const Index = (props) => {
 
 
 Index.getInitialProps = async function (context) {
-    const req = context.query
-    const res = await getPage(req)
+    const {uid} = context.query
+    const res = await getPage(uid)
 
     return res
 }
 
-const getPage = async (req) => {
-    const API = await Prismic.getApi(apiEndpoint, { req, accessToken })
+const getPage = async (uid, req) => {
+    const API = await Prismic.getApi(apiEndpoint, {req, accessToken})
     const res_menu = await getMenu(API)
 
     return {

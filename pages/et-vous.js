@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Layout from 'components/MyLayout'
 import {getMenu} from 'components/Header'
 import Prismic from 'prismic-javascript'
-import { apiEndpoint, accessToken } from 'prismic-configuration'
+import {apiEndpoint, accessToken} from 'prismic-configuration'
 import {
     Header,
     Transition,
@@ -40,29 +40,29 @@ const EtVous = (props) => {
         <Layout menu={props.menu}>
             <Header as="h1">Et vous ?</Header>
             <Segment basic textAlign='center'>
-                <label> Vous etes: </label>
+                <label> Votre sexe: </label>
                 <Button.Group>
                     <Button
                         positive={values.gender === "female"}
                         value="female"
                         name="gender"
                         onClick={handleChange}
-                    >Une fille</Button>
-                    <Button.Or text="ou"/>
-                    <Button
-                        positive={values.gender === "parent"}
-                        value="parent"
-                        name="gender"
-                        onClick={handleChange}
-                    >Parent d'une fille</Button>
+                    >Feminin</Button>
                     <Button.Or text="ou"/>
                     <Button
                         positive={values.gender === "male"}
                         value="male"
                         name="gender"
                         onClick={handleChange}
-                    >Un garçon
+                    >Masculin
                     </Button>
+                    <Button.Or text="ou"/>
+                    <Button
+                        positive={values.gender === "parent"}
+                        value="parent"
+                        name="gender"
+                        onClick={handleChange}
+                    >Parents</Button>
                 </Button.Group>
                 {/*                    <Form.Radio label='Un garçon' checked={gender === "male"} value="male" onChange={handleChange}/>
                     <Form.Radio label='Une fille' checked={gender === "female"} value="female" onChange={handleChange}/>
@@ -72,9 +72,19 @@ const EtVous = (props) => {
                     <Message
                         error
                         header='Attention'
-                        content="Vous présentez peu de risque."
                         visible={values.gender === "male"}
-                    />
+                    >La vaccination n’est pas recommandée actuellement pour les Garçons.
+                        <br/>
+
+                        Pour les <strong>hommes ayant des relations sexuelles avec des hommes </strong>, la vaccination
+                        HPV par Gardasil® ou Gardasil 9® est recommandée jusqu’à l’âge de 26 ans, en prévention des
+                        lésions précancéreuses anales, des cancers anaux et des condylomes, avec 3 doses de vaccin (la
+                        2e à 2 mois, la 3e à 6 mois).
+
+                            <br/>
+                        Vous pouvez vous rapprocher de votre médecin traitant, ou vous rendre dans les CeGIDD et dans
+                        certains centres publics de vaccination proches de chez vous.
+                    </Message>
                 </Transition>
 
                 <Transition visible={values.gender === "female" || values.gender === "parent"} animation='scale'
@@ -86,9 +96,9 @@ const EtVous = (props) => {
                             <Button positive={values.age_band === "under_11"} value="under_11" name="age_band"
                                     onClick={handleChange}>Moins de 11 ans</Button>
                             <Button positive={values.age_band === "under_15"} value="under_15" name="age_band"
-                                    onClick={handleChange}>11 - 15 ans</Button>
+                                    onClick={handleChange}>11 - 14 ans</Button>
                             <Button positive={values.age_band === "under_20"} value="under_20" name="age_band"
-                                    onClick={handleChange}>15 - 20 ans</Button>
+                                    onClick={handleChange}>15 - 19 ans</Button>
                             <Button positive={values.age_band === "over_20"} value="over_20" name="age_band"
                                     onClick={handleChange}>Plus de 20 ans</Button>
                         </Button.Group>
@@ -114,14 +124,14 @@ const EtVous = (props) => {
 
 
 EtVous.getInitialProps = async function (context) {
-    const req = context.query
-    const res = await getPage(req)
+    const {uid} = context.query
+    const res = await getPage(uid)
 
     return res
 }
 
-const getPage = async (req) => {
-    const API = await Prismic.getApi(apiEndpoint, { req, accessToken })
+const getPage = async (uid, req) => {
+    const API = await Prismic.getApi(apiEndpoint, {req, accessToken})
     const res_menu = await getMenu(API)
 
     return {

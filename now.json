@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "prismic-nextjs-website",
+  "name": "vaccin-anti-hpv",
   "builds": [
     {
       "src": "next.config.js",

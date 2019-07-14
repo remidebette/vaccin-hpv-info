@@ -5,8 +5,9 @@ import {Header} from './Header';
 import {css, cx} from 'emotion'
 import {from} from 'rxjs';
 import {
-    Container
+    Container, Divider
 } from 'semantic-ui-react'
+import Footer from "./Footer";
 
 
 const layoutStyle = css`
@@ -26,6 +27,9 @@ const Layout = props => {
             <Container text className={layoutStyle}>
                 {props.children}
             </Container>
+
+            <Divider hidden/>
+            <Footer />
         </StateContext.Provider>
     )
 }

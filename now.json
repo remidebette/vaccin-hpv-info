@@ -8,6 +8,7 @@
     }
   ],
   "routes": [
+    { "src": "/preview", "dest": "/preview" },
     {
       "src": "/(?<uid>[^/]+)$",
       "dest": "/page?uid=$uid"

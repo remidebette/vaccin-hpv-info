@@ -1,4 +1,5 @@
-const withCSS = require('@zeit/next-css')
+const withCSS = require('@zeit/next-css');
+const path = require('path');
 
 module.exports = withCSS({
     target: 'serverless',
@@ -14,7 +15,8 @@ module.exports = withCSS({
                     name: '[name].[ext]'
                 }
             }
-        })
+        });
+        config.resolve.modules.push(path.resolve('./'));
         return config
     }
 })

@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import {RichText} from 'prismic-reactjs'
-import PrismicConfig from '../prismic-configuration'
 import {css, cx} from 'emotion'
 import {
     Container,
@@ -13,6 +12,7 @@ import {
     Menu,
     Segment,
 } from 'semantic-ui-react'
+import {hrefResolver, linkResolver} from "prismic-configuration";
 
 const linkStyle = css`
     margin-right: 15px
@@ -38,8 +38,6 @@ background-color: rgb(255, 255, 255);
 `
 
 const Header = (props) => {
-    const menu_links = props.menu.data.menu_links
-
     return (
         <header>
             <Menu fixed='top' borderless className={menuStyle}>
@@ -51,7 +49,7 @@ const Header = (props) => {
                     </Link>
 
                     <Menu.Menu position="right">
-                        {menuLinks(menu_links)}
+                        {props.menu ? menuLinks(props.menu.data.menu_links) : null}
 
                         <Link href="/etvous">
                             <Menu.Item as="a" key="et-vous">Et vous?
@@ -67,7 +65,7 @@ const Header = (props) => {
 const menuLinks = (menu_links) => {
     return menu_links.map((menuLink) => {
         return (
-            <Link href={PrismicConfig.hrefResolver(menuLink.link)}>
+            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch>
                 <Menu.Item key={menuLink.link.id} as="a">
                     {RichText.asText(menuLink.label)}
                 </Menu.Item>

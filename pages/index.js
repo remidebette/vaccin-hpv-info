@@ -1,9 +1,10 @@
 import {Button} from 'semantic-ui-react';
 import React, {useState, useEffect} from 'react';
-import Layout from '../components/MyLayout'
-import {getMenu} from '../components/Header'
+import Layout from 'components/MyLayout'
+import {getMenu} from 'components/Header'
 import Prismic from 'prismic-javascript'
-import PrismicConfig from '../prismic-configuration'
+import { apiEndpoint } from 'prismic-configuration'
+import {accessToken} from "../prismic-configuration";
 
 const Index = (props) => {
 
@@ -23,8 +24,8 @@ Index.getInitialProps = async function (context) {
     return res
 }
 
-const getPage = async () => {
-    const API = await Prismic.getApi(PrismicConfig.apiEndpoint)
+const getPage = async (req) => {
+    const API = await Prismic.getApi(apiEndpoint, { req, accessToken })
     const res_menu = await getMenu(API)
 
     return {

@@ -1,6 +1,6 @@
 import 'semantic-ui-css/semantic.min.css';
 import React, {useReducer} from 'react';
-import {reducer, initialState, StateContext} from '../utils/context'
+import {reducer, initialState, StateContext} from 'utils/context'
 import {Header} from './Header';
 import {css, cx} from 'emotion'
 import {from} from 'rxjs';

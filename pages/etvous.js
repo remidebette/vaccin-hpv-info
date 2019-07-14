@@ -1,9 +1,8 @@
-import {Button} from 'semantic-ui-react';
 import React, {useState, useEffect} from 'react';
-import Layout from '../components/MyLayout'
-import {getMenu} from '../components/Header'
+import Layout from 'components/MyLayout'
+import {getMenu} from 'components/Header'
 import Prismic from 'prismic-javascript'
-import PrismicConfig from '../prismic-configuration'
+import { apiEndpoint, accessToken } from 'prismic-configuration'
 import {
     Header,
     Transition,
@@ -16,9 +15,10 @@ import {
     Menu,
     Segment,
     Form,
+    Button,
     Message
 } from 'semantic-ui-react'
-import useForm from "../utils/useForm";
+import useForm from "utils/useForm";
 
 
 const EtVous = (props) => {
@@ -120,8 +120,8 @@ EtVous.getInitialProps = async function (context) {
     return res
 }
 
-const getPage = async () => {
-    const API = await Prismic.getApi(PrismicConfig.apiEndpoint)
+const getPage = async (req) => {
+    const API = await Prismic.getApi(apiEndpoint, { req, accessToken })
     const res_menu = await getMenu(API)
 
     return {

@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Layout from 'components/MyLayout'
-import {getMenu} from 'components/Header'
+import { getMenu } from 'components/Header'
 import Prismic from 'prismic-javascript'
 import { apiEndpoint, accessToken } from 'prismic-configuration'
 
@@ -16,7 +16,7 @@ const Index = (props) => {
 
 
 Index.getInitialProps = async function (context) {
-    const {uid} = context.query
+    const { uid } = context.query
     const res = await getPage(uid)
 
     return res

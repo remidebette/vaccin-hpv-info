@@ -22,6 +22,7 @@
     "plugin:import/warnings"
   ],
   "rules": {
+    "no-console": "off",
     "linebreak-style": "off",
     "import/extensions": "off",
     "import/no-default-export": "off",

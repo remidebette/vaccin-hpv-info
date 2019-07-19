@@ -1,11 +1,11 @@
-import {Button, Grid, Divider} from 'semantic-ui-react';
-import React, {useState, useEffect} from 'react';
+import { Button, Grid, Divider } from 'semantic-ui-react';
+import React from 'react';
 import Layout from 'components/MyLayout'
-import {getMenu} from 'components/Header'
+import { getMenu } from 'components/Header'
 import Prismic from 'prismic-javascript'
-import {apiEndpoint, hrefResolver, linkResolver, accessToken} from 'prismic-configuration'
+import { apiEndpoint, hrefResolver, linkResolver, accessToken } from 'prismic-configuration'
 import Link from "next/link";
-import {RichText} from "prismic-reactjs";
+import { RichText } from "prismic-reactjs";
 
 const menuHome = (menu_links) => {
     return menu_links.map((menuLink) => {
@@ -28,12 +28,12 @@ const Index = (props) => {
                 une information claire et concise pour les patients produite par des médecins indépendants.
             </p>
 
-            <Divider hidden/>
+            <Divider hidden />
             <Grid>
                 <Grid.Column textAlign="center">
                     {props.menu ? menuHome(props.menu.data.menu_links) : null}
 
-                    <Divider hidden/>
+                    <Divider hidden />
 
                     <Link href="/et-vous">
                         <Button as="a" key="et-vous">Et vous?
@@ -53,14 +53,14 @@ const Index = (props) => {
 
 
 Index.getInitialProps = async function (context) {
-    const {uid} = context.query
+    const { uid } = context.query
     const res = await getPage(uid)
 
     return res
 }
 
 const getPage = async (uid, req) => {
-    const API = await Prismic.getApi(apiEndpoint, {req, accessToken})
+    const API = await Prismic.getApi(apiEndpoint, { req, accessToken })
     const res_menu = await getMenu(API)
 
     return {

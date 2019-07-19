@@ -24,7 +24,7 @@ const GalleryItem = ({ slice }) => (
               <a>{RichText.asText(item.link_label)}</a>
             </NextLink>
           </p>
-        ) : '' }
+        ) : ''}
       </div>
     )
   })

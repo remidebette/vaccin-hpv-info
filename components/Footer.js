@@ -7,7 +7,7 @@ const Footer = () => (
         donc elle ne dispense pas du dépistage,
         pensez à vous faire dépistez par frottis ou test-HPV à partir de 25 ans..
       <br />
-        Parlez-en à votre médecin
+      Parlez-en à votre médecin
     </p>
     <style jsx>{`
       footer {

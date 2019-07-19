@@ -1,9 +1,9 @@
 import 'semantic-ui-css/semantic.min.css';
-import React, {useReducer} from 'react';
-import {reducer, initialState, StateContext} from 'utils/context'
-import {Header} from './Header';
-import {css, cx} from 'emotion'
-import {from} from 'rxjs';
+import React, { useReducer } from 'react';
+import { reducer, initialState, StateContext } from 'utils/context'
+import { Header } from './Header';
+import { css, cx } from 'emotion'
+import { from } from 'rxjs';
 import {
     Container, Divider
 } from 'semantic-ui-react'
@@ -22,13 +22,13 @@ const Layout = props => {
     const [state, setState] = useReducer(reducer, initialState)
 
     return (
-        <StateContext.Provider value={{state: state, setState: setState}}>
-            <Header menu={props.menu}/>
+        <StateContext.Provider value={{ state: state, setState: setState }}>
+            <Header menu={props.menu} />
             <Container text className={layoutStyle}>
                 {props.children}
             </Container>
 
-            <Divider hidden/>
+            <Divider hidden />
             <Footer />
         </StateContext.Provider>
     )

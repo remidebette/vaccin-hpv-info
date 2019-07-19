@@ -1,18 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import {RichText} from 'prismic-reactjs'
-import {css, cx} from 'emotion'
+import { RichText } from 'prismic-reactjs'
+import { css, cx } from 'emotion'
 import {
     Container,
-    Divider,
     Dropdown,
-    Grid,
-    Image,
-    List,
     Menu,
-    Segment,
 } from 'semantic-ui-react'
-import {hrefResolver, linkResolver} from "prismic-configuration";
+import { hrefResolver, linkResolver } from "prismic-configuration";
 
 const linkStyle = css`
     margin-right: 15px
@@ -96,4 +91,4 @@ const getMenu = async (API) => {
     return await API.getSingle('menu')
 }
 
-export {Header, getMenu}
+export { Header, getMenu }

@@ -49,7 +49,7 @@ const Header = (props) => {
             <Menu
                 //fixed='top'
                 borderless
-                //stackable
+                stackable
                 className={noBoxShaddow}
             >
                 <Container>
@@ -82,6 +82,7 @@ const Header = (props) => {
                 <Menu
                     pointing
                     secondary
+                    stackable
                     style={{backgroundColor: '#fff', marginTop: '0em'}}
                     //className={menuStyle}
                 >

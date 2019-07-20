@@ -24,7 +24,7 @@ const EtVous = (props) => {
     const { values, handleChange, handleSubmit } = useForm(initialState, null);
 
     return (
-        <Layout menu={props.menu}>
+        <Layout menu={props.menu} pathname={props.pathname}>
             <Header as="h1">Et vous ?</Header>
             <Segment basic textAlign='center'>
                 <label> Votre sexe: </label>
@@ -114,7 +114,7 @@ EtVous.getInitialProps = async function (context) {
     const { uid } = context.query
     const res = await getPage(uid)
 
-    return res
+    return {pathname: context.asPath, ...res}
 }
 
 const getPage = async (uid, req) => {

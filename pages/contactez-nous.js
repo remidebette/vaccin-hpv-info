@@ -7,7 +7,7 @@ import { apiEndpoint, accessToken } from 'prismic-configuration'
 const Index = (props) => {
 
     return (
-        <Layout menu={props.menu}>
+        <Layout menu={props.menu} pathname={props.pathname}>
             <h1>Pour nous contacter:</h1>
 
         </Layout>
@@ -19,7 +19,7 @@ Index.getInitialProps = async function (context) {
     const { uid } = context.query
     const res = await getPage(uid)
 
-    return res
+    return {pathname: context.asPath, ...res}
 }
 
 const getPage = async (uid, req) => {

@@ -9,7 +9,7 @@ import Link from "next/link";
 const Index = (props) => {
 
     return (
-        <Layout menu={props.menu}>
+        <Layout menu={props.menu} pathname={props.pathname}>
             <h1>Foire aux Questions</h1>
 
             <Message>
@@ -129,7 +129,7 @@ Index.getInitialProps = async function (context) {
     const { uid } = context.query
     const res = await getPage(uid)
 
-    return res
+    return {pathname: context.asPath, ...res}
 }
 
 const getPage = async (uid, req) => {

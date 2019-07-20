@@ -22,7 +22,7 @@ const menuHome = (menu_links) => {
 const Index = (props) => {
 
     return (
-        <Layout menu={props.menu}>
+        <Layout menu={props.menu} pathname={props.pathname}>
             <h1>Vaccin HPV info</h1>
             <p>Tout ce que vous devez savoir sur la vaccination anti-HPV,
                 une information claire et concise pour les patients produite par des médecins indépendants.
@@ -40,8 +40,8 @@ const Index = (props) => {
                         </Button>
                     </Link>
 
-                    <Link href="/contactez-nous">
-                        <Button as="a" key="contactez-nous">Contactez-nous
+                    <Link href="/faq">
+                        <Button as="a" key="faq">Foire aux questions
                         </Button>
                     </Link>
                 </Grid.Column>
@@ -56,7 +56,7 @@ Index.getInitialProps = async function (context) {
     const { uid } = context.query
     const res = await getPage(uid)
 
-    return res
+    return {pathname: context.asPath, ...res}
 }
 
 const getPage = async (uid, req) => {

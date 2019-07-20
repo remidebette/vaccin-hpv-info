@@ -15,7 +15,7 @@ const Page = (props) => {
         )
     } else {
         return (
-            <Layout menu={props.menu}>
+            <Layout menu={props.menu} pathname={props.pathname}>
                 <h1>{RichText.asText(props.doc.data.title)}</h1>
                 <p>{RichText.asText(props.doc.data.description)}</p>
 
@@ -29,7 +29,7 @@ Page.getInitialProps = async function (context) {
     const { uid } = context.query
     const res = await getPage(uid)
 
-    return res
+    return {pathname: context.asPath, ...res}
 }
 
 const getPage = async (uid, req) => {

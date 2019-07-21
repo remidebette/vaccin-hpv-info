@@ -8,28 +8,31 @@ import {
 } from './'
 import { Accordion } from "semantic-ui-react";
 
-const SliceZone = ({ sliceZone }) => {
-  const [activeIndex, setActiveIndex] = useState(-1);
+const SliceZone = ({ sliceZone, section }) => {
+  const [activeSection, setSection] = useState(section);
 
   const handleClick = (event, data) => {
     event.persist();
-    if (data.index === activeIndex) {
-      setActiveIndex(-1)
+    if (data.section === activeSection) {
+      setSection(null)
     } else {
-      setActiveIndex(data.index)
+      setSection(data.section)
     }
   };
 
   return (
     <Accordion fluid styled>
       {sliceZone.map((slice, index) => {
+        const section = slice.primary.section_id
+
         switch (slice.slice_type) {
           case ('text_section'):
             return <TextSection
               slice={slice}
               key={'slice-' + index}
               index={index}
-              active={activeIndex === index}
+              section={section}
+              active={activeSection === section}
               handleClick={handleClick}
             />
           case ('quote'):

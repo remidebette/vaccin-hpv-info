@@ -17,17 +17,19 @@ const Index = (props) => {
                 <p><Icon name="close" /> FAUX : Le vaccin n’augmente pas le risque de cancer, au contraire son but est de diminuer l’incidence
                     des cancers liés aux HPV. Des études récentes ont montré une diminution de la prévalence des cancers
                     liés à HPV dans les pays qui vaccinent.</p>
-                <Link href="/page/informations-generales">
-                    <Dropdown.Item as="a">
-                        Pour en savoir plus
-                    </Dropdown.Item>
+                <Link href="/page/informations-generales?section=recommendations">
+                    <a target="_blank">
+                        <Dropdown.Item>
+                            Pour en savoir plus
+                        </Dropdown.Item>
+                    </a>
                 </Link>
             </Message>
 
             <Message>
                 <Message.Header>Le vaccin anti-HPV augmente le risque de maladie auto-immune et de sclérose en
                     plaques</Message.Header>
-                <p><Icon name="close" /> FAUX : Une importante étude a été entrepris par l’agence nationale de sécurité du médicament avec
+                <p><Icon name="close" /> FAUX : Une importante étude a été entreprise par l’agence nationale de sécurité du médicament avec
                     l’assurance maladie, afin d’étudier le lien entre la vaccination contre le papillomavirus et 14
                     maladies auto-immunes (dont la sclérose en plaques et le syndrome de Guillain Barré).<br />
                     Les résultats de cette grande étude sont rassurants et concordent avec des études menées dans
@@ -38,10 +40,12 @@ const Index = (props) => {
                     Comme évoqué précédemment : Aucun lien de cause à effet n’a été démontré entre le vaccin contre le
                     papillomavirus et la survenue de maladies auto-immunes
                 </p>
-                <Link href="/page/effets_secondaires">
-                    <Dropdown.Item as="a">
-                        Pour en savoir plus
-                    </Dropdown.Item>
+                <Link href="/page/effets_secondaires?section=auto_immunes">
+                    <a target="_blank">
+                        <Dropdown.Item>
+                            Pour en savoir plus
+                        </Dropdown.Item>
+                    </a>
                 </Link>
             </Message>
 
@@ -52,10 +56,12 @@ const Index = (props) => {
                     redouteraient, que, se sentant protégées, leurs filles soient tentées d’avoir des rapports sexuels
                     précoces. Mais la réalité est toute autre, comme le révèle une étude publiée dans le Canadian
                     Médical Association Journal.</p>
-                <Link href="/page/transmission">
-                    <Dropdown.Item as="a">
-                        Pour en savoir plus
-                    </Dropdown.Item>
+                <Link href="/page/transmission?section=parents">
+                    <a target="_blank">
+                        <Dropdown.Item>
+                            Pour en savoir plus
+                        </Dropdown.Item>
+                    </a>
                 </Link>
             </Message>
 
@@ -68,10 +74,12 @@ const Index = (props) => {
                     Il est donc recommandé de réaliser un frottis tous les trois ans (après 2 frottis normaux réalisés à
                     1 an d’intervalle), entre 25 et 65 ans, que l’on soit vaccinée ou non.
                 </p>
-                <Link href="/page/informations-generales">
-                    <Dropdown.Item as="a">
-                        Pour en savoir plus
-                    </Dropdown.Item>
+                <Link href="/page/informations-generales?section=introduction">
+                    <a target="_blank">
+                        <Dropdown.Item>
+                            Pour en savoir plus
+                        </Dropdown.Item>
+                    </a>
                 </Link>
             </Message>
 
@@ -83,10 +91,12 @@ const Index = (props) => {
                     corps) par contact cutanéo-muqueux, c’est-à-dire par la peau et les muqueuses, qui s’établissent
                     lors des caresses ou de relation orale par exemple. Les préservatifs ne protègent pas à 100% des
                     papillomavirus.</p>
-                <Link href="/page/informations-generales">
-                    <Dropdown.Item as="a">
-                        Pour en savoir plus
-                    </Dropdown.Item>
+                <Link href="/page/transmission?section=infection">
+                    <a target="_blank">
+                        <Dropdown.Item>
+                            Pour en savoir plus
+                        </Dropdown.Item>
+                    </a>
                 </Link>
             </Message>
 
@@ -103,10 +113,12 @@ const Index = (props) => {
                     Si vous avez reçu une première dose et que par la suite vous avez des rapports sexuels avant la
                     seconde dose, il est quand même bien sur conseillé de poursuivre la vaccination.
                 </p>
-                <Link href="/page/transmission">
-                    <Dropdown.Item as="a">
-                        Pour en savoir plus
-                    </Dropdown.Item>
+                <Link href="/page/transmission?section=rapports">
+                    <a target="_blank">
+                        <Dropdown.Item>
+                            Pour en savoir plus
+                        </Dropdown.Item>
+                    </a>
                 </Link>
             </Message>
 
@@ -114,10 +126,12 @@ const Index = (props) => {
                 <Message.Header>Je ne peux pas avoir des rapports sexuels dans l’année qui suit ma
                     vaccination</Message.Header>
                 <p><Icon name="close" /> FAUX : Le fait de se vacciner n’empêche pas d’avoir des rapports sexuels.</p>
-                <Link href="/page/transmission">
-                    <Dropdown.Item as="a">
-                        Pour en savoir plus
-                    </Dropdown.Item>
+                <Link href="/page/transmission?section=rapports">
+                    <a target="_blank">
+                        <Dropdown.Item>
+                            Pour en savoir plus
+                        </Dropdown.Item>
+                    </a>
                 </Link>
             </Message>
         </Layout>
@@ -129,7 +143,7 @@ Index.getInitialProps = async function (context) {
     const { uid } = context.query
     const res = await getPage(uid)
 
-    return {pathname: context.asPath, ...res}
+    return { pathname: context.asPath, ...res }
 }
 
 const getPage = async (uid, req) => {

@@ -33,7 +33,8 @@ export const htmlSerializer = function (type, element, content, children, key) {
         const targetAttr = element.data.target ? { target: element.data.target } : {}
         const relAttr = element.data.target ? { rel: 'noopener' } : {}
         props = Object.assign({
-          href: element.data.url || linkResolver(element.data)
+          href: element.data.url || linkResolver(element.data),
+          target: "_blank"
         }, targetAttr, relAttr)
         return React.createElement('a', propsWithUniqueKey(props, key), children)
       }
@@ -47,7 +48,8 @@ export const htmlSerializer = function (type, element, content, children, key) {
         internal = true
         imgProps = Object.assign({
           onClick: onClickHandler(hrefResolver(element.linkTo), linkResolver(element.linkTo)),
-          href: linkResolver(element.linkTo)
+          href: linkResolver(element.linkTo),
+          target: "_blank"
         })
       }
       // Handle images just like regular HTML Serializer

@@ -9,12 +9,12 @@ const right_floated = css`
 float: right
 `
 
-const TextSection = ({ slice, index, active, handleClick }) => {
+const TextSection = ({ slice, index, active, section, handleClick }) => {
     const sectionClass = slice.slice_label ? 'text-section-' + slice.slice_label : 'text-section-1col'
     //console.log(my_array);
     return (
         <>
-            <Accordion.Title active={active} index={index} onClick={handleClick}>
+            <Accordion.Title active={active} index={index} section={section} onClick={handleClick}>
                 {slice.primary.section_title.length > 0 ? slice.primary.section_title[0].text : null}
                 <Icon name="plus" className={right_floated} />
             </Accordion.Title>

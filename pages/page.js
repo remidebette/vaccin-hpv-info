@@ -19,17 +19,26 @@ const Page = (props) => {
                 <h1>{RichText.asText(props.doc.data.title)}</h1>
                 <p>{RichText.asText(props.doc.data.description)}</p>
 
-                <SliceZone sliceZone={props.doc.data.page_content} />
+                <SliceZone sliceZone={props.doc.data.page_content} section={props.section} />
             </Layout>
         )
     }
 };
 
 Page.getInitialProps = async function (context) {
-    const { uid } = context.query
+    const { uid } = context.query;
+    const req = context.req || null;
+    const params = req ? req.query : null;
+    const section = params ? params.section : null;
     const res = await getPage(uid)
 
-    return {pathname: context.asPath, ...res}
+    console.log("Passed section: " + section)
+
+    return {
+        pathname: context.asPath, 
+        section: section,
+        ...res
+    }
 }
 
 const getPage = async (uid, req) => {

@@ -41,6 +41,7 @@
     "node-dev": "nodemon server.js",
     "dev": "next",
     "debbug": "NODE_OPTIONS=\"--inspect\" next",
+    "node-debbug": "nodemon --inspect server.js",
     "build": "next build",
     "start": "next start",
     "deploy": "now"

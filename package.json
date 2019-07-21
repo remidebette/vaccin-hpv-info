@@ -1,5 +1,8 @@
 {
   "name": "next_app",
+  "engines": {
+    "node": "10.x"
+  },
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

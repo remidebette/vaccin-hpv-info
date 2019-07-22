@@ -26,10 +26,11 @@ const Page = (props) => {
 };
 
 Page.getInitialProps = async function (context) {
-    const { uid } = context.query;
-    const req = context.req || null;
-    const params = req ? req.query : null;
-    const section = params ? params.section : null;
+    const { uid, section } = context.query;
+    // The following is for when working in local...
+    // const req = context.req || null;
+    // const params = req ? req.query : null;
+    // const section = params ? params.section : null;
     const res = await getPage(uid)
 
     console.log("Passed section: " + section)

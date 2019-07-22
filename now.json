@@ -11,7 +11,7 @@
   "routes": [
     { "src": "/preview", "dest": "/preview" },
     {
-      "src": "/page/(?<uid>[^/]+)$",
+      "src": "/page/(?<uid>[^/]+)",
       "dest": "/page?uid=$uid"
     }
   ]

@@ -1,0 +1,16 @@
+{
+  "name": "Remote Schema",
+  "schemaPath": "remote-schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Remote GraphQL Endpoint": {
+        "url": "https://anti-hpv.prismic.io/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "Prismic-Ref": "XTTM9BAAACQAMIf_"
+        },
+        "introspect": true
+      }
+    }
+  }
+}

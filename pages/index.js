@@ -1,17 +1,17 @@
 import { Button, Grid, Divider } from 'semantic-ui-react';
 import React from 'react';
 import Layout from 'components/MyLayout'
-import { getMenu } from 'components/Header'
 import Prismic from 'prismic-javascript'
 import { apiEndpoint, hrefResolver, linkResolver, accessToken } from 'prismic-configuration'
 import Link from "next/link";
 import { RichText } from "prismic-reactjs";
+import {getMenu} from "../utils/api";
 
 const menuHome = (menu_links) => {
     return menu_links.map((menuLink) => {
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch>
-                <Button key={menuLink.link.id} as="a">
+            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch key={menuLink.link.id} >
+                <Button as="a">
                     {RichText.asText(menuLink.label)}
                 </Button>
             </Link>
@@ -20,6 +20,7 @@ const menuHome = (menu_links) => {
 }
 
 const Index = (props) => {
+    const menu = props.menu.menu
 
     return (
         <Layout menu={props.menu} pathname={props.pathname}>
@@ -31,7 +32,7 @@ const Index = (props) => {
             <Divider hidden />
             <Grid>
                 <Grid.Column textAlign="center">
-                    {props.menu ? menuHome(props.menu.data.menu_links) : null}
+                    {menu ? menuHome(menu.data.menu_links) : null}
 
                     <Divider hidden />
 
@@ -54,17 +55,12 @@ const Index = (props) => {
 
 Index.getInitialProps = async function (context) {
     const { uid } = context.query
-    const res = await getPage(uid)
-
-    return {pathname: context.asPath, ...res}
-}
-
-const getPage = async (uid, req) => {
-    const API = await Prismic.getApi(apiEndpoint, { req, accessToken })
-    const res_menu = await getMenu(API)
+    const API = await Prismic.getApi(apiEndpoint, {accessToken})
+    const menu = await getMenu(API)
 
     return {
-        menu: res_menu
+        pathname: context.asPath,
+        menu: menu
     }
 }
 

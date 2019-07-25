@@ -1,6 +1,5 @@
 import React from 'react';
 import Layout from 'components/MyLayout'
-import { getMenu } from 'components/Header'
 import Prismic from 'prismic-javascript'
 import { apiEndpoint, accessToken } from 'prismic-configuration'
 import {
@@ -12,6 +11,7 @@ import {
     Message
 } from 'semantic-ui-react'
 import useForm from "utils/useForm";
+import { getMenu } from "../utils/api";
 
 
 const EtVous = (props) => {
@@ -111,18 +111,12 @@ const EtVous = (props) => {
 
 
 EtVous.getInitialProps = async function (context) {
-    const { uid } = context.query
-    const res = await getPage(uid)
-
-    return {pathname: context.asPath, ...res}
-}
-
-const getPage = async (uid, req) => {
-    const API = await Prismic.getApi(apiEndpoint, { req, accessToken })
-    const res_menu = await getMenu(API)
+    const API = await Prismic.getApi(apiEndpoint, {accessToken})
+    const menu = await getMenu(API)
 
     return {
-        menu: res_menu
+        pathname: context.asPath,
+        menu: menu
     }
 }
 

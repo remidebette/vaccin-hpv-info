@@ -1,14 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import {RichText} from 'prismic-reactjs'
-import {css, cx} from 'emotion'
-import {
-    Container,
-    Sticky,
-    Menu,
-} from 'semantic-ui-react'
-import {hrefResolver, linkResolver} from "prismic-configuration";
+import {css} from 'emotion'
+import {Container, Menu, Sticky, Dropdown} from 'semantic-ui-react'
 import {noBoxShaddow} from "../utils/css";
+import {hrefResolver, linkResolver} from "../prismic-configuration";
+import {RichText} from "prismic-reactjs";
 
 const linkStyle = css`
     margin-right: 15px
@@ -44,6 +40,9 @@ const menu_style = css`
         `
 
 const Header = (props) => {
+    const menu = props.menu.menu
+    const page_sections = props.menu.page_sections
+
     return (
         <Sticky context={props.context}>
             <Menu
@@ -69,7 +68,7 @@ const Header = (props) => {
 
                     <Menu.Menu position="right">
 
-                        <Link href="/contactez-nous">
+                        <Link href="/a-propos">
                             <Menu.Item>
                                 A propos de nous
                             </Menu.Item>
@@ -88,7 +87,7 @@ const Header = (props) => {
                 >
                     <Container>
                         <Menu.Menu position="left">
-                            {props.menu ? menuLinks(props.menu.data.menu_links, props.pathname) : null}
+                            {menu ? menuLinks(menu.data.menu_links, page_sections, props.pathname) : null}
 
                         </Menu.Menu>
 
@@ -117,26 +116,38 @@ const Header = (props) => {
     );
 }
 
-const menuLinks = (menu_links, pathname) => {
+const menuLinks = (menu_links, pages_sections, pathname) => {
 
     return menu_links.map((menuLink) => {
+        let page_sections = pages_sections.find((element) => {
+            return element.uid === menuLink.link.uid
+        })
+
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch>
-                <Menu.Item
-                    key={menuLink.link.id}
-                    active={pathname.endsWith(menuLink.link.uid)}
-                >
-                    {RichText.asText(menuLink.label)}
+            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch
+                  key={menuLink.link.id}>
+                <Menu.Item active={pathname.split("?")[0].endsWith(menuLink.link.uid)}>
+                    <Dropdown simple text={RichText.asText(menuLink.label)}>
+                        <Dropdown.Menu>
+                            {page_sections.data.page_content.map((section) => (
+                                <Link
+                                    href={hrefResolver(menuLink.link, {section: section.primary.section_id})}
+                                    as={linkResolver(menuLink.link, {section: section.primary.section_id})}
+                                    passHref
+                                    prefetch
+                                    key={menuLink.link.id + "-" + section.primary.section_id}>
+                                    <Dropdown.Item>
+                                        {RichText.asText(section.primary.section_title)}
+                                    </Dropdown.Item>
+                                </Link>
+                            ))
+                            }
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </Menu.Item>
             </Link>
         );
     });
 }
 
-const getMenu = async (API) => {
-    console.log(`Fetched menu`)
-
-    return await API.getSingle('menu')
-}
-
-export {Header, getMenu}
+export default Header

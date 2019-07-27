@@ -31,7 +31,7 @@ const Index = (props) => {
                     plaques</Message.Header>
                 <p><Icon name="close" /> FAUX : Une importante étude a été entreprise par l’agence nationale de sécurité du médicament avec
                     l’assurance maladie, afin d’étudier le lien entre la vaccination contre le papillomavirus et 14
-                    maladies auto-immunes (dont la sclérose en plaques et le syndrome de Guillain Barré).<br />
+                    maladies auto-immunes (dont la sclérose en plaques et le syndrome de Guillain-Barré).<br />
                     Les résultats de cette grande étude sont rassurants et concordent avec des études menées dans
                     d’autres pays :<br />
                     Aucune différence pertinente n’a été relevée entre les groupes vaccinés (avec le vaccin

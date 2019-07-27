@@ -124,8 +124,8 @@ const menuLinks = (menu_links, pages_sections, uid) => {
         })
 
         return (
-            // <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch>
-                <Menu.Item active={uid === menuLink.link.uid} key={menuLink.link.id}>
+            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch key={menuLink.link.id}>
+                <Menu.Item active={uid === menuLink.link.uid}>
                     <Dropdown simple text={RichText.asText(menuLink.label)}>
                         <Dropdown.Menu>
                             {page_sections.data.page_content.map((section) => (
@@ -144,7 +144,7 @@ const menuLinks = (menu_links, pages_sections, uid) => {
                         </Dropdown.Menu>
                     </Dropdown>
                 </Menu.Item>
-            // </Link>
+            </Link>
         );
     });
 }

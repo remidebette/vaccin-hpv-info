@@ -7,7 +7,7 @@ import {getMenu } from "../utils/api";
 const Index = (props) => {
 
     return (
-        <Layout menu={props.menu} pathname={props.pathname}>
+        <Layout menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
             <h1>A propos de nous</h1>
 
         </Layout>
@@ -21,7 +21,7 @@ Index.getInitialProps = async function (context) {
 
     return {
         pathname: context.asPath,
-        menu: menu
+        ...menu
     }
 }
 

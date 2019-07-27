@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   TextSection,
   Quote,
@@ -8,8 +8,8 @@ import {
 } from './'
 import { Accordion } from "semantic-ui-react";
 
-const SliceZone = ({ sliceZone, section }) => {
-  const [activeSection, setSection] = useState(section);
+const SliceZone = ({ sliceZone, default_section }) => {
+  const [activeSection, setSection] = useState(default_section);
 
   const handleClick = (event, data) => {
     event.persist();
@@ -19,6 +19,10 @@ const SliceZone = ({ sliceZone, section }) => {
       setSection(data.section)
     }
   };
+
+  useEffect(() => {
+    setSection(default_section)
+  }, [default_section])
 
   return (
     <Accordion fluid styled>

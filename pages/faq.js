@@ -9,7 +9,7 @@ import {getMenu} from "../utils/api";
 const Index = (props) => {
 
     return (
-        <Layout menu={props.menu} pathname={props.pathname}>
+        <Layout menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
             <h1>Foire aux Questions</h1>
 
             <Message>
@@ -17,7 +17,7 @@ const Index = (props) => {
                 <p><Icon name="close" /> FAUX : Le vaccin n’augmente pas le risque de cancer, au contraire son but est de diminuer l’incidence
                     des cancers liés aux HPV. Des études récentes ont montré une diminution de la prévalence des cancers
                     liés à HPV dans les pays qui vaccinent.</p>
-                <Link href="/page/informations-generales?section=recommendations">
+                <Link href="/page/informations-generales?default_section=recommendations">
                     <a target="_blank">
                         <Dropdown.Item>
                             Pour en savoir plus
@@ -40,7 +40,7 @@ const Index = (props) => {
                     Comme évoqué précédemment : Aucun lien de cause à effet n’a été démontré entre le vaccin contre le
                     papillomavirus et la survenue de maladies auto-immunes
                 </p>
-                <Link href="/page/effets_secondaires?section=auto_immunes">
+                <Link href="/page/effets_secondaires?default_section=auto_immunes">
                     <a target="_blank">
                         <Dropdown.Item>
                             Pour en savoir plus
@@ -56,7 +56,7 @@ const Index = (props) => {
                     redouteraient, que, se sentant protégées, leurs filles soient tentées d’avoir des rapports sexuels
                     précoces. Mais la réalité est toute autre, comme le révèle une étude publiée dans le Canadian
                     Médical Association Journal.</p>
-                <Link href="/page/transmission?section=parents">
+                <Link href="/page/transmission?default_section=parents">
                     <a target="_blank">
                         <Dropdown.Item>
                             Pour en savoir plus
@@ -74,7 +74,7 @@ const Index = (props) => {
                     Il est donc recommandé de réaliser un frottis tous les trois ans (après 2 frottis normaux réalisés à
                     1 an d’intervalle), entre 25 et 65 ans, que l’on soit vaccinée ou non.
                 </p>
-                <Link href="/page/informations-generales?section=introduction">
+                <Link href="/page/informations-generales?default_section=introduction">
                     <a target="_blank">
                         <Dropdown.Item>
                             Pour en savoir plus
@@ -91,7 +91,7 @@ const Index = (props) => {
                     corps) par contact cutanéo-muqueux, c’est-à-dire par la peau et les muqueuses, qui s’établissent
                     lors des caresses ou de relation orale par exemple. Les préservatifs ne protègent pas à 100% des
                     papillomavirus.</p>
-                <Link href="/page/transmission?section=infection">
+                <Link href="/page/transmission?default_section=infection">
                     <a target="_blank">
                         <Dropdown.Item>
                             Pour en savoir plus
@@ -113,7 +113,7 @@ const Index = (props) => {
                     Si vous avez reçu une première dose et que par la suite vous avez des rapports sexuels avant la
                     seconde dose, il est quand même bien sur conseillé de poursuivre la vaccination.
                 </p>
-                <Link href="/page/transmission?section=rapports">
+                <Link href="/page/transmission?default_section=rapports">
                     <a target="_blank">
                         <Dropdown.Item>
                             Pour en savoir plus
@@ -126,7 +126,7 @@ const Index = (props) => {
                 <Message.Header>Je ne peux pas avoir des rapports sexuels dans l’année qui suit ma
                     vaccination</Message.Header>
                 <p><Icon name="close" /> FAUX : Le fait de se vacciner n’empêche pas d’avoir des rapports sexuels.</p>
-                <Link href="/page/transmission?section=rapports">
+                <Link href="/page/transmission?default_section=rapports">
                     <a target="_blank">
                         <Dropdown.Item>
                             Pour en savoir plus
@@ -146,7 +146,7 @@ Index.getInitialProps = async function (context) {
 
     return {
         pathname: context.asPath,
-        menu: menu
+        ...menu
     }
 }
 

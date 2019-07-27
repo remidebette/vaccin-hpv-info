@@ -40,8 +40,8 @@ const menu_style = css`
         `
 
 const Header = (props) => {
-    const menu = props.menu.menu
-    const page_sections = props.menu.page_sections
+    const menu = props.menu
+    const page_sections = props.page_sections
 
     return (
         <Sticky context={props.context}>
@@ -87,7 +87,7 @@ const Header = (props) => {
                 >
                     <Container>
                         <Menu.Menu position="left">
-                            {menu ? menuLinks(menu.data.menu_links, page_sections, props.pathname) : null}
+                            {menu ? menuLinks(menu.data.menu_links, page_sections, props.uid) : null}
 
                         </Menu.Menu>
 
@@ -116,7 +116,7 @@ const Header = (props) => {
     );
 }
 
-const menuLinks = (menu_links, pages_sections, pathname) => {
+const menuLinks = (menu_links, pages_sections, uid) => {
 
     return menu_links.map((menuLink) => {
         let page_sections = pages_sections.find((element) => {
@@ -124,15 +124,14 @@ const menuLinks = (menu_links, pages_sections, pathname) => {
         })
 
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch
-                  key={menuLink.link.id}>
-                <Menu.Item active={pathname.split("?")[0].endsWith(menuLink.link.uid)}>
+            // <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch>
+                <Menu.Item active={uid === menuLink.link.uid} key={menuLink.link.id}>
                     <Dropdown simple text={RichText.asText(menuLink.label)}>
                         <Dropdown.Menu>
                             {page_sections.data.page_content.map((section) => (
                                 <Link
-                                    href={hrefResolver(menuLink.link, {section: section.primary.section_id})}
-                                    as={linkResolver(menuLink.link, {section: section.primary.section_id})}
+                                    href={hrefResolver(menuLink.link, {default_section: section.primary.section_id})}
+                                    as={linkResolver(menuLink.link, {default_section: section.primary.section_id})}
                                     passHref
                                     prefetch
                                     key={menuLink.link.id + "-" + section.primary.section_id}>
@@ -145,7 +144,7 @@ const menuLinks = (menu_links, pages_sections, pathname) => {
                         </Dropdown.Menu>
                     </Dropdown>
                 </Menu.Item>
-            </Link>
+            // </Link>
         );
     });
 }

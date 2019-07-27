@@ -8,29 +8,33 @@ import {RichText} from 'prismic-reactjs'
 import Error from "./_error";
 import {SliceZone, Layout} from "components";
 import {getPage, getMenu} from "../utils/api";
+import {useRouter} from "next/router";
 
 
 const Page = (props) => {
+    const router = useRouter();
+    const {uid, default_section} = router.query;
+
     if (!props.doc) {
         return (
             // Call the standard error page if the document was not found
             // Essential for dealing with previews of documents that have not been published
-            <Error statusCode='404'/>
+            <Error statusCode='404' menu={props.menu} page_sections={props.page_sections}/>
         )
     } else {
         return (
-            <Layout menu={props.menu} pathname={props.pathname}>
+            <Layout menu={props.menu} page_sections={props.page_sections} uid={uid}>
                 <h1>{RichText.asText(props.doc.data.title)}</h1>
                 <p>{RichText.asText(props.doc.data.description)}</p>
 
-                <SliceZone sliceZone={props.doc.data.page_content} section={props.section}/>
+                <SliceZone sliceZone={props.doc.data.page_content} default_section={default_section}/>
             </Layout>
         )
     }
 };
 
 Page.getInitialProps = async function (context) {
-    const {uid, section} = context.query;
+    const {uid} = context.query;
     // The following is for when working in local...
     // const req = context.req || null;
     // const params = req ? req.query : null;
@@ -68,15 +72,13 @@ Page.getInitialProps = async function (context) {
 
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const page = getPage(uid, API)
-    const menu = getMenu(API)
+    const menu = await getMenu(API)
 
-    console.log("Passed section: " + section)
 
     return {
         pathname: context.asPath,
-        section: section,
         doc: await page,
-        menu: await menu
+        ...menu
     }
 }
 

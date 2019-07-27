@@ -20,10 +20,10 @@ const menuHome = (menu_links) => {
 }
 
 const Index = (props) => {
-    const menu = props.menu.menu
+    const menu = props.menu
 
     return (
-        <Layout menu={props.menu} pathname={props.pathname}>
+        <Layout menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
             <h1>Vaccin HPV info</h1>
             <p>Tout ce que vous devez savoir sur la vaccination anti-HPV,
                 une information claire et concise pour les patients produite par des médecins indépendants.
@@ -60,7 +60,7 @@ Index.getInitialProps = async function (context) {
 
     return {
         pathname: context.asPath,
-        menu: menu
+        ...menu
     }
 }
 

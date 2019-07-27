@@ -23,7 +23,7 @@ const Page = (props) => {
         )
     } else {
         return (
-            <Layout menu={props.menu} page_sections={props.page_sections} uid={uid}>
+            <Layout menu={props.menu} page_sections={props.page_sections} uid={uid} pathname={props.pathname}>
                 <h1>{RichText.asText(props.doc.data.title)}</h1>
                 <p>{RichText.asText(props.doc.data.description)}</p>
 

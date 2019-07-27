@@ -26,7 +26,13 @@ const Layout = props => {
     return (
         <StateContext.Provider value={{ state: state, setState: setState }}>
             <div ref={main_ref}>
-                <Header menu={props.menu} page_sections={props.page_sections} uid={props.uid} context={main_ref}/>
+                <Header
+                    menu={props.menu}
+                    page_sections={props.page_sections}
+                    uid={props.uid}
+                    context={main_ref}
+                    pathname={props.pathname}
+                />
                 <Container
                     text
                     className={layoutStyle}

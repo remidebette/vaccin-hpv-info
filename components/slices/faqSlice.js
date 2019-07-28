@@ -11,8 +11,8 @@ const FAQSlice = ({slice}) => {
             <Icon name="x"/>
             <Message.Content>
                 <Message.Header>{slice.primary.question.length > 0 ? slice.primary.question[0].text : null}</Message.Header>
+                <br/>
                 {RichText.render(slice.primary.rich_text, linkResolver, htmlSerializer)}
-
 
                 <Link href={slice.primary.link}>
                     <a target="_blank">

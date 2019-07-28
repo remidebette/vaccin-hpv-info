@@ -5,3 +5,4 @@ node_modules
 .vscode/
 custom_types/
 server.js
+.nowignore

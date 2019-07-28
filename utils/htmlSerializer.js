@@ -33,8 +33,7 @@ export const htmlSerializer = function (type, element, content, children, key) {
         const targetAttr = element.data.target ? { target: element.data.target } : {}
         const relAttr = element.data.target ? { rel: 'noopener' } : {}
         props = Object.assign({
-          href: element.data.url || linkResolver(element.data),
-          target: "_blank"
+          href: element.data.url || linkResolver(element.data)
         }, targetAttr, relAttr)
         return React.createElement('a', propsWithUniqueKey(props, key), children)
       }
@@ -46,11 +45,12 @@ export const htmlSerializer = function (type, element, content, children, key) {
       if (element.linkTo && element.linkTo.link_type === 'Document') {
         // Exclusively for internal links, build the object that can be used for router push
         internal = true
+        const targetAttr = element.data.target ? { target: element.data.target } : {}
+        const relAttr = element.data.target ? { rel: 'noopener' } : {}
         imgProps = Object.assign({
           onClick: onClickHandler(hrefResolver(element.linkTo), linkResolver(element.linkTo)),
-          href: linkResolver(element.linkTo),
-          target: "_blank"
-        })
+          href: linkResolver(element.linkTo)
+        }, targetAttr, relAttr)
       }
       // Handle images just like regular HTML Serializer
       const linkUrl = element.linkTo ? element.linkTo.url || linkResolver(element.linkTo) : null

@@ -3,11 +3,11 @@ import Prismic from 'prismic-javascript'
 //import {PrismicLink} from 'apollo-link-prismic';
 //import { InMemoryCache } from 'apollo-cache-inmemory';
 //import ApolloClient, { gql }  from "apollo-boost";
-import {apiEndpoint, accessToken, graphQLEndpoint} from 'prismic-configuration'
+import {accessToken, apiEndpoint} from 'prismic-configuration'
 import {RichText} from 'prismic-reactjs'
 import Error from "./_error";
-import {SliceZone, Layout} from "components";
-import {getPage, getMenu} from "../utils/api";
+import {Layout, SliceZone} from "components";
+import {getMenu, getPage} from "../utils/api";
 import {useRouter} from "next/router";
 
 

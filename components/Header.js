@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import {css} from 'emotion'
-import {Container, Menu, Sticky, Dropdown} from 'semantic-ui-react'
-import {noBoxShaddow} from "../utils/css";
+import {Container, Dropdown, Menu, Sticky} from 'semantic-ui-react'
+import {noBoxShadow} from "../utils/css";
 import {hrefResolver, linkResolver} from "../prismic-configuration";
 import {RichText} from "prismic-reactjs";
 
@@ -49,7 +49,7 @@ const Header = (props) => {
                 //fixed='top'
                 borderless
                 stackable
-                className={noBoxShaddow}
+                className={noBoxShadow}
             >
                 <Container>
 

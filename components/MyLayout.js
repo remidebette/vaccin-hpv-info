@@ -1,12 +1,9 @@
 import 'semantic-ui-css/semantic.min.css';
-import React, { useReducer, createRef } from 'react';
-import { reducer, initialState, StateContext } from 'utils/context'
+import React, {createRef, useReducer} from 'react';
+import {initialState, reducer, StateContext} from 'utils/context'
 import Header from './Header';
-import { css, cx } from 'emotion'
-import { from } from 'rxjs';
-import {
-    Container
-} from 'semantic-ui-react'
+import {css, cx } from 'emotion'
+import {Container} from 'semantic-ui-react'
 import Footer from "./Footer";
 
 

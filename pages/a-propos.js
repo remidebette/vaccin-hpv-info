@@ -1,8 +1,8 @@
 import React from 'react';
 import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
-import { apiEndpoint, accessToken } from 'prismic-configuration'
-import {getMenu } from "../utils/api";
+import {accessToken, apiEndpoint} from 'prismic-configuration'
+import {getMenu} from "../utils/api";
 
 const Index = (props) => {
 

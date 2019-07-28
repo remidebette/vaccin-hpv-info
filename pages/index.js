@@ -1,10 +1,10 @@
-import { Button, Grid, Divider } from 'semantic-ui-react';
+import {Button, Divider, Grid} from 'semantic-ui-react';
 import React from 'react';
 import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
-import { apiEndpoint, hrefResolver, linkResolver, accessToken } from 'prismic-configuration'
+import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-configuration'
 import Link from "next/link";
-import { RichText } from "prismic-reactjs";
+import {RichText} from "prismic-reactjs";
 import {getMenu} from "../utils/api";
 
 const menuHome = (menu_links) => {

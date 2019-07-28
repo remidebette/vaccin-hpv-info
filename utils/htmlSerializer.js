@@ -1,6 +1,6 @@
 import React from 'react'
-import { RichText } from 'prismic-reactjs'
-import { linkResolver, hrefResolver } from 'prismic-configuration'
+import {RichText} from 'prismic-reactjs'
+import {hrefResolver, linkResolver} from 'prismic-configuration'
 import Router from 'next/router'
 
 const onClickHandler = function (href, as) {

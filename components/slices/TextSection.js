@@ -1,9 +1,9 @@
 import React from 'react'
-import { RichText } from 'prismic-reactjs'
-import { linkResolver } from 'prismic-configuration'
-import { htmlSerializer } from 'utils/htmlSerializer'
-import { Accordion, Icon } from 'semantic-ui-react'
-import { css, cx } from "emotion";
+import {RichText} from 'prismic-reactjs'
+import {linkResolver} from 'prismic-configuration'
+import {htmlSerializer} from 'utils/htmlSerializer'
+import {Accordion, Icon} from 'semantic-ui-react'
+import {css, cx } from "emotion";
 
 const right_floated = css`
 float: right

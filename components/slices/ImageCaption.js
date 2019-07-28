@@ -1,12 +1,9 @@
-import React, { Fragment } from 'react'
-import { RichText } from 'prismic-reactjs'
+import React, {Fragment} from 'react'
+import {RichText} from 'prismic-reactjs'
 
-import { imagePropType } from 'utils/propTypes'
+import {imagePropType} from 'utils/propTypes'
 
-import {
-  shape,
-  array
-} from 'prop-types'
+import {array, shape} from 'prop-types'
 
 const DefaultComp = (props) => (
   <div className='post-part single container'>

@@ -1,2 +1,7 @@
 node_modules
 .next
+.eslintrc
+.graphqlconfig
+.vscode/
+custom_types/
+server.js

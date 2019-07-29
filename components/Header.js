@@ -106,7 +106,7 @@ const Header = (props) => {
                                 <Menu.Item
                                     active={props.pathname === "/faq"}
                                 >
-                                    Foire aux questions
+                                    Idées reçues
                                 </Menu.Item>
                             </Link>
                         </Menu.Menu>

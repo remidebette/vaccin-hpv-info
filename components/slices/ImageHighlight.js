@@ -25,7 +25,7 @@ const ImageHighlight = ({ slice }) => {
                 <a>{RichText.asText(slice.primary.link_label)}</a>
               </NextLink>
             </p>
-          ) : '' }
+          ) : ''}
         </div>
         <div className='highlight-right'>
           <img src={slice.primary.featured_image.url} alt={slice.primary.featured_image.alt} />

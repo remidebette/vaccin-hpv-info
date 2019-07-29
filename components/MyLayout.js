@@ -1,17 +1,18 @@
 import 'semantic-ui-css/semantic.min.css';
-import React, {useReducer} from 'react';
-import {reducer, initialState, StateContext} from 'utils/context'
-import {Header} from './Header';
-import {css, cx} from 'emotion'
-import {from} from 'rxjs';
+import React, { useReducer, createRef } from 'react';
+import { reducer, initialState, StateContext } from 'utils/context'
+import Header from './Header';
+import { css, cx } from 'emotion'
+import { from } from 'rxjs';
 import {
-    Container, Divider
+    Container
 } from 'semantic-ui-react'
 import Footer from "./Footer";
 
 
 const layoutStyle = css`
-margin-top: 5em
+padding-top: 2em;
+padding-bottom: 5em;
 
 `;
 /*    margin: 20px;
@@ -19,17 +20,29 @@ margin-top: 5em
     border: 1px solid #DDD*/
 
 const Layout = props => {
-    const [state, setState] = useReducer(reducer, initialState)
+    const [state, setState] = useReducer(reducer, initialState);
+    const main_ref = createRef()
 
     return (
-        <StateContext.Provider value={{state: state, setState: setState}}>
-            <Header menu={props.menu}/>
-            <Container text className={layoutStyle}>
-                {props.children}
-            </Container>
+        <StateContext.Provider value={{ state: state, setState: setState }}>
+            <div ref={main_ref}>
+                <Header
+                    menu={props.menu}
+                    page_sections={props.page_sections}
+                    uid={props.uid}
+                    context={main_ref}
+                    pathname={props.pathname}
+                />
+                <Container
+                    text
+                    className={layoutStyle}
+                >
+                    {props.children}
+                </Container>
 
-            <Divider hidden/>
-            <Footer />
+
+                <Footer />
+            </div>
         </StateContext.Provider>
     )
 }

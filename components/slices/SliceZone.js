@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   TextSection,
   Quote,
@@ -6,31 +6,38 @@ import {
   ImageGallery,
   ImageHighlight
 } from './'
-import {Accordion} from "semantic-ui-react";
+import { Accordion } from "semantic-ui-react";
 
-const SliceZone = ({ sliceZone }) => {
-  const [activeIndex, setActiveIndex] = useState(-1);
+const SliceZone = ({ sliceZone, default_section }) => {
+  const [activeSection, setSection] = useState(default_section);
 
   const handleClick = (event, data) => {
     event.persist();
-    if (data.index === activeIndex) {
-      setActiveIndex(-1)
+    if (data.section === activeSection) {
+      setSection(null)
     } else {
-    setActiveIndex(data.index)
+      setSection(data.section)
     }
   };
 
+  useEffect(() => {
+    setSection(default_section)
+  }, [default_section])
+
   return (
-     <Accordion fluid styled>
+    <Accordion fluid styled>
       {sliceZone.map((slice, index) => {
+        const section = slice.primary.section_id
+
         switch (slice.slice_type) {
           case ('text_section'):
             return <TextSection
-                slice={slice}
-                key={'slice-' + index}
-                index={index}
-                active={activeIndex === index}
-                handleClick={handleClick}
+              slice={slice}
+              key={'slice-' + index}
+              index={index}
+              section={section}
+              active={activeSection === section}
+              handleClick={handleClick}
             />
           case ('quote'):
             return <Quote slice={slice} key={'slice-' + index} />
@@ -44,7 +51,7 @@ const SliceZone = ({ sliceZone }) => {
             return null
         }
       })}
-     </Accordion>
+    </Accordion>
   )
 }
 

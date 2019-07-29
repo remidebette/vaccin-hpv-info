@@ -1,4 +1,4 @@
-import {css, cx } from "emotion";
+import {css, cx} from "emotion";
 
 export const noBoxShadow = css`
 box-shadow: none !important;

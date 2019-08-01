@@ -6,6 +6,9 @@ import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-conf
 import Link from "next/link";
 import {RichText} from "prismic-reactjs";
 import {getMenu} from "../utils/api";
+import loadable from '@loadable/component'
+const PopUp = loadable(() => import("components/PopUp"))
+
 
 const menuHome = (menu_links) => {
     return menu_links.map((menuLink) => {
@@ -26,7 +29,7 @@ const Index = (props) => {
         <Layout menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
             <h1>Vaccin HPV info</h1>
             <p>Tout ce que vous devez savoir sur la vaccination anti-HPV,
-                une information claire et concise pour les patients produite par des médecins indépendants.
+            une information claire et <PopUp><strong>concise</strong></PopUp> pour les patients produite par des médecins indépendants.
             </p>
 
             <Divider hidden />
@@ -45,6 +48,8 @@ const Index = (props) => {
                         <Button as="a" key="faq">Foire aux questions
                         </Button>
                     </Link>
+
+                    <PopUp><Button icon="add"/></PopUp>
                 </Grid.Column>
             </Grid>
 

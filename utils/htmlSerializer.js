@@ -19,7 +19,15 @@ export const htmlSerializer = function (type, element, content, children, key) {
   var props = {}
   switch (type) {
     case Elements.hyperlink: // Link
-      if (element.data.link_type === 'Document') {
+      if (element.data.link_type === 'Document' && element.data.type === "preview") {
+        // Only for internal links add the new onClick that will imperatively route to the appropiate page
+
+        props = Object.assign({
+          onClick: onClickHandler(hrefResolver(element.data), linkResolver(element.data)),
+          href: linkResolver(element.data)
+        })
+        return React.createElement('a', propsWithUniqueKey(props, key), children)
+      } else if (element.data.link_type === 'Document') {
         // Only for internal links add the new onClick that will imperatively route to the appropiate page
         props = Object.assign({
           onClick: onClickHandler(hrefResolver(element.data), linkResolver(element.data)),

@@ -53,4 +53,18 @@ const getEtVous = async (API) => {
     }
 }
 
-export {getPage, getMenu, getFAQ, getEtVous}
+const getPreview = async (uid, API) => {
+    try {
+        const res_preview = await API.getByUID('preview', uid)
+
+        console.log(`Fetched preview: ${uid}`)
+
+        return res_preview
+
+    } catch (error) {
+        console.error(error)
+        return error
+    }
+}
+
+export {getPage, getMenu, getFAQ, getEtVous, getPreview}

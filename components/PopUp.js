@@ -1,20 +1,49 @@
 import React from 'react'
 import {RichText} from 'prismic-reactjs'
-import {linkResolver} from 'prismic-configuration'
+import {apiEndpoint, linkResolver} from 'prismic-configuration'
 import {htmlSerializer} from 'utils/htmlSerializer'
-import {Popup, Image, Header} from 'semantic-ui-react'
+import {Popup, Image, Header, Placeholder} from 'semantic-ui-react'
 import Link from "next/link";
+import {getPreview} from "../utils/api";
+import Prismic from "prismic-javascript";
+import {accessToken} from "../prismic-configuration";
 
 
 const PopUp = (props) => {
-    return (
-        <Popup trigger={props.children}>
-            <Image src='https://react.semantic-ui.com/images/movies/totoro-horizontal.jpg'/>
-            <Header as="h2">My Neighbor Totoro</Header>
-            <p>Two sisters move to the country with their father in order to be
-                closer to their hospitalized mother, and discover the surrounding
-                trees are inhabited by magical spirits.</p>
+    const [data, setData] = React.useState(null)
 
+
+    return (
+        <Popup
+            trigger={props.children}
+            onOpen={async () => {
+                const API = await Prismic.getApi(apiEndpoint, {accessToken});
+                setData(
+                    await getPreview(props.uid, API).data
+                )
+            }}
+            popperDependencies={[!!data]}
+
+        >
+
+            {data === null ? (
+                <Placeholder style={{minWidth: '200px'}}>
+                    <Placeholder.Header>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                    </Placeholder.Header>
+                    <Placeholder.Paragraph>
+                        <Placeholder.Line length='medium'/>
+                        <Placeholder.Line length='short'/>
+                    </Placeholder.Paragraph>
+                </Placeholder>
+            ) : (
+                <>
+                    <Image src={data.image.url} alt={data.image.alt}/>
+                    <Header as="h2">{data.preview_title}</Header>
+                    {RichText.render(data.rich_text, linkResolver, htmlSerializer).props.children}
+                </>
+            )}
         </Popup>
     )
 }

@@ -1,11 +1,11 @@
-import {Button, Divider, Grid} from 'semantic-ui-react';
+import {Button, Divider, Grid, Header} from 'semantic-ui-react';
 import React from 'react';
 import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-configuration'
 import Link from "next/link";
 import {RichText} from "prismic-reactjs";
-import {getMenu} from "../utils/api";
+import {getMenu, getPreview} from "../utils/api";
 import loadable from '@loadable/component'
 const PopUp = loadable(() => import("components/PopUp"))
 
@@ -49,7 +49,9 @@ const Index = (props) => {
                         </Button>
                     </Link>
 
-                    <PopUp><Button icon="add"/></PopUp>
+                    <PopUp
+                        uid="verrue-plantaire"
+                    ><Button icon="add"/></PopUp>
                 </Grid.Column>
             </Grid>
 
@@ -62,6 +64,9 @@ Index.getInitialProps = async function (context) {
     const { uid } = context.query
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const menu = await getMenu(API)
+
+    const lol = await getPreview('verrue-plantaire', API)
+    console.log(lol)
 
     return {
         pathname: context.asPath,

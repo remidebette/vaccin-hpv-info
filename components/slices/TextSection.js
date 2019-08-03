@@ -16,7 +16,7 @@ const TextSection = ({ slice, index, active, section, handleClick }) => {
         <>
             <Accordion.Title active={active} index={index} section={section} onClick={handleClick}>
                 {slice.primary.section_title.length > 0 ? slice.primary.section_title[0].text : null}
-                <Icon name="plus" className={right_floated} />
+                <Icon name={active ? "minus" : "plus"} className={right_floated} />
             </Accordion.Title>
             <Accordion.Content active={active} className={`content-section ${sectionClass}`}>
                 {RichText.render(slice.primary.rich_text, linkResolver, htmlSerializer)}

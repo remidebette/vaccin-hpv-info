@@ -33,6 +33,7 @@ const Layout = props => {
                 <Container
                     text
                     className={layoutStyle}
+                    textAlign='justified'
                 >
                     {props.children}
                 </Container>

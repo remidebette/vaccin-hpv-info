@@ -10,6 +10,7 @@ import {htmlSerializer} from "../utils/htmlSerializer";
 
 const EtVous = (props) => {
     const initialState = {
+        "parent": null,
         "gender": "",
         "age_band": "",
         "doses": ""
@@ -20,68 +21,90 @@ const EtVous = (props) => {
     return (
         <Layout menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
             <Header as="h1">{RichText.asText(props.et_vous.data.title)}</Header>
+
             <Segment basic textAlign='center'>
-                <label> Vous êtes: </label>
+                <label> Vous recherchez des informations pour: </label>
                 <Button.Group inline="true">
                     <Button
-                        positive={values.gender === "female"}
-                        value="female"
-                        name="gender"
+                        positive={values.parent === false}
+                        value={false}
+                        name="parent"
                         onClick={handleChange}
-                    ><Icon name="female"/> Une fille</Button>
+                    ><Icon name="hand point up"/> Vous-même</Button>
                     <Button.Or text="ou"/>
                     <Button
-                        positive={values.gender === "male"}
-                        value="male"
-                        name="gender"
+                        positive={values.parent === true}
+                        value={true}
+                        name="parent"
                         onClick={handleChange}
-                    ><Icon name="male"/> Un garçon
+                    ><Icon name="child"/> Votre enfant
                     </Button>
-                    <Button.Or text="ou"/>
-                    <Button
-                        positive={values.gender === "parent"}
-                        value="parent"
-                        name="gender"
-                        onClick={handleChange}
-                    ><Icon name="user secret"/> Parents</Button>
                 </Button.Group>
 
-                <Transition visible={["female", "parent"].includes(values.gender)} animation='scale'
+                <Transition visible={values.parent !== null} animation='scale'
                             duration={500}>
                     <div>
+
                         <Divider hidden/>
-                        <label>{values.gender === "female" ? "Vous avez:" : "Votre fille a:"} </label>
-                        <Button.Group>
-                            <Button positive={values.age_band === "under_11"} value="under_11" name="age_band"
-                                    onClick={handleChange}><Icon name="child" size="small"/>Moins de 11 ans</Button>
-                            <Button positive={values.age_band === "under_15"} value="under_15" name="age_band"
-                                    onClick={handleChange}><Icon name="child"/>11 - 14 ans</Button>
-                            <Button positive={values.age_band === "under_20"} value="under_20" name="age_band"
-                                    onClick={handleChange}><Icon name="child" size="large"/>15 - 19 ans</Button>
-                            <Button positive={values.age_band === "over_20"} value="over_20" name="age_band"
-                                    onClick={handleChange}><Icon name="child" size="large"/>Plus de 20 ans</Button>
+                        <label> {values.parent === false ? "Vous êtes:" : "Votre enfant est:"} </label>
+                        <Button.Group inline="true">
+                            <Button
+                                positive={values.gender === "female"}
+                                value="female"
+                                name="gender"
+                                onClick={handleChange}
+                            ><Icon name="female"/> Une fille</Button>
+                            <Button.Or text="ou"/>
+                            <Button
+                                positive={values.gender === "male"}
+                                value="male"
+                                name="gender"
+                                onClick={handleChange}
+                            ><Icon name="male"/> Un garçon
+                            </Button>
                         </Button.Group>
 
-                        <Transition visible={!["under_11", "over_20"].includes(values.age_band)}
-                                    animation='scale'
+                        <Transition visible={values.gender === "female"} animation='scale'
                                     duration={500}>
                             <div>
                                 <Divider hidden/>
-                                <label> Vaccin: </label>
+                                <label>{values.parent === false ? "Vous avez:" : "Votre fille a:"} </label>
                                 <Button.Group>
-                                    <Button positive={values.doses === 0} value={0} name="doses"
-                                            onClick={handleChange}>Jamais vaccinée</Button>
-                                    <Button positive={values.doses === 1} value={1} name="doses"
-                                            onClick={handleChange}>1 dose</Button>
-                                    <Button positive={values.doses === 2} value={2} name="doses"
-                                            onClick={handleChange}>2 doses</Button>
-                                    {
-                                        values.age_band === "under_20" &&
-                                        <Button positive={values.doses === 3} value={3} name="doses"
-                                                onClick={handleChange}>3 doses</Button>
-                                    }
+                                    <Button positive={values.age_band === "under_11"} value="under_11" name="age_band"
+                                            onClick={handleChange}><Icon name="child" size="small"/>Moins de 11
+                                        ans</Button>
+                                    <Button positive={values.age_band === "under_15"} value="under_15" name="age_band"
+                                            onClick={handleChange}><Icon name="child"/>11 - 14 ans</Button>
+                                    <Button positive={values.age_band === "under_20"} value="under_20" name="age_band"
+                                            onClick={handleChange}><Icon name="child" size="large"/>15 - 19 ans</Button>
+                                    <Button positive={values.age_band === "over_20"} value="over_20" name="age_band"
+                                            onClick={handleChange}><Icon name="child" size="large"/>Plus de 20
+                                        ans</Button>
                                 </Button.Group>
 
+                                <Transition
+                                    visible={values.age_band !== "" && !["under_11", "over_20"].includes(values.age_band)}
+                                    animation='scale'
+                                    duration={500}>
+                                    <div>
+                                        <Divider hidden/>
+                                        <label> Vaccin: </label>
+                                        <Button.Group>
+                                            <Button positive={values.doses === 0} value={0} name="doses"
+                                                    onClick={handleChange}>Jamais vaccinée</Button>
+                                            <Button positive={values.doses === 1} value={1} name="doses"
+                                                    onClick={handleChange}>1 dose</Button>
+                                            <Button positive={values.doses === 2} value={2} name="doses"
+                                                    onClick={handleChange}>2 doses</Button>
+                                            {
+                                                values.age_band === "under_20" &&
+                                                <Button positive={values.doses === 3} value={3} name="doses"
+                                                        onClick={handleChange}>3 doses</Button>
+                                            }
+                                        </Button.Group>
+
+                                    </div>
+                                </Transition>
                             </div>
                         </Transition>
                     </div>
@@ -129,16 +152,16 @@ const EtVous = (props) => {
                 !["under_11", "over_20"].includes(values.age_band) &&
                 values.doses !== "" &&
                 !(values.age_band !== "under_20" && values.doses === 3)
-                ? <Message
-                    info
-                    visible={values.gender !== "male" &&
-                    !["under_11", "over_20"].includes(values.age_band) &&
-                    values.doses !== "" &&
-                    !(values.age_band !== "under_20" &&
-                    values.doses === 3)}
-                >{RichText.render(props.et_vous.data[`${values.age_band}_${values.doses}`], linkResolver, htmlSerializer)}
-                </Message>
-                : <br/>}
+                    ? <Message
+                        info
+                        visible={values.gender !== "male" &&
+                        !["under_11", "over_20"].includes(values.age_band) &&
+                        values.doses !== "" &&
+                        !(values.age_band !== "under_20" &&
+                            values.doses === 3)}
+                    >{RichText.render(props.et_vous.data[`${values.age_band}_${values.doses}`], linkResolver, htmlSerializer)}
+                    </Message>
+                    : <br/>}
             </Transition>
         </Layout>
     )

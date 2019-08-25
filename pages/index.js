@@ -10,7 +10,7 @@ import {getMenu} from "../utils/api";
 const menuHome = (menu_links) => {
     return menu_links.map((menuLink) => {
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch key={menuLink.link.id} >
+            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id} >
                 <Button as="a">
                     {RichText.asText(menuLink.label)}
                 </Button>

@@ -124,7 +124,7 @@ const menuLinks = (menu_links, pages_sections, uid) => {
         })
 
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch key={menuLink.link.id}>
+            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
                 <Menu.Item active={uid === menuLink.link.uid}>
                     <Dropdown simple text={RichText.asText(menuLink.label)}>
                         <Dropdown.Menu>
@@ -133,7 +133,6 @@ const menuLinks = (menu_links, pages_sections, uid) => {
                                     href={hrefResolver(menuLink.link, {default_section: section.primary.section_id})}
                                     as={linkResolver(menuLink.link, {default_section: section.primary.section_id})}
                                     passHref
-                                    prefetch
                                     key={menuLink.link.id + "-" + section.primary.section_id}>
                                     <Dropdown.Item>
                                         {RichText.asText(section.primary.section_title)}

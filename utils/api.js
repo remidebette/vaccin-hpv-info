@@ -59,7 +59,7 @@ const getPreview = async (uid, API) => {
 
         console.log(`Fetched preview: ${uid}`)
 
-        return res_preview
+        return res_preview.data
 
     } catch (error) {
         console.error(error)

@@ -29,7 +29,7 @@ const Index = (props) => {
         <Layout menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
             <h1>Vaccin HPV info</h1>
             <p>Tout ce que vous devez savoir sur la vaccination anti-HPV,
-            une information claire et <PopUp><strong>concise</strong></PopUp> pour les patients produite par des médecins indépendants.
+            une information claire et <PopUp uid='verrue-plantaire'><strong>concise</strong></PopUp> pour les patients produite par des médecins indépendants.
             </p>
 
             <Divider hidden />
@@ -64,9 +64,6 @@ Index.getInitialProps = async function (context) {
     const { uid } = context.query
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const menu = await getMenu(API)
-
-    const lol = await getPreview('verrue-plantaire', API)
-    console.log(lol)
 
     return {
         pathname: context.asPath,

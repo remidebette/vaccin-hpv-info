@@ -2,6 +2,7 @@ import React from 'react'
 import { RichText, Elements } from 'prismic-reactjs';
 import {hrefResolver, linkResolver} from 'prismic-configuration'
 import Router from 'next/router'
+import PopUp from "../components/PopUp";
 
 const onClickHandler = function (href, as) {
   // Handler that will do routing imperatively on internal links
@@ -23,10 +24,9 @@ export const htmlSerializer = function (type, element, content, children, key) {
         // Only for internal links add the new onClick that will imperatively route to the appropiate page
 
         props = Object.assign({
-          onClick: onClickHandler(hrefResolver(element.data), linkResolver(element.data)),
-          href: linkResolver(element.data)
+          "uid": element.data.uid
         })
-        return React.createElement('a', propsWithUniqueKey(props, key), children)
+        return React.createElement(PopUp, propsWithUniqueKey(props, key), children)
       } else if (element.data.link_type === 'Document') {
         // Only for internal links add the new onClick that will imperatively route to the appropiate page
         props = Object.assign({

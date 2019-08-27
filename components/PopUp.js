@@ -19,7 +19,7 @@ const PopUp = (props) => {
             onOpen={async () => {
                 const API = await Prismic.getApi(apiEndpoint, {accessToken});
                 setData(
-                    await getPreview(props.uid, API).data
+                    await getPreview(props.uid, API)
                 )
             }}
             popperDependencies={[!!data]}
@@ -28,19 +28,21 @@ const PopUp = (props) => {
 
             {data === null ? (
                 <Placeholder style={{minWidth: '200px'}}>
+                    <Placeholder.Image/>
                     <Placeholder.Header>
                         <Placeholder.Line/>
                         <Placeholder.Line/>
                     </Placeholder.Header>
                     <Placeholder.Paragraph>
                         <Placeholder.Line length='medium'/>
+                        <Placeholder.Line length='long'/>
                         <Placeholder.Line length='short'/>
                     </Placeholder.Paragraph>
                 </Placeholder>
             ) : (
                 <>
                     <Image src={data.image.url} alt={data.image.alt}/>
-                    <Header as="h2">{data.preview_title}</Header>
+                    <Header as="h2">{data.preview_title.length > 0 ? data.preview_title[0].text : null}</Header>
                     {RichText.render(data.rich_text, linkResolver, htmlSerializer).props.children}
                 </>
             )}

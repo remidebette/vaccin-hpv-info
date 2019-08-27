@@ -17,6 +17,17 @@ const EtVous = (props) => {
     };
 
     const {values, handleChange, handleSubmit} = useForm(initialState, null);
+    let male_message_to_display = "male";
+    let under_11_message_to_display = "under_11";
+    let over_20_message_to_display = "over_20";
+    let final_message_to_display = `${values.age_band}_${values.doses}`;
+
+    if (values.parent === true) {
+        male_message_to_display += '_parent'
+        under_11_message_to_display += '_parent'
+        over_20_message_to_display += '_parent'
+        final_message_to_display += '_parent'
+    }
 
     return (
         <Layout menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
@@ -118,7 +129,7 @@ const EtVous = (props) => {
                     error
                     visible={values.gender === "male"}
                 >
-                    <Message.Content>{RichText.render(props.et_vous.data.male, linkResolver, htmlSerializer).props.children}
+                    <Message.Content>{RichText.render(props.et_vous.data[male_message_to_display], linkResolver, htmlSerializer).props.children}
                     </Message.Content>
                 </Message>
             </Transition>
@@ -129,7 +140,7 @@ const EtVous = (props) => {
                 <Message
                     error
                     visible={values.gender !== "male" && values.age_band === "under_11"}
-                >{RichText.render(props.et_vous.data.under_11, linkResolver, htmlSerializer)}
+                >{RichText.render(props.et_vous.data[under_11_message_to_display], linkResolver, htmlSerializer)}
                 </Message>
             </Transition>
 
@@ -138,30 +149,35 @@ const EtVous = (props) => {
                 <Message
                     error
                     visible={values.gender !== "male" && values.age_band === "over_20"}
-                >{RichText.render(props.et_vous.data.over_20, linkResolver, htmlSerializer)}
+                >{RichText.render(props.et_vous.data[over_20_message_to_display], linkResolver, htmlSerializer)}
                 </Message>
             </Transition>
 
-            <Transition visible={values.gender !== "male" &&
-            !["under_11", "over_20"].includes(values.age_band) &&
-            values.doses !== "" &&
-            !(values.age_band !== "under_20" && values.doses === 3)}
-                        animation='scale'
-                        duration={500}>
-                {values.gender !== "male" &&
+            <Transition visible={
+                values.gender !== "male" &&
                 !["under_11", "over_20"].includes(values.age_band) &&
                 values.doses !== "" &&
                 !(values.age_band !== "under_20" && values.doses === 3)
-                    ? <Message
-                        info
-                        visible={values.gender !== "male" &&
-                        !["under_11", "over_20"].includes(values.age_band) &&
-                        values.doses !== "" &&
-                        !(values.age_band !== "under_20" &&
-                            values.doses === 3)}
-                    >{RichText.render(props.et_vous.data[`${values.age_band}_${values.doses}`], linkResolver, htmlSerializer)}
-                    </Message>
-                    : <br/>}
+            }
+                        animation='scale'
+                        duration={500}>
+                {
+                    values.gender !== "male" &&
+                    !["under_11", "over_20"].includes(values.age_band) &&
+                    values.doses !== "" &&
+                    !(values.age_band !== "under_20" && values.doses === 3)
+                        ? <Message
+                            info
+                            visible={
+                                values.gender !== "male" &&
+                                !["under_11", "over_20"].includes(values.age_band) &&
+                                values.doses !== "" &&
+                                !(values.age_band !== "under_20" && values.doses === 3)
+                            }
+                        >
+                            {RichText.render(props.et_vous.data[final_message_to_display], linkResolver, htmlSerializer)}
+                        </Message>
+                        : <br/>}
             </Transition>
         </Layout>
     )

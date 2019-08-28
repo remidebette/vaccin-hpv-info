@@ -6,8 +6,9 @@ import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-conf
 import Link from "next/link";
 import {RichText} from "prismic-reactjs";
 import {getMenu, getPreview} from "../utils/api";
-import loadable from '@loadable/component'
-const PopUp = loadable(() => import("components/PopUp"))
+import PopUp from "../components/popup";
+/*import loadable from '@loadable/component'
+const PopUp = loadable(() => import("components/popup"))*/
 
 
 const menuHome = (menu_links) => {

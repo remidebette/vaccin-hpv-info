@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {FullWidthImage, ImageGallery, ImageHighlight, Quote, TextSection} from './'
 import {Accordion} from "semantic-ui-react";
+import TextSection from "./TextSection";
+import Quote from "./Quote";
+import FullWidthImage from "./FullWidthImage";
+import ImageGallery from "./ImageGallery";
+import ImageHighlight from "./ImageHighlight";
 
 const SliceZone = ({ sliceZone, default_section }) => {
   const [activeSection, setSection] = useState(default_section);

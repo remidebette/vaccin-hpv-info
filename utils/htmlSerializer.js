@@ -1,8 +1,8 @@
 import React from 'react'
-import { RichText, Elements } from 'prismic-reactjs';
+import {Elements} from 'prismic-reactjs';
 import {hrefResolver, linkResolver} from 'prismic-configuration'
 import Router from 'next/router'
-import PopUp from "../components/popup";
+import { PopUp, Hello} from "../components/popup";
 
 const onClickHandler = function (href, as) {
   // Handler that will do routing imperatively on internal links
@@ -11,6 +11,7 @@ const onClickHandler = function (href, as) {
     Router.push(href, as)
   }
 }
+
 
 const propsWithUniqueKey = function (props, key) {
   return Object.assign(props || {}, { key })

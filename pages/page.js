@@ -6,7 +6,8 @@ import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint} from 'prismic-configuration'
 import {RichText} from 'prismic-reactjs'
 import Error from "./_error";
-import {Layout, SliceZone} from "components";
+import Layout from "../components/MyLayout";
+import SliceZone from "../components/slices/SliceZone";
 import {getMenu, getPage} from "../utils/api";
 import {useRouter} from "next/router";
 

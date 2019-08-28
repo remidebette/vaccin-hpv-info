@@ -1,17 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {RichText} from 'prismic-reactjs'
 import {apiEndpoint, linkResolver} from 'prismic-configuration'
 import {htmlSerializer} from 'utils/htmlSerializer'
-import {Popup, Image, Header, Placeholder} from 'semantic-ui-react'
-import Link from "next/link";
+import {Header, Image, Placeholder, Popup} from 'semantic-ui-react'
 import {getPreview} from "../utils/api";
 import Prismic from "prismic-javascript";
 import {accessToken} from "../prismic-configuration";
 
 
-const PopUp = (props) => {
-    const [data, setData] = React.useState(null)
-
+export function PopUp(props) {
+    const [data, setData] = useState(null);
 
     return (
         <Popup
@@ -50,4 +48,6 @@ const PopUp = (props) => {
     )
 }
 
-export default PopUp
+export function Hello({name}) {
+    return <div>Hello {name}</div>;
+}

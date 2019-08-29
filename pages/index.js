@@ -46,8 +46,6 @@ const Index = (props) => {
                         <Button as="a" key="faq">Foire aux questions
                         </Button>
                     </Link>
-
-                    <Button icon="add"/>
                 </Grid.Column>
             </Grid>
 

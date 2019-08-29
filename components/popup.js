@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, createRef } from 'react'
 import {RichText} from 'prismic-reactjs'
 import {apiEndpoint, linkResolver} from 'prismic-configuration'
 import {htmlSerializer} from 'utils/htmlSerializer'
@@ -8,7 +8,7 @@ import Prismic from "prismic-javascript";
 import {accessToken} from "../prismic-configuration";
 
 
-export function PopUp(props) {
+export default function PopUp(props) {
     const [data, setData] = useState(null);
 
     return (
@@ -21,9 +21,7 @@ export function PopUp(props) {
                 )
             }}
             popperDependencies={[!!data]}
-
         >
-
             {data === null ? (
                 <Placeholder style={{minWidth: '200px'}}>
                     <Placeholder.Image/>
@@ -46,8 +44,4 @@ export function PopUp(props) {
             )}
         </Popup>
     )
-}
-
-export function Hello({name}) {
-    return <div>Hello {name}</div>;
 }

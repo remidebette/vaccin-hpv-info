@@ -1,6 +1,6 @@
 import React from 'react'
-import {Menu, Container} from 'semantic-ui-react'
-import {css, cx} from 'emotion'
+import {Container, Menu} from 'semantic-ui-react'
+import {css, cx } from 'emotion'
 
 const menu_style = css`
         /* max-width: 700px; */

@@ -48,14 +48,15 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
+    "@loadable/component": "^5.10.2",
     "emotion": "^10.0.9",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "^8.1.0",
-    "prismic-javascript": "^2.0.3",
-    "prismic-reactjs": "^0.3.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "next": "^9.0.4",
+    "prismic-javascript": "^2.1.1",
+    "prismic-reactjs": "^1.0.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.86.0"
+    "semantic-ui-react": "^0.88.0"
   }
 }

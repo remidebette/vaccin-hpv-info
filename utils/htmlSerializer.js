@@ -1,7 +1,8 @@
 import React from 'react'
-import { RichText } from 'prismic-reactjs'
-import { linkResolver, hrefResolver } from 'prismic-configuration'
+import {Elements} from 'prismic-reactjs';
+import {hrefResolver, linkResolver} from 'prismic-configuration'
 import Router from 'next/router'
+import PopUp from "../components/popup";
 
 const onClickHandler = function (href, as) {
   // Handler that will do routing imperatively on internal links
@@ -11,7 +12,6 @@ const onClickHandler = function (href, as) {
   }
 }
 
-const Elements = RichText.Elements
 
 const propsWithUniqueKey = function (props, key) {
   return Object.assign(props || {}, { key })
@@ -21,7 +21,14 @@ export const htmlSerializer = function (type, element, content, children, key) {
   var props = {}
   switch (type) {
     case Elements.hyperlink: // Link
-      if (element.data.link_type === 'Document') {
+      if (element.data.link_type === 'Document' && element.data.type === "preview") {
+        // Only for internal links add the new onClick that will imperatively route to the appropiate page
+
+        props = Object.assign({
+          "uid": element.data.uid
+        })
+        return React.createElement(PopUp, propsWithUniqueKey(props, key), React.createElement('strong', {}, children))
+      } else if (element.data.link_type === 'Document') {
         // Only for internal links add the new onClick that will imperatively route to the appropiate page
         props = Object.assign({
           onClick: onClickHandler(hrefResolver(element.data), linkResolver(element.data)),
@@ -33,8 +40,7 @@ export const htmlSerializer = function (type, element, content, children, key) {
         const targetAttr = element.data.target ? { target: element.data.target } : {}
         const relAttr = element.data.target ? { rel: 'noopener' } : {}
         props = Object.assign({
-          href: element.data.url || linkResolver(element.data),
-          target: "_blank"
+          href: element.data.url || linkResolver(element.data)
         }, targetAttr, relAttr)
         return React.createElement('a', propsWithUniqueKey(props, key), children)
       }
@@ -46,11 +52,12 @@ export const htmlSerializer = function (type, element, content, children, key) {
       if (element.linkTo && element.linkTo.link_type === 'Document') {
         // Exclusively for internal links, build the object that can be used for router push
         internal = true
+        const targetAttr = element.data.target ? { target: element.data.target } : {}
+        const relAttr = element.data.target ? { rel: 'noopener' } : {}
         imgProps = Object.assign({
           onClick: onClickHandler(hrefResolver(element.linkTo), linkResolver(element.linkTo)),
-          href: linkResolver(element.linkTo),
-          target: "_blank"
-        })
+          href: linkResolver(element.linkTo)
+        }, targetAttr, relAttr)
       }
       // Handle images just like regular HTML Serializer
       const linkUrl = element.linkTo ? element.linkTo.url || linkResolver(element.linkTo) : null

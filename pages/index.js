@@ -1,16 +1,17 @@
-import { Button, Grid, Divider } from 'semantic-ui-react';
+import {Button, Divider, Grid, Header} from 'semantic-ui-react';
 import React from 'react';
 import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
-import { apiEndpoint, hrefResolver, linkResolver, accessToken } from 'prismic-configuration'
+import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-configuration'
 import Link from "next/link";
-import { RichText } from "prismic-reactjs";
-import {getMenu} from "../utils/api";
+import {RichText} from "prismic-reactjs";
+import {getMenu, getPreview} from "../utils/api";
+
 
 const menuHome = (menu_links) => {
     return menu_links.map((menuLink) => {
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref prefetch key={menuLink.link.id} >
+            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id} >
                 <Button as="a">
                     {RichText.asText(menuLink.label)}
                 </Button>
@@ -26,7 +27,7 @@ const Index = (props) => {
         <Layout menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
             <h1>Vaccin HPV info</h1>
             <p>Tout ce que vous devez savoir sur la vaccination anti-HPV,
-                une information claire et concise pour les patients produite par des médecins indépendants.
+            une information claire et concise pour les patients produite par des médecins indépendants.
             </p>
 
             <Divider hidden />

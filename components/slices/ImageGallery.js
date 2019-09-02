@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react'
-import { default as NextLink } from 'next/link'
-import { Link, RichText } from 'prismic-reactjs'
-import { linkResolver } from 'prismic-configuration'
+import React, {Fragment} from 'react'
+import {default as NextLink} from 'next/link'
+import {Link, RichText} from 'prismic-reactjs'
+import {linkResolver} from 'prismic-configuration'
 
 const GalleryItem = ({ slice }) => (
   slice.items.map((item, index) => {
-    let internalLink = item.link.link_type == 'Document'
+    let internalLink = item.link.link_type === 'Document'
     return (
       <div className='gallery-item' key={index}>
         <img src={item.image.url} alt={item.image.alt} />

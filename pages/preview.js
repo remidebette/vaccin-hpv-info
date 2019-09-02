@@ -1,6 +1,6 @@
 import React from 'react'
 import Prismic from 'prismic-javascript'
-import { apiEndpoint, linkResolver } from 'prismic-configuration'
+import {apiEndpoint, linkResolver} from 'prismic-configuration'
 
 export default class Preview extends React.Component {
   // Get preview token and redirect to the proper page

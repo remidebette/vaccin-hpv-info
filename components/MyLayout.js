@@ -1,4 +1,4 @@
-import 'semantic-ui-css/semantic.min.css';
+import 'semantic-ui-less/semantic.less'
 import React, {createRef, useReducer} from 'react';
 import {initialState, reducer, StateContext} from 'utils/context'
 import Header from './Header';

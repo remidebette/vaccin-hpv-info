@@ -1,3 +1,4 @@
 /*******************************
      User Global Variables
 *******************************/
+@pageBackground: #e7e9ef url('/static/background.png') no-repeat center center fixed;

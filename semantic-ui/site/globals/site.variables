@@ -20,4 +20,3 @@
 @white          : #FFFFFF;
 
 @pageBackground: @white url('/static/images/background.png') no-repeat center center fixed;
-

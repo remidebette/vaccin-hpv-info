@@ -1,3 +1,16 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.black.header.item {
+        color: @black;
+}
+
+.left.item {
+          /* max-width: 700px; */
+        /* margin: 0 auto; */
+        font-family: 'CenturyGothic', sans-serif;
+        font-size: 16px;
+        font-style: italic;
+        text-align: left;
+}

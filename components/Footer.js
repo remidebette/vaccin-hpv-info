@@ -1,15 +1,15 @@
 import React from 'react'
-import {Container, Menu} from 'semantic-ui-react'
-import {css, cx } from 'emotion'
+import {Container} from 'semantic-ui-react'
+import {css, cx} from 'emotion'
 
 const menu_style = css`
         /* max-width: 700px; */
         /* margin: 0 auto; */
-        color: #9A9A9A;
-        font-family: 'Lato', sans-serif;
-        font-size: 16px;
-        font-style: italic;
+        font-family: 'BebasNeue', sans-serif;
+        font-size: 22px;
+        font-style: normal;
         text-align: center;
+        color: #2d2d2d;
         `
 
 const text_style = css`
@@ -19,17 +19,33 @@ const text_style = css`
         margin-bottom: 0.5em !important; 
         `
 
+const logo_style = css`
+        width: 660px;
+        margin-top: 10px;
+        `
+
 const Footer = () => (
-    <Menu fixed="bottom" className={menu_style}>
+    <footer
+        //className={menu_style}
+    >
         <Container>
-        <p className={text_style}>
-            La vaccination n’élimine pas totalement le risque de développer un cancer,
-            donc elle ne dispense pas du dépistage,
-            pensez à vous faire dépistez par frottis ou test-HPV à partir de 25 ans. <br />
-            Parlez-en à votre médecin
-        </p>
+            <p
+                //className={text_style}
+            >
+                LA VACCINATION N’ÉLIMINE PAS TOTALEMENT LE RISQUE DE DÉVELOPPER UN CANCER ET NE
+                DISPENSE DONC PAS DU DÉPISTAGE.
+                <br/>
+                PENSEZ À VOUS FAIRE DÉPISTER PAR FROTTIS OU TEST-HPV À PARTIR DE 25 ANS.
+                <br/>
+                PARLEZ-EN À VOTRE MÉDECIN.
+            </p>
         </Container>
-    </Menu>
+        <img
+            src="/static/images/bottom.png"
+            alt="Pink HPV bottom"
+            className="footer-logo"
+        />
+    </footer>
 )
 
 export default Footer

@@ -1,3 +1,27 @@
 /*******************************
          Site Overrides
 *******************************/
+footer {
+  /* max-width: 700px; */
+  /* margin: 0 auto; */
+  font-family: 'BebasNeue', sans-serif;
+  font-size: 1.2em;
+  //font-style: normal;
+  text-align: center;
+  font-weight: bold;
+  line-height: 1.36;
+/*  letter-spacing: 0.44px;*/
+  color: @black;
+}
+
+footer p {
+  /* border-top: 1px solid #DADADA; */
+  /* padding: 2rem 0; */
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.footer-logo {
+  width: 660px;
+  margin-top: -20px;
+}

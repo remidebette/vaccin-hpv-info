@@ -1,3 +1,8 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+@textColor: @white;
+@fontFamily: 'BebasNeue', sans-serif;
+//@fontWeight:
+//@lineHeight:

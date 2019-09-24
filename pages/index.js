@@ -1,4 +1,4 @@
-import {Button, Divider, Grid, Header} from 'semantic-ui-react';
+import {Button, Divider, Grid, Image} from 'semantic-ui-react';
 import React from 'react';
 import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
@@ -11,8 +11,8 @@ import {getMenu, getPreview} from "../utils/api";
 const menuHome = (menu_links) => {
     return menu_links.map((menuLink) => {
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id} >
-                <Button as="a">
+            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
+                <Button as="a" color="grey">
                     {RichText.asText(menuLink.label)}
                 </Button>
             </Link>
@@ -25,25 +25,34 @@ const Index = (props) => {
 
     return (
         <Layout menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
-            <h1>Vaccin HPV info</h1>
-            <p>Tout ce que vous devez savoir sur la vaccination anti-HPV,
+            <img
+                src="/static/images/logo.png"
+                alt="Pink HPV logo"
+            />
+            {/*<h1>Vaccin HPV Info</h1>*/}
+
+            <p>Tout ce que vous voulez savoir sur la vaccination anti-HPV,
             une information claire et concise pour les patients produite par des médecins indépendants.
             </p>
 
-            <Divider hidden />
+
+            <Divider hidden/>
             <Grid>
                 <Grid.Column textAlign="center">
                     {menu ? menuHome(menu.data.menu_links) : null}
 
-                    <Divider hidden />
+                    <Divider hidden/>
 
                     <Link href="/et-vous">
-                        <Button as="a" key="et-vous">Et vous?
+                        <Button as="a" key="et-vous" color="grey">
+                            <Image src="/static/images/etvous.png" alt="medicine HPV" spaced="right" />
+                            ET VOUS ?
+                            (SIMULATION)
                         </Button>
                     </Link>
 
                     <Link href="/faq">
-                        <Button as="a" key="faq">Foire aux questions
+                        <Button as="a" key="faq" color="grey">IDÉES REÇUES
                         </Button>
                     </Link>
                 </Grid.Column>
@@ -55,7 +64,7 @@ const Index = (props) => {
 
 
 Index.getInitialProps = async function (context) {
-    const { uid } = context.query
+    const {uid} = context.query
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const menu = await getMenu(API)
 

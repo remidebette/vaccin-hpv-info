@@ -3,4 +3,6 @@
 *******************************/
 
 @background: @pink;
-@itemTextColor: @white
+@secondaryBackground: @pink;
+@itemTextColor: @white;
+@fontFamily: 'BebasNeue', sans-serif;

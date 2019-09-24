@@ -53,24 +53,26 @@ const Header = (props) => {
             >
                 <Container>
 
-                    <Menu.Menu>
+                    <Menu.Menu position="left">
                         <Link href="/">
-                            <Menu.Item header>
-                                <strong>Vaccin HPV info</strong>
+                            <Menu.Item header color="white">
+                                <strong>VACCIN HPV INFO</strong>
                             </Menu.Item>
                         </Link>
 
                     </Menu.Menu>
 
-                    <Menu.Item className={menu_style}>
-                        Tout ce que vous devez savoir sur la vaccination anti-HPV
+                    <Menu.Item position="left" text
+                               //className={menu_style}
+                    >
+                        TOUT CE QUE VOUS DEVEZ SAVOIR SUR LA VACCINATION ANTI-HPV
                     </Menu.Item>
 
                     <Menu.Menu position="right">
 
                         <Link href="/a-propos">
-                            <Menu.Item>
-                                A propos de nous
+                            <Menu.Item header color="black">
+                                À PROPOS DE NOUS
                             </Menu.Item>
                         </Link>
                     </Menu.Menu>
@@ -82,7 +84,7 @@ const Header = (props) => {
                     pointing
                     secondary
                     stackable
-                    style={{backgroundColor: '#fff', marginTop: '0em'}}
+                    style={{marginTop: '0em'}}
                     //className={menuStyle}
                 >
                     <Container>

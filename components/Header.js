@@ -33,10 +33,10 @@ const menu_style = css`
         /* max-width: 700px; */
         /* margin: 0 auto; */
         color: #9A9A9A !important;
-        font-family: 'Lato', sans-serif;
+        font-family: 'CenturyGothic', sans-serif;
         font-size: 16px;
         font-style: italic;
-        text-align: center;
+        text-align: left;
         `
 
 const Header = (props) => {

@@ -1,4 +1,4 @@
-import {Button, Divider, Grid, Image} from 'semantic-ui-react';
+import {Button, Divider, Grid, Image, Icon, Label, Container, Segment} from 'semantic-ui-react';
 import React from 'react';
 import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
@@ -6,15 +6,49 @@ import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-conf
 import Link from "next/link";
 import {RichText} from "prismic-reactjs";
 import {getMenu, getPreview} from "../utils/api";
+import Header from "../components/Header";
+import {buttonOverride, layoutStyle} from "../utils/css";
+
+
+const button_icons = {
+    "informations-generales": "suitcase",
+    "effets_secondaires": "pills",
+    "transmission": "heartbeat"
+}
+
+const IndexButton = (props, ref) => {
+    return (
+        <Button
+            //ref={ref}
+            //as="a"
+            color="grey"
+            size="massive"
+            compact
+            className={buttonOverride(props.width)}
+            icon labelPosition='left'
+        >
+            <Icon
+                //as="div"
+                name={props.icon}
+                size="big"
+            />
+            {props.children}
+        </Button>
+    )
+};
 
 
 const menuHome = (menu_links) => {
     return menu_links.map((menuLink) => {
         return (
             <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
-                <Button as="a" color="grey">
-                    {RichText.asText(menuLink.label)}
-                </Button>
+                <a>
+                    <IndexButton
+                        icon={button_icons[menuLink.link.uid]}
+                    >
+                        {RichText.asText(menuLink.label).toUpperCase()}
+                    </IndexButton>
+                </a>
             </Link>
         );
     });
@@ -25,39 +59,84 @@ const Index = (props) => {
 
     return (
         <Layout menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
-            <img
-                src="/static/images/logo.png"
-                alt="Pink HPV logo"
-            />
-            {/*<h1>Vaccin HPV Info</h1>*/}
 
-            <p>Tout ce que vous voulez savoir sur la vaccination anti-HPV,
-            une information claire et concise pour les patients produite par des médecins indépendants.
-            </p>
+            <Container
+                //text
+                className={layoutStyle}
+                //textAlign='justified'
+            >
+
+                <style jsx>{`
+                .bckgnd
+                {
+                    background-image: url('static/images/bulle.png');
+                    background-repeat: no-repeat;
+                    background-position: center; 
+                    width: 847px;
+                    height: 124px;
+                }
+
+                `}</style>
 
 
-            <Divider hidden/>
-            <Grid>
-                <Grid.Column textAlign="center">
-                    {menu ? menuHome(menu.data.menu_links) : null}
+                <Grid>
+                    <Grid.Column textAlign="center">
+                        <Image
+                            src="/static/images/logo.png"
+                            alt="Pink HPV logo"
+                            centered={false}
+                        />
+                        <Divider hidden/>
+                        <Segment
+                            inverted
+                            color="pink"
+                            className="top-arrow"
+                            compact
+                        >
+                            {"Tout ce que vous voulez savoir sur la vaccination anti-HPV, ".toUpperCase() +
+                            "une information claire et concise pour les patients produite par ".toUpperCase() +
+                            "des médecins indépendants.".toUpperCase()}
 
-                    <Divider hidden/>
+                        </Segment>
 
-                    <Link href="/et-vous">
-                        <Button as="a" key="et-vous" color="grey">
-                            <Image src="/static/images/etvous.png" alt="medicine HPV" spaced="right" />
-                            ET VOUS ?
-                            (SIMULATION)
-                        </Button>
-                    </Link>
+                        <Divider hidden section/>
 
-                    <Link href="/faq">
-                        <Button as="a" key="faq" color="grey">IDÉES REÇUES
-                        </Button>
-                    </Link>
-                </Grid.Column>
-            </Grid>
+                        {/*<Segment className="bckgnd">*/}
+                        {/*    <p>Tout ce que vous voulez savoir sur la vaccination anti-HPV,*/}
+                        {/*        une information claire et concise pour les patients produite par des médecins indépendants.*/}
+                        {/*    </p>*/}
+                        {/*</Segment>*/}
 
+                        <Divider hidden/>
+
+                        {menu ? menuHome(menu.data.menu_links) : null}
+
+                        <Divider hidden/>
+
+                        <Link href="/et-vous" passHref>
+                            <a>
+                                <IndexButton
+                                    icon='clipboard list'
+                                >
+                                    ET VOUS ? (SIMULATION)
+                                </IndexButton>
+                            </a>
+                        </Link>
+
+                        <Link href="/faq" passHref>
+                            <a>
+                                <IndexButton
+                                    icon='doctor'
+                                    width="9em"
+                                >
+                                    IDÉES <br/>
+                                    REÇUES
+                                </IndexButton>
+                            </a>
+                        </Link>
+                    </Grid.Column>
+                </Grid>
+            </Container>
         </Layout>
     )
 };

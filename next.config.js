@@ -19,8 +19,8 @@ module.exports = withCSS(withLess({
             }
         });
         config.resolve.modules.push(path.resolve('./'));
-        config.resolve.alias['../../theme.config$'] = path.join(__dirname, "semantic-ui/theme.config");
-        config.resolve.alias['../semantic-ui/site'] = path.join(__dirname, "semantic-ui/site");
+        config.resolve.alias['../../theme.config$'] = path.join(__dirname, "/semantic-ui/theme.config");
+        config.resolve.alias['../semantic-ui/site'] = path.join(__dirname, "/semantic-ui/site");
         return config
     }
 }))

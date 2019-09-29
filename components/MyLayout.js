@@ -1,17 +1,13 @@
 import 'semantic-ui-less/semantic.less'
+import Head from 'next/head'
 import React, {createRef, useReducer} from 'react';
 import {initialState, reducer, StateContext} from 'utils/context'
 import Header from './Header';
-import {css, cx } from 'emotion'
+import {css, cx} from 'emotion'
 import {Container} from 'semantic-ui-react'
 import Footer from "./Footer";
 
 
-const layoutStyle = css`
-padding-top: 2em;
-padding-bottom: 5em;
-
-`;
 /*    margin: 20px;
     padding: 20px;
     border: 1px solid #DDD*/
@@ -21,27 +17,28 @@ const Layout = props => {
     const main_ref = createRef()
 
     return (
-        <StateContext.Provider value={{ state: state, setState: setState }}>
-            <div ref={main_ref}>
-                <Header
-                    menu={props.menu}
-                    page_sections={props.page_sections}
-                    uid={props.uid}
-                    context={main_ref}
-                    pathname={props.pathname}
-                />
-                <Container
-                    text
-                    className={layoutStyle}
-                    textAlign='justified'
-                >
+        <>
+            <Head>
+                <title>My page title</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+                <link rel="stylesheet" href="https://use.typekit.net/vhr2nog.css"/>
+            </Head>
+            <StateContext.Provider value={{state: state, setState: setState}}>
+                <div ref={main_ref}>
+                    <Header
+                        menu={props.menu}
+                        page_sections={props.page_sections}
+                        uid={props.uid}
+                        context={main_ref}
+                        pathname={props.pathname}
+                    />
                     {props.children}
-                </Container>
 
 
-                <Footer />
-            </div>
-        </StateContext.Provider>
+                    <Footer/>
+                </div>
+            </StateContext.Provider>
+        </>
     )
 }
 

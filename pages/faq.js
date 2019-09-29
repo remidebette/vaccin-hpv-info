@@ -5,16 +5,25 @@ import {getFAQ, getMenu} from "../utils/api";
 import FAQSlice from "components/slices/faqSlice";
 import Layout from "components/MyLayout"
 import {RichText} from "prismic-reactjs";
+import Header from "../components/Header";
+import {Container} from "semantic-ui-react";
+import {layoutStyle} from "../utils/css";
 
 const Index = (props) => {
     return (
         <Layout menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
+
+                <Container
+                    text
+                    className={layoutStyle}
+                    textAlign='justified'
+                >
             <h1>{RichText.asText(props.faq.data.title)}</h1>
 
             {props.faq.data.page_content.map((slice, index) => {
             return <FAQSlice slice={slice} key={'slice-' + index}/>})
             }
-
+                </Container>
         </Layout>
     )
 };

@@ -2,7 +2,21 @@
     User Variable Overrides
 *******************************/
 
-@textColor: @white;
-@fontFamily: 'BebasNeue', sans-serif;
+@fontWeight: normal;
+
+//@textColor: @white;
+@fontFamily: bebas-neue, sans-serif;
 //@fontWeight:
 //@lineHeight:
+
+@massive: 2.3rem;
+@large: 1.4rem;
+
+@labeledIconPadding: 2em;
+//@labeledIconWidth: 65%;
+@horizontalPadding: 1em;
+@compactVerticalPadding: 0.4em;
+
+@labeledIconBackgroundColor: none;
+@horizontalMargin: 1.5em;
+@borderRadius: 15px;

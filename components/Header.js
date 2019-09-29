@@ -33,7 +33,7 @@ const menu_style = css`
         /* max-width: 700px; */
         /* margin: 0 auto; */
         color: #9A9A9A !important;
-        font-family: 'CenturyGothic', sans-serif;
+        font-family: century-gothic, sans-serif;
         font-size: 16px;
         font-style: italic;
         text-align: left;
@@ -50,19 +50,26 @@ const Header = (props) => {
                 borderless
                 stackable
                 className={noBoxShadow}
+                inverted
+                color="pink"
+                size="large"
             >
                 <Container>
 
                     <Menu.Menu position="left">
                         <Link href="/">
-                            <Menu.Item header color="white">
+                            <Menu.Item
+                                header
+                                //color="white"
+                            >
                                 <strong>VACCIN HPV INFO</strong>
                             </Menu.Item>
                         </Link>
 
                     </Menu.Menu>
 
-                    <Menu.Item position="left" text
+                    <Menu.Item position="left"
+                               //text
                                //className={menu_style}
                     >
                         TOUT CE QUE VOUS DEVEZ SAVOIR SUR LA VACCINATION ANTI-HPV
@@ -81,10 +88,14 @@ const Header = (props) => {
 
             {props.pathname !== "/" ?
                 <Menu
-                    pointing
+                    //pointing
                     secondary
                     stackable
-                    style={{marginTop: '0em'}}
+                    //style={{marginTop: '0em'}}
+                    inverted
+                    //compact
+                    color="pink"
+                    //size="large"
                     //className={menuStyle}
                 >
                     <Container>
@@ -128,7 +139,14 @@ const menuLinks = (menu_links, pages_sections, uid) => {
         return (
             <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
                 <Menu.Item active={uid === menuLink.link.uid}>
-                    <Dropdown simple text={RichText.asText(menuLink.label)}>
+                    <Dropdown
+                        simple
+                        text={RichText.asText(menuLink.label)}
+                        //floating
+                        //item
+                        closeOnChange
+                        closeOnBlur
+                    >
                         <Dropdown.Menu>
                             {page_sections.data.page_content.map((section) => (
                                 <Link

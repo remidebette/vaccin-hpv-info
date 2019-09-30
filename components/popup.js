@@ -22,7 +22,6 @@ export default function PopUp(props) {
             }}
             popperDependencies={[!!data]}
             inverted
-            color="pink"
         >
             {data === null ? (
                 <Placeholder style={{minWidth: '200px'}}>

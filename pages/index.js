@@ -16,14 +16,16 @@ const button_icons = {
     "transmission": "heartbeat"
 }
 
-const IndexButton = (props, ref) => {
+const IndexButton = React.forwardRef((props, ref) => {
     return (
         <Button
             //ref={ref}
-            //as="a"
+            as="a"
             color="grey"
             size="massive"
             compact
+            href={props.href}
+            ref={ref}
             className={buttonOverride(props.width)}
             icon labelPosition='left'
         >
@@ -35,20 +37,18 @@ const IndexButton = (props, ref) => {
             {props.children}
         </Button>
     )
-};
+});
 
 
 const menuHome = (menu_links) => {
     return menu_links.map((menuLink) => {
         return (
             <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
-                <a>
                     <IndexButton
                         icon={button_icons[menuLink.link.uid]}
                     >
                         {RichText.asText(menuLink.label).toUpperCase()}
                     </IndexButton>
-                </a>
             </Link>
         );
     });
@@ -114,17 +114,14 @@ const Index = (props) => {
                         <Divider hidden/>
 
                         <Link href="/et-vous" passHref>
-                            <a>
                                 <IndexButton
                                     icon='clipboard list'
                                 >
                                     ET VOUS ? (SIMULATION)
                                 </IndexButton>
-                            </a>
                         </Link>
 
                         <Link href="/faq" passHref>
-                            <a>
                                 <IndexButton
                                     icon='doctor'
                                     width="9em"
@@ -132,7 +129,6 @@ const Index = (props) => {
                                     IDÉES <br/>
                                     REÇUES
                                 </IndexButton>
-                            </a>
                         </Link>
                     </Grid.Column>
                 </Grid>

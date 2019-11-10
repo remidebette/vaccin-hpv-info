@@ -72,7 +72,7 @@ const Header = (props) => {
                                //text
                                //className={menu_style}
                     >
-                        TOUT CE QUE VOUS DEVEZ SAVOIR SUR LA VACCINATION ANTI-HPV
+                        TOUT CE QUE VOUS VOULEZ SAVOIR SUR LA VACCINATION ANTI-HPV
                     </Menu.Item>
 
                     <Menu.Menu position="right">

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import {css} from 'emotion'
-import {Container, Dropdown, Menu, Sticky} from 'semantic-ui-react'
+import {Container, Dropdown, Icon, Menu, Sticky} from 'semantic-ui-react'
 import {noBoxShadow} from "../utils/css";
 import {hrefResolver, linkResolver} from "../prismic-configuration";
 import {RichText} from "prismic-reactjs";
@@ -62,15 +62,18 @@ const Header = (props) => {
                                 header
                                 //color="white"
                             >
-                                <strong>VACCIN HPV INFO</strong>
+                                <Icon name="home"/>
+                                <strong>VACCIN HPV INFO
+                                    {/*<br/> Acceuil*/}
+                                </strong>
                             </Menu.Item>
                         </Link>
 
                     </Menu.Menu>
 
                     <Menu.Item position="left"
-                               //text
-                               //className={menu_style}
+                        //text
+                        //className={menu_style}
                     >
                         TOUT CE QUE VOUS VOULEZ SAVOIR SUR LA VACCINATION ANTI-HPV
                     </Menu.Item>
@@ -78,7 +81,7 @@ const Header = (props) => {
                     <Menu.Menu position="right">
 
                         <Link href="/a-propos">
-                            <Menu.Item header color="black">
+                            <Menu.Item header>
                                 À PROPOS DE NOUS
                             </Menu.Item>
                         </Link>
@@ -110,7 +113,8 @@ const Header = (props) => {
                                 <Menu.Item
                                     key="et-vous"
                                     active={props.pathname === "/et-vous"}
-                                >Et vous? (Simulation)
+                                >
+                                    <Icon name="clipboard list"/>Et vous? (Simulation)
                                 </Menu.Item>
                             </Link>
 
@@ -119,6 +123,7 @@ const Header = (props) => {
                                 <Menu.Item
                                     active={props.pathname === "/faq"}
                                 >
+                                    <Icon name="doctor"/>
                                     Idées reçues
                                 </Menu.Item>
                             </Link>
@@ -136,16 +141,20 @@ const menuLinks = (menu_links, pages_sections, uid) => {
             return element.uid === menuLink.link.uid
         })
 
+        const trigger = (
+            <span>
+                <Icon name={menuLink.icon}/>{RichText.asText(menuLink.label)}
+            </span>
+        )
+
         return (
             <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
                 <Menu.Item active={uid === menuLink.link.uid}>
                     <Dropdown
                         simple
-                        text={RichText.asText(menuLink.label)}
-                        //floating
-                        //item
                         closeOnChange
                         closeOnBlur
+                        trigger={trigger}
                     >
                         <Dropdown.Menu>
                             {page_sections.data.page_content.map((section) => (

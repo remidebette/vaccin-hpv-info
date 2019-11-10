@@ -110,7 +110,7 @@ const Header = (props) => {
                                 <Menu.Item
                                     key="et-vous"
                                     active={props.pathname === "/et-vous"}
-                                >Et vous?
+                                >Et vous? (Simulation)
                                 </Menu.Item>
                             </Link>
 

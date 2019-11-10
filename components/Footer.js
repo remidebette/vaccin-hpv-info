@@ -37,7 +37,7 @@ const Footer = () => (
                 LA VACCINATION N’ÉLIMINE PAS TOTALEMENT LE RISQUE DE DÉVELOPPER UN CANCER ET NE
                 DISPENSE DONC PAS DU DÉPISTAGE.
                 <br/>
-                PENSEZ À VOUS FAIRE DÉPISTER PAR FROTTIS OU TEST-HPV À PARTIR DE 25 ANS.
+                PENSEZ À VOUS FAIRE DÉPISTER PAR FROTTIS À PARTIR DE 25 ANS ET PAR TEST-HPV À PARTIR DE 30 ANS.
                 <br/>
                 PARLEZ-EN À VOTRE MÉDECIN.
             </p>

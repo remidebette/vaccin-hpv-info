@@ -3,6 +3,7 @@ import {Elements} from 'prismic-reactjs';
 import {hrefResolver, linkResolver} from 'prismic-configuration'
 import Router from 'next/router'
 import PopUp from "../components/popup";
+import {Image} from 'semantic-ui-react';
 
 const onClickHandler = function (href, as) {
   // Handler that will do routing imperatively on internal links
@@ -63,7 +64,7 @@ export const htmlSerializer = function (type, element, content, children, key) {
       const linkUrl = element.linkTo ? element.linkTo.url || linkResolver(element.linkTo) : null
       const linkTarget = (element.linkTo && element.linkTo.target) ? { target: element.linkTo.target } : {}
       const linkRel = linkTarget.target ? { rel: 'noopener' } : {}
-      const img = React.createElement('img', { src: element.url, alt: element.alt || '' })
+      const img = <Image src={element.url} alt={element.alt || ''} centered />;
       return React.createElement(
         'p',
         propsWithUniqueKey({ className: [element.label || '', 'block-img'].join(' ') }, key),

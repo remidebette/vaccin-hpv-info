@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import {css} from 'emotion'
-import {Container, Dropdown, Icon, Menu, Sticky} from 'semantic-ui-react'
+import {Container, Dropdown, Icon, Menu, Sticky, Popup} from 'semantic-ui-react'
 import {noBoxShadow} from "../utils/css";
 import {hrefResolver, linkResolver} from "../prismic-configuration";
 import {RichText} from "prismic-reactjs";
@@ -38,6 +38,8 @@ const menu_style = css`
         font-style: italic;
         text-align: left;
         `
+
+const item_style = {padding: '0.9em 1.14em'};
 
 const Header = (props) => {
     const menu = props.menu
@@ -94,7 +96,6 @@ const Header = (props) => {
                     //pointing
                     secondary
                     stackable
-                    //style={{marginTop: '0em'}}
                     inverted
                     //compact
                     color="pink"
@@ -142,37 +143,42 @@ const menuLinks = (menu_links, pages_sections, uid) => {
         })
 
         const trigger = (
-            <span>
-                <Icon name={menuLink.icon}/>{RichText.asText(menuLink.label)}
-            </span>
+            <Menu.Item active={uid === menuLink.link.uid}>
+                <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref>
+                    <span>
+                        <Icon name={menuLink.icon}/>{RichText.asText(menuLink.label)}
+                    </span>
+                </Link>
+            </Menu.Item>
         )
 
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
-                <Menu.Item active={uid === menuLink.link.uid}>
-                    <Dropdown
-                        simple
-                        closeOnChange
-                        closeOnBlur
-                        trigger={trigger}
-                    >
-                        <Dropdown.Menu>
-                            {page_sections.data.page_content.map((section) => (
-                                <Link
-                                    href={hrefResolver(menuLink.link, {default_section: section.primary.section_id})}
-                                    as={linkResolver(menuLink.link, {default_section: section.primary.section_id})}
-                                    passHref
-                                    key={menuLink.link.id + "-" + section.primary.section_id}>
-                                    <Dropdown.Item>
-                                        {RichText.asText(section.primary.section_title)}
-                                    </Dropdown.Item>
-                                </Link>
-                            ))
-                            }
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Menu.Item>
-            </Link>
+            <Popup
+                basic
+                flowing
+                hoverable
+                position="bottom left"
+                on="hover"
+                pinned
+                trigger={trigger}
+                key={menuLink.link.id}
+                style={{padding: '0'}}
+            >
+                <Menu vertical fluid borderless>
+                    {page_sections.data.page_content.map((section) => (
+                        <Link
+                            href={hrefResolver(menuLink.link, {default_section: section.primary.section_id})}
+                            as={linkResolver(menuLink.link, {default_section: section.primary.section_id})}
+                            passHref
+                            key={menuLink.link.id + "-" + section.primary.section_id}>
+                            <Menu.Item style={item_style}>
+                                {RichText.asText(section.primary.section_title)}
+                            </Menu.Item>
+                        </Link>
+                    ))
+                    }
+                </Menu>
+            </Popup>
         );
     });
 }

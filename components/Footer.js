@@ -1,18 +1,7 @@
 import React from 'react'
 import {Container} from 'semantic-ui-react'
-import {css, cx} from 'emotion'
-
-const menu_style = css`
-        /* max-width: 700px; */
-        /* margin: 0 auto; */
-        font-family: bebas-neue, sans-serif;
-        font-size: 1.5em;
-        font-style: normal;
-        text-align: center;
-        color: #2d2d2d;
-        line-height: 1.36;
-        letter-spacing: 0.44px;
-        `
+import {css} from 'emotion'
+import {index_style} from "../utils/css";
 
 const text_style = css`
         /* border-top: 1px solid #DADADA; */
@@ -32,7 +21,7 @@ const Footer = () => (
     >
         <Container>
             <p
-                className={menu_style}
+                className={index_style}
             >
                 LA VACCINATION N’ÉLIMINE PAS TOTALEMENT LE RISQUE DE DÉVELOPPER UN CANCER ET NE
                 DISPENSE DONC PAS DU DÉPISTAGE.

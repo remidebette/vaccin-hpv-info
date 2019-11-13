@@ -8,8 +8,10 @@
 
 
   font-family: bebas-neue, sans-serif;
-  font-size: 1.66rem;
+  font-size: 1.8rem;
 
+  line-height: 1.36;
+  letter-spacing: 0.48px;
 }
 
 .top-arrow.segment::before {

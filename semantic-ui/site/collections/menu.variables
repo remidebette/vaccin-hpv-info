@@ -19,3 +19,6 @@
 
 //@textColor: @white;
 @fontFamily: bebas-neue, sans-serif;
+
+@secondaryInvertedHoverBackground: @subtleTransparentBlack;
+@invertedHoverBackground: @subtleTransparentBlack;

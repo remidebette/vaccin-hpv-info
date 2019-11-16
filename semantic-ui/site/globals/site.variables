@@ -22,4 +22,4 @@
 @pageBackground: @white url('/static/images/background.png') no-repeat center center fixed;
 
 
-@greyHover                : lighten(@grey, 10);
+@greyHover                : lighten(@grey, 20);

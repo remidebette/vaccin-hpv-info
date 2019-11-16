@@ -20,5 +20,5 @@
 //@textColor: @white;
 @fontFamily: bebas-neue, sans-serif;
 
-@secondaryInvertedHoverBackground: @subtleTransparentBlack;
-@invertedHoverBackground: @subtleTransparentBlack;
+@secondaryInvertedHoverBackground: @transparentBlack;
+@invertedHoverBackground: @transparentBlack;

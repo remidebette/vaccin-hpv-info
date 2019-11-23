@@ -30,3 +30,14 @@ export const index_style = css`
         line-height: 1.15;
         letter-spacing: 0.46px;
         `
+
+export const source_style = css`
+        /* max-width: 700px; */
+        /* margin: 0 auto; */
+        /* font-family: bebas-neue, sans-serif; */
+        font-size: 0.5em;
+        font-style: normal;
+        color: #d7d5d7;
+        /* line-height: 1.15; */
+        /* letter-spacing: 0.46px; */
+        `

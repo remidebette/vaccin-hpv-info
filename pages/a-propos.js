@@ -3,10 +3,43 @@ import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint} from 'prismic-configuration'
 import {getMenu} from "../utils/api";
-import {Container, Divider, Segment, Rail, Grid, Card, Image, Icon, Form} from "semantic-ui-react";
+import {Container, Divider, Segment, Rail, Grid, Card, Image, Icon, Form, Message} from "semantic-ui-react";
 import {layoutStyle} from "../utils/css";
+import useForm from "../utils/useForm";
+import Link from "next/link";
+
+const mailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const Index = (props) => {
+    const initialState = {
+        "mail": undefined,
+        "subject": undefined,
+        "message": undefined,
+        "sent": false
+    };
+    const {values, handleChange, handleSubmit} = useForm(initialState, sendMail);
+
+    const isProperMail = mailFormat.test(values.mail);
+    const isProperSubject = values.subject !== "";
+    const isProperMessage = values.message !== "";
+
+    const isErrorMail = values.mail !== undefined && !isProperMail;
+    const isErrorSubject = values.subject !== undefined && !isProperSubject;
+    const isErrorMessage = values.message !== undefined && !isProperMessage;
+
+    const isButtonActive = isProperMail && isProperSubject && isProperMessage;
+
+    async function sendMail() {
+        const link = "mailto:contact@vaccin-hpv-info.fr"
+            + "?cc=" + values.mail
+            + "&subject=" + encodeURIComponent(values.subject)
+            + "&body=" + encodeURIComponent(values.message + "\n\n")
+        ;
+
+        window.location.href = link;
+
+        handleChange(null, {name: "sent", value: true});
+    }
 
     return (
         <Layout menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
@@ -47,16 +80,62 @@ const Index = (props) => {
                                 Les auteurs n’ont pas de conflit d’intérêt.
                             </p>
 
+                            <Divider/>
+
                             <h2>Contactez nous</h2>
+                            <p>
+                                Vous pouvez nous contacter directement par mail à &nbsp;
+                                <a href="mailto:contact@vaccin-hpv-info.fr"><Icon fitted name='mail'/>contact@vaccin-hpv-info.fr</a>
+                                &nbsp;ou à l'aide du formulaire ci-dessous qui ouvrira le client mail de votre appareil.
+                            </p>
 
-                            <Form>
-                                <Form.Input label='Adresse mail' placeholder='Adresse mail' />
+                            {!values.sent && <Form>
+                                {/*                                <Form.Input label='Votre nom et prénom' placeholder='Votre nom'
+                                            name='name' value={values.name}
+                                            error={isErrorName} onChange={handleChange}/>*/}
+                                <Form.Input label='Adresse mail' placeholder='Adresse mail'
+                                            name='mail' value={values.mail}
+                                            error={isErrorMail} onChange={handleChange}/>
 
-                                <Form.Input fluid label='Sujet' placeholder='Sujet' />
+                                <Form.Input fluid label='Sujet' placeholder='Sujet'
+                                            name="subject" value={values.subject}
+                                            error={isErrorSubject} onChange={handleChange}/>
 
-                                <Form.TextArea label='Votre message' placeholder='Dites nous en plus...' rows={10}/>
-                                <Form.Button size="large">Envoi</Form.Button>
-                            </Form>
+                                <Form.TextArea label='Votre message'
+                                               placeholder='Dites nous en plus...'
+                                               rows={10}
+                                               name="message" value={values.message}
+                                               error={isErrorMessage} onChange={handleChange}
+                                />
+
+                                <Form.Button size="large" disabled={!isButtonActive}
+                                             onClick={handleSubmit}>Envoi</Form.Button>
+                            </Form>}
+
+
+                            {values.sent && <>
+                                <Message>
+                                    <Message.Header>Nous avons ouvert votre éditeur de mail !</Message.Header>
+                                    <p>
+                                        Pensez à vérifiez vos mails pour notre réponse.
+                                    </p>
+                                </Message>
+
+                                <Divider hidden/>
+                                <Divider hidden/>
+                                <Divider hidden/>
+                                <Divider hidden/>
+                                <Divider hidden/>
+                                <Divider hidden/>
+                                <Divider hidden/>
+                                <Divider hidden/>
+                                <Divider hidden/>
+                                <Divider hidden/>
+                                <Divider hidden/>
+                                <Divider hidden/>
+                            </>}
+
+
                             <Rail position='left'>
                                 <Card>
                                     <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped

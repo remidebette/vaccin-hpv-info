@@ -103,7 +103,7 @@ const Header = (props) => {
                     //className={menuStyle}
                 >
                     <Container>
-                        <Menu.Menu position="left" tabular>
+                        <Menu.Menu position="left">
                             {menu ? menuLinks(menu.data.menu_links, page_sections, props.uid) : null}
                         </Menu.Menu>
 

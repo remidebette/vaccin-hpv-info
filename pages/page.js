@@ -10,6 +10,9 @@ import Layout from "../components/MyLayout";
 import SliceZone from "../components/slices/SliceZone";
 import {getMenu, getPage} from "../utils/api";
 import {useRouter} from "next/router";
+import Header from "../components/Header";
+import {Container} from "semantic-ui-react";
+import {layoutStyle} from "../utils/css";
 
 
 const Page = (props) => {
@@ -25,10 +28,17 @@ const Page = (props) => {
     } else {
         return (
             <Layout menu={props.menu} page_sections={props.page_sections} uid={uid} pathname={props.pathname}>
+
+                <Container
+                    text
+                    className={layoutStyle}
+                    textAlign='justified'
+                >
                 <h1>{RichText.asText(props.doc.data.title)}</h1>
                 <p>{RichText.asText(props.doc.data.description)}</p>
 
                 <SliceZone sliceZone={props.doc.data.page_content} default_section={default_section}/>
+                </Container>
             </Layout>
         )
     }

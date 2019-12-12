@@ -1,0 +1,10 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+@tooltipInvertedBackground: @pink;
+@invertedBackground: @pink;
+
+@invertedArrowBottomBackground: @pink;
+@invertedArrowTopBackground: @pink;
+@invertedArrowCenterBackground: @pink;
+@invertedArrowCenterBackground: @pink;

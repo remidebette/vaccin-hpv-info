@@ -1,0 +1,24 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+//@background: @pink;
+//@secondaryBackground: @pink;
+//@itemTextColor: @white;
+//@textMenuHeaderSize: 1.5em;
+@large: 1.8rem;
+@medium: 1.5rem;
+
+@margin: none;
+@border: none;
+
+//@secondaryItemPadding: 0 1em 0;
+
+@fontWeight: normal;
+@itemVerticalPadding: 0.5em;
+
+//@textColor: @white;
+@fontFamily: bebas-neue, sans-serif;
+
+@secondaryInvertedHoverBackground: @transparentBlack;
+@invertedHoverBackground: @transparentBlack;

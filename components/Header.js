@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import {css} from 'emotion'
-import {Container, Dropdown, Menu, Sticky} from 'semantic-ui-react'
+import {Container, Dropdown, Icon, Menu, Sticky, Popup} from 'semantic-ui-react'
 import {noBoxShadow} from "../utils/css";
 import {hrefResolver, linkResolver} from "../prismic-configuration";
 import {RichText} from "prismic-reactjs";
@@ -33,11 +33,13 @@ const menu_style = css`
         /* max-width: 700px; */
         /* margin: 0 auto; */
         color: #9A9A9A !important;
-        font-family: 'Lato', sans-serif;
+        font-family: century-gothic, sans-serif;
         font-size: 16px;
         font-style: italic;
-        text-align: center;
+        text-align: left;
         `
+
+const item_style = {padding: '0.9em 1.14em'};
 
 const Header = (props) => {
     const menu = props.menu
@@ -50,27 +52,39 @@ const Header = (props) => {
                 borderless
                 stackable
                 className={noBoxShadow}
+                inverted
+                color="pink"
+                size="large"
             >
                 <Container>
 
-                    <Menu.Menu>
+                    <Menu.Menu position="left">
                         <Link href="/">
-                            <Menu.Item header>
-                                <strong>Vaccin HPV info</strong>
+                            <Menu.Item
+                                header
+                                //color="white"
+                            >
+                                <Icon name="home"/>
+                                <strong>VACCIN HPV INFO
+                                    {/*<br/> Acceuil*/}
+                                </strong>
                             </Menu.Item>
                         </Link>
 
                     </Menu.Menu>
 
-                    <Menu.Item className={menu_style}>
-                        Tout ce que vous devez savoir sur la vaccination anti-HPV
+                    <Menu.Item position="left"
+                        //text
+                        //className={menu_style}
+                    >
+                        TOUT CE QUE VOUS VOULEZ SAVOIR SUR LA VACCINATION ANTI-HPV
                     </Menu.Item>
 
                     <Menu.Menu position="right">
 
                         <Link href="/a-propos">
-                            <Menu.Item>
-                                A propos de nous
+                            <Menu.Item header>
+                                À PROPOS DE NOUS
                             </Menu.Item>
                         </Link>
                     </Menu.Menu>
@@ -79,25 +93,27 @@ const Header = (props) => {
 
             {props.pathname !== "/" ?
                 <Menu
-                    pointing
+                    //pointing
                     secondary
                     stackable
-                    style={{backgroundColor: '#fff', marginTop: '0em'}}
+                    inverted
+                    //compact
+                    color="pink"
+                    //size="large"
                     //className={menuStyle}
                 >
                     <Container>
                         <Menu.Menu position="left">
                             {menu ? menuLinks(menu.data.menu_links, page_sections, props.uid) : null}
-
                         </Menu.Menu>
-
 
                         <Menu.Menu position="right">
                             <Link href="/et-vous">
                                 <Menu.Item
                                     key="et-vous"
                                     active={props.pathname === "/et-vous"}
-                                >Et vous?
+                                >
+                                    <Icon name="clipboard list"/>Et vous? (Simulation)
                                 </Menu.Item>
                             </Link>
 
@@ -106,6 +122,7 @@ const Header = (props) => {
                                 <Menu.Item
                                     active={props.pathname === "/faq"}
                                 >
+                                    <Icon name="doctor"/>
                                     Idées reçues
                                 </Menu.Item>
                             </Link>
@@ -123,27 +140,43 @@ const menuLinks = (menu_links, pages_sections, uid) => {
             return element.uid === menuLink.link.uid
         })
 
+        const trigger = (
+            <Menu.Item active={uid === menuLink.link.uid}>
+                <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref>
+                    <span>
+                        <Icon name={menuLink.icon}/>{RichText.asText(menuLink.label)}
+                    </span>
+                </Link>
+            </Menu.Item>
+        )
+
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
-                <Menu.Item active={uid === menuLink.link.uid}>
-                    <Dropdown simple text={RichText.asText(menuLink.label)}>
-                        <Dropdown.Menu>
-                            {page_sections.data.page_content.map((section) => (
-                                <Link
-                                    href={hrefResolver(menuLink.link, {default_section: section.primary.section_id})}
-                                    as={linkResolver(menuLink.link, {default_section: section.primary.section_id})}
-                                    passHref
-                                    key={menuLink.link.id + "-" + section.primary.section_id}>
-                                    <Dropdown.Item>
-                                        {RichText.asText(section.primary.section_title)}
-                                    </Dropdown.Item>
-                                </Link>
-                            ))
-                            }
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Menu.Item>
-            </Link>
+            <Popup
+                basic
+                flowing
+                hoverable
+                position="bottom left"
+                on="hover"
+                pinned
+                trigger={trigger}
+                key={menuLink.link.id}
+                style={{padding: '0'}}
+            >
+                <Menu vertical fluid borderless>
+                    {page_sections.data.page_content.map((section) => (
+                        <Link
+                            href={hrefResolver(menuLink.link, {default_section: section.primary.section_id})}
+                            as={linkResolver(menuLink.link, {default_section: section.primary.section_id})}
+                            passHref
+                            key={menuLink.link.id + "-" + section.primary.section_id}>
+                            <Menu.Item style={item_style}>
+                                {RichText.asText(section.primary.section_title)}
+                            </Menu.Item>
+                        </Link>
+                    ))
+                    }
+                </Menu>
+            </Popup>
         );
     });
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import {RichText} from 'prismic-reactjs'
 import {linkResolver} from 'prismic-configuration'
 import {htmlSerializer} from 'utils/htmlSerializer'
-import {Label, Message} from 'semantic-ui-react'
+import {Accordion, Label, Message} from 'semantic-ui-react'
 import Link from "next/link";
 
 const LabelledDiv = (props) => {
@@ -25,7 +25,7 @@ const FAQSlice = ({slice}) => {
     return (
         <Message>
             <Message.Content>
-                <Message.Header>{slice.primary.question.length > 0 ? slice.primary.question[0].text : null}</Message.Header>
+                <Message.Header as="h2" >{slice.primary.question.length > 0 ? slice.primary.question[0].text : null}</Message.Header>
                 <br/>
                 <LabelledDiv>
                     {RichText.render(slice.primary.rich_text, linkResolver, htmlSerializer).props.children}

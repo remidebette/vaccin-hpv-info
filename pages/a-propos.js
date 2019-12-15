@@ -42,7 +42,11 @@ const Index = (props) => {
     }
 
     return (
-        <Layout menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
+        <Layout title="vaccin-hpv-info.fr : A propos de nous"
+                description="Tout sur la vaccination anti-HPV.
+                La création de ce site a été faite en collaboration entre trois internes de médecine générale
+                et leur directeur de thèse."
+                menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
             <Grid centered columns={3}>
                 <Grid.Column>
                     <Container
@@ -60,7 +64,7 @@ const Index = (props) => {
                                 vaccination contre HPV.
                                 Sa création et son évaluation ont fait l'objet d'un travail de thèse en médecine
                                 général.
-                                Il a été créé en collaboration entre trois interne de médecine générale et leur
+                                Il a été créé en collaboration entre trois internes de médecine générale et leur
                                 directeur de
                                 thèse.</p>
 

@@ -31,7 +31,11 @@ const EtVous = (props) => {
     }
 
     return (
-        <Layout menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
+        <Layout title={"vaccin-hpv-info.fr : " + RichText.asText(props.et_vous.data.title)}
+                description="Tout sur la vaccination anti-HPV. Obtenez des informations personnalisées sous forme d'une
+                synthèse sur votre situation par rapport aux vaccins HPV."
+                source_indexes={[0, 1, 2, 3, 4, 8]}
+                menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
 
             <Container
                 text

@@ -14,7 +14,7 @@ const TextSection = ({ slice, index, active, section, handleClick }) => {
     //console.log(my_array);
     return (
         <>
-            <Accordion.Title active={active} index={index} section={section} onClick={handleClick}>
+            <Accordion.Title as="h2" active={active} index={index} section={section} onClick={handleClick}>
                 {slice.primary.section_title.length > 0 ? slice.primary.section_title[0].text : null}
                 <Icon name={active ? "minus" : "plus"} className={right_floated} />
             </Accordion.Title>

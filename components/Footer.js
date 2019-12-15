@@ -23,8 +23,151 @@ const background_image = css`
         background-repeat: no-repeat;
         `
 
-const Footer = () => {
-    const [sources, setSources] = useState(false);
+const source_content = [
+    <>
+        Institut National du Cancer. Fiches repère - Papillomavirus et Cancer. 2018.
+    </>,
+    <>
+        Haute Autorité de Santé. GARDASIL9_SYNTHESE. 2017.
+    </>,
+    <>
+        Haute Autorité de Santé. Synthèse d’avis Cervarix Gardasil. 2012.
+    </>,
+    <>
+        Haut Conseil de la Santé Publique. Place du vaccin Gardasil 9® dans la prévention des infections à
+        papillomavirus humains. Rapport. &nbsp;
+        <Link
+            href="https://www.hcsp.fr/Explore.cgi/Telecharger?NomFichier=hcspr20170210_previnfecthpvplacegardasil9.pdf">
+            <a target="_blank">
+                [Internet]
+            </a>
+        </Link>.
+        2017 [cited 2019 Nov 7].
+
+    </>,
+    <>
+        Haut Conseil de la Santé Publique. Recommandations vaccinales contre les infections à papillomavirus humains
+        chez les hommes. 2016.
+    </>,
+    <>
+        Bouvard V, Baan R, Straif K, Grosse Y, Secretan B, Ghissassi FE et al. IARC monographs on the evaluation of
+        carcinogenic risks to humans, volume 100 B, biological agents. International Agency for Research on Cancer,
+        Weltgesundheitsorganisation, editors. IARC; 2012. 475 p.
+    </>,
+    <>
+        Bouvard V, Baan R, Straif K, Grosse Y, Secretan B, Ghissassi FE et al. A review of human carcinogens--Part B:
+        biological agents. CIRC. CIRC, editor. Lancet (London, England). 2009.
+    </>,
+    <>
+        Hamers Françoise, Woronoff Anne-Sophie R français des registres de cancers F. Cancer du col de l’utérus en
+        France : tendances de l’incidence et de la mortalité jusqu’en 2018. BEH - Santé Publique France &nbsp;
+        <Link
+            href="http://beh.santepubliquefrance.fr/beh/2019/22-23/2019_22-23_1.html">
+            <a target="_blank">
+                [Internet]
+            </a>
+        </Link>.
+        2019 [cited 2019 Nov 6]
+    </>,
+    <>
+        Haute Autorité de Santé. Cancer du col de l’utérus : une meilleure couverture vaccinale et un dépistage renforcé
+        restent la priorité &nbsp;
+        <Link
+            href="https://www.has-sante.fr/jcms/c_2797450/fr/cancer-du-col-de-l-uterus-une-meilleure-couverture-vaccinale-et-un-depistage-renforce-restent-la-priorite">
+            <a target="_blank">
+                [Internet]
+            </a>
+        </Link>.
+        2017 [cited 2019 Nov 4].
+
+    </>,
+    <>
+        Institut de Recherche en Santé Publique. La vaccination contre le papillomavirus en France : Etat des lieux des
+        connaissances et des actions d’amélioration de la couverture vaccinale dans le cadre de l’action 1.2.5 du Plan
+        Cancer 2014-2019. 2017.
+    </>,
+    <>
+        Simms KT, Steinberg J, Caruana M, Smith MA, Lew J Bin, Soerjomataram I, et al. Impact of scaled up human
+        papillomavirus vaccination and cervical screening and the potential for global elimination of cervical cancer in
+        181 countries, 2020–99: a modelling study. Lancet Oncol. 2019 Mar 1;20(3):394–407.
+    </>,
+    <>
+        Cnamts/ANSM. Vaccins anti-HPV et risque de maladies autoimmunes : étude pharmacoépidémiologique. 2015.
+    </>,
+    <>
+        European Medicines Agency E. Review concludes evidence does not support that HPV vaccines cause CRPS or POTS
+        &nbsp;
+        <Link
+            href="https://ansm.sante.fr/S-informer/Points-d-information-Points-d-information/Le-PRAC-conclut-a-l-absence-de-lien-entre-la-vaccination-contre-le-HPV-et-la-survenue-de-syndrome-regional-douloureux-complexe-CRPS-et-le-syndrome-de-tachycardie-posturale-orthostatique-POTS-Point-d-Information">
+            <a target="_blank">
+                [Internet]
+            </a>
+        </Link>.
+        2015 [cited 2019 Nov 7].
+    </>,
+
+
+    <>
+        Solidarité Santé gouv. &nbsp;
+        <Link
+            href="https://solidarites-sante.gouv.fr/IMG/pdf/calendrier_vaccinal_mars_2019.pdf">
+            <a target="_blank">
+                « Calendrier vaccinal »
+            </a>
+        </Link> &nbsp; (Mars 2019)
+    </>,
+    <>
+        Organisation Mondiale de la Santé. &nbsp;
+        <Link
+            href="https://www.who.int/fr/news-room/fact-sheets/detail/human-papillomavirus-(hpv)-and-cervical-cancer">
+            <a target="_blank">
+                « HPV et cancer cervical »
+            </a>
+        </Link>
+    </>,
+    <>
+        Vaccination info service. &nbsp;
+        <Link
+            href="https://vaccination-info-service.fr/Les-maladies-et-leurs-vaccins/Infections-a-Papillomavirus-humains-HPV">
+            <a target="_blank">
+                « Infections à Papillomavirus humain »
+            </a>
+        </Link>
+    </>,
+
+    <>
+        <Link
+            href="https://lecrat.fr/">
+            <a target="_blank">
+                Le Centre de Référence sur les Agents Tératogènes
+            </a>
+        </Link>
+    </>,
+    <>
+        Société de Colposcopie. &nbsp;
+        <Link
+            href="http://www.societe-colposcopie.com/sites/default/files/papillomavirus_les_gynecologues_font_la_guerre_aux_fausses_infos_sur_le_vaccin_contre_le_cancer_du_col_de_luterus.pdf">
+            <a target="_blank">
+                « Les gynécologues font la guerre aux fausses infos sur le vaccin contre le cancer du col de l'utérus. »
+            </a>
+        </Link>
+    </>,
+
+]
+
+const SourceList = ({source_indexes}) => {
+    return (<List as='ol' size="mini" relaxed>
+        {source_indexes.map(i => (
+            <List.Item as='li'>
+                {source_content[i]}
+            </List.Item>
+        ))
+        }
+    </List>)
+}
+
+const Footer = ({source_indexes}) => {
+    const [displaySources, setDisplaySources] = useState(false);
 
     return (<footer
         //className={menu_style}
@@ -53,107 +196,21 @@ const Footer = () => {
                     textAlign="left"
                     className={source_style}
                 >
-                    <p onClick={() => setSources(!sources)}>Afficher les sources</p>
+                    {
+                        source_indexes &&
+                        <>
+                            <p onClick={() => setDisplaySources(!displaySources)}>Cliquer pour afficher plus de
+                                sources...</p>
+                            <Divider hidden/>
+                            {displaySources &&
+                            <SourceList source_indexes={source_indexes}/>
+                            }
+                        </>
+                    }
                     <Divider hidden/>
-                    { sources && <List as='ol' size="mini" relaxed>
-                        <List.Item as='li'>
-                            Heard I, Tondeur L, Arowas L, Falguières M, Demazoin MC. Distribution des papillomavirus
-                            humains (HPV) dans des frottis effectués dans le cadre du dépistage organisé du cancer du
-                            col de l’utérus en France.
-                        </List.Item>
-                        <List.Item as='li'>
-                            Bull Epidémiol Hebd. 2014;(13-14-15):241-8. Prétet JL, Jacquart AC, Carcopino X, Charlot
-                            JF, Bouhour D, Kantelip B, et al. Human papillomavirus genotype distribution in invasive
-                            cervical cancers in France: EDITH study. Int J Cancer 2008; 122(2): 428-432. Disponible sur:
-                            &nbsp;
-                            <Link href="http://invs.santepubliquefrance.fr/beh/2014/13-14-15/2014_13-14-15_1.html">
-                                <a target="_blank">
-                                    INVS
-                                </a>
-                            </Link>
-                        </List.Item>
-                        <List.Item as='li'>
-                            HCSP, Vaccination des garçons contre les infections à papillomavirus. Collection avis et
-                            rapports ; Février 2016.
-                        </List.Item>
-                        <List.Item as='li'>
-                            Abramowitz L, et al. Human papillomavirus genotype distribution in anal cancer in France:
-                            the EDiTH V study. Int J Cancer. 2011; 129(2): 433-39.
-                        </List.Item>
-                        <List.Item as='li'>
-                            D’Souza G, Kreimer AR, Viscidi R, et al. Case-control study of human papillomavirus and
-                            oropharyngeal cancer. N Engl J Med 2007
-                        </List.Item>
-                        <List.Item as='li'>
-                            Alemany L, Cubilla A, Halec G, et al. Role of HPV in penile carcinomas worldwide. N Engl J
-                            Med 2007
-                        </List.Item>
-                        <List.Item as='li'>
-                            Hartwig et al. Estimation of the overall burden of cancers, precancerous lesions, and
-                            genital carts attributable to 9-valent HPV vaccine types in women and men in Europe;
-                            Infectious Agents and Cancer Eur Urol (2017) 12:19
-                        </List.Item>
-                        <List.Item as='li'>
-                            Shield KD, Micallef CM, Martel C de, Heard I, Megraud F, Plummer M, et al. New cancer cases
-                            in France in 2015 attributable to infectious agents: a systematic review and meta-analysis.
-                            Eur J Epidemiol. 6 déc 2017;1‑12.
-                        </List.Item>
-                        <List.Item as='li'>
-                            Girard M, Denis F. Virologie et épidémiologie. Les vaccins des papillomavirus humains : leur
-                            place dans la prévention du cancer du col utérin sous la direction de Pierre Bégé. Edition
-                            médicales internationales. Lavoisier, 2009 (3-10)
-                        </List.Item>
-                        <List.Item as='li'>
-                            Winer R.L, Hughes J.P, Feng Q, O’Reilly S, Kiviat N.B, Holmes K.K, et al. Condom use and the
-                            risk of genital human Papillomavirus infection in young women. N Engl J Med 2006 ; 354;
-                            2645-2654.
-                        </List.Item>
-                        <List.Item as='li'>
-                            Gavillon N, Vervaet H, Derniaux E, Terrosi P, Graesslin O, Quereux C. How dit i contract
-                            human Papillomavirus (HPV) ? Gynécologie Obstétrique et fertilité 38 (2010) 199-204.
-                        </List.Item>
-                        <List.Item as='li'>
-                            Duport N. Données épidémiologiques sur le cancer du col de l’utérus. Etat des connaissances.
-                            Actualisation 2008. InVS
-                        </List.Item>
-                        <List.Item as='li'>
-                            HAS « Dépistage et prévention du cancer du col de l’utérus » (Juin 2013)
-                        </List.Item>
-                        <List.Item as='li'>
-                            Les cancers en France en 2016. L’essentiel des faits et des chiffres, &nbsp;
-                            <Link
-                                href="http://www.e-cancer.fr/Actualites-et-evenements/Actualites/Les-cancers-en-France-en-2016-l-essentiel-des-faits-et-chiffres">
-                                <a target="_blank">
-                                    ouvrage collectif édité par l’INCA
-                                </a>
-                            </Link>
-                        </List.Item>
-                        <List.Item as='li'>
-                            <Link href="http://www.e-cancer.fr">
-                                <a target="_blank">
-                                    e-Cancer
-                                </a>
-                            </Link>
-                            &nbsp;
-                            <Link href="http://www.cngof.fr">
-                                <a target="_blank">
-                                    CNGOF
-                                </a>
-                            </Link>
-                        </List.Item>
-                        <List.Item as='li'>
-                            Noehr B, Depth of cervical cone removed by loop electrosurgical excision procedure and
-                            subsequent risk of spontaneous preterm delivery. Obstet gynecol 2009;114(6):1232
-                        </List.Item>
-                        <List.Item as='li'>
-                            Kyrgiou M, Obstetric outcomes after conservative treatment for intraepithelial or early
-                            invasive cervical lesions: systematic review and meta-analysis. Lancet 2006;367(9509):489-98
-                        </List.Item>
-                        <List.Item as='li'>
-                            Khalid S; The thickness and volume of LLETZ specimens can predict the relative risk of
-                            pregnancy-related morbidity. BJOG 2012;119(6):685-91
-                        </List.Item>
-                    </List> }
+                    <Divider hidden/>
+                    <Divider hidden/>
+
                 </Container>
             </Grid.Column>
         </Grid>

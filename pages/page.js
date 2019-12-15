@@ -27,17 +27,21 @@ const Page = (props) => {
         )
     } else {
         return (
-            <Layout menu={props.menu} page_sections={props.page_sections} uid={uid} pathname={props.pathname}>
+            <Layout title={"vaccin-hpv-info.fr : " + RichText.asText(props.doc.data.title)}
+                    description={RichText.asText(props.doc.data.description)}
+                    source_indexes={props.doc.data.sources.split(/\s*,\s*/).map(function (value) {
+                        return Number(value) - 1;
+                    })}
+                    menu={props.menu} page_sections={props.page_sections} uid={uid} pathname={props.pathname}>
 
                 <Container
                     text
                     className={layoutStyle}
                     textAlign='justified'
                 >
-                <h1>{RichText.asText(props.doc.data.title)}</h1>
-                <p>{RichText.asText(props.doc.data.description)}</p>
+                    <h1>{RichText.asText(props.doc.data.title)}</h1>
 
-                <SliceZone sliceZone={props.doc.data.page_content} default_section={default_section}/>
+                    <SliceZone sliceZone={props.doc.data.page_content} default_section={default_section}/>
                 </Container>
             </Layout>
         )

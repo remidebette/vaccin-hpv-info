@@ -15,6 +15,9 @@ const button_icons = {
     "effets_secondaires": "pills",
     "transmission": "heartbeat"
 }
+const description = "Tout ce que vous voulez savoir sur la vaccination anti-HPV, " +
+    "une information claire et concise pour les patients produite par " +
+    "des médecins indépendants."
 
 const IndexButton = React.forwardRef((props, ref) => {
     return (
@@ -58,7 +61,9 @@ const Index = (props) => {
     const menu = props.menu
 
     return (
-        <Layout menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
+        <Layout title="vaccin-hpv-info.fr : Tout savoir sur la vaccination anti HPV"
+                description={description}
+                menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
 
             <Container
                 //text
@@ -81,11 +86,12 @@ const Index = (props) => {
 
                 <Grid>
                     <Grid.Column textAlign="center">
-                        <Image
+                        <h1><Image
                             src="/static/images/logo.png"
-                            alt="Pink HPV logo"
+                            alt="Page d'accueil du site Vaccin Anti HPV"
                             centered={false}
                         />
+                        </h1>
                         <Divider hidden/>
                         <Segment
                             inverted
@@ -93,9 +99,7 @@ const Index = (props) => {
                             className="top-arrow"
                             compact
                         >
-                            {"Tout ce que vous voulez savoir sur la vaccination anti-HPV, ".toUpperCase() +
-                            "une information claire et concise pour les patients produite par ".toUpperCase() +
-                            "des médecins indépendants.".toUpperCase()}
+                            {description.toUpperCase()}
 
                         </Segment>
 

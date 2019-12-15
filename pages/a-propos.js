@@ -60,7 +60,7 @@ const Index = (props) => {
                                 vaccination contre HPV.
                                 Sa création et son évaluation ont fait l'objet d'un travail de thèse en médecine
                                 général.
-                                Il a été créé en collaboration entre trois interne de médecine générale et leur
+                                Il a été créé en collaboration entre trois internes de médecine générale et leur
                                 directeur de
                                 thèse.</p>
 

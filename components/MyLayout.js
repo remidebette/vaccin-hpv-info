@@ -35,7 +35,7 @@ const Layout = props => {
                     {props.children}
 
 
-                    <Footer/>
+                    <Footer source_indexes={props.source_indexes ? props.source_indexes : null}/>
                 </div>
             </StateContext.Provider>
         </>

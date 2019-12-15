@@ -205,12 +205,11 @@ const Footer = ({source_indexes}) => {
                             {displaySources &&
                             <SourceList source_indexes={source_indexes}/>
                             }
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
                         </>
                     }
+                    <Divider hidden/>
+                    <Divider hidden/>
+                    <Divider hidden/>
 
                 </Container>
             </Grid.Column>

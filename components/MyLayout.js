@@ -19,9 +19,10 @@ const Layout = props => {
     return (
         <>
             <Head>
-                <title>Vaccin anti-HPV</title>
+                <title>{props.title}</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-                <link rel="stylesheet" href="https://use.typekit.net/vhr2nog.css"/>
+                <meta name="description" content={props.description}/>
+                <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
             </Head>
             <StateContext.Provider value={{state: state, setState: setState}}>
                 <div ref={main_ref}>

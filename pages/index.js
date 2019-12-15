@@ -61,7 +61,9 @@ const Index = (props) => {
     const menu = props.menu
 
     return (
-        <Layout menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
+        <Layout title="vaccin-hpv-info.fr : Tout savoir sur la vaccination anti HPV"
+                description={description}
+                menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
 
             <Container
                 //text
@@ -84,11 +86,12 @@ const Index = (props) => {
 
                 <Grid>
                     <Grid.Column textAlign="center">
-                        <Image
+                        <h1><Image
                             src="/static/images/logo.png"
                             alt="Page d'accueil du site Vaccin Anti HPV"
                             centered={false}
                         />
+                        </h1>
                         <Divider hidden/>
                         <Segment
                             inverted

@@ -11,9 +11,10 @@ import {layoutStyle} from "../utils/css";
 
 const Index = (props) => {
     return (
-        <Layout title={"vaccin-hpv-info.fr : " + RichText.asText(props.faq.data.title)}
+        <Layout title={RichText.asText(props.faq.data.title)}
                 description="Tout ce que vous voulez savoir sur la vaccination anti-HPV.
                 Réponses aux idées reçues sur le vaccin anti-HPV"
+                canonical="https://vaccin-hpv-info.fr/faq"
                 source_indexes={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17]}
                 menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
 

@@ -42,10 +42,11 @@ const Index = (props) => {
     }
 
     return (
-        <Layout title="vaccin-hpv-info.fr : A propos de nous"
+        <Layout title="A propos de nous"
                 description="Tout sur la vaccination anti-HPV.
                 La création de ce site a été faite en collaboration entre trois internes de médecine générale
                 et leur directeur de thèse."
+                canonical="https://vaccin-hpv-info.fr/a-propos"
                 menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
             <Grid centered columns={3}>
                 <Grid.Column>
@@ -142,7 +143,7 @@ const Index = (props) => {
 
                             <Rail position='left'>
                                 <Card>
-                                    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped
+                                    <Image src='/static/images/benchekroun.jpg' wrapped
                                            ui={false}/>
                                     <Card.Content>
                                         <Card.Header>BENCHEKROUN Mehdi</Card.Header>
@@ -158,7 +159,7 @@ const Index = (props) => {
                                     </Card.Content>
                                 </Card>
                                 <Card>
-                                    <Image src='https://react.semantic-ui.com/images/avatar/large/jenny.jpg' wrapped
+                                    <Image src='/static/images/desmarecaux.jpg' wrapped
                                            ui={false}/>
                                     <Card.Content>
                                         <Card.Header>DESMARECAUX Céline</Card.Header>
@@ -177,7 +178,7 @@ const Index = (props) => {
 
                             <Rail position='right'>
                                 <Card>
-                                    <Image src='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped
+                                    <Image src='/static/images/favre.jpg' wrapped
                                            ui={false}/>
                                     <Card.Content>
                                         <Card.Header>FAVRE Jonathan</Card.Header>

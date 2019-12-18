@@ -61,8 +61,9 @@ const Index = (props) => {
     const menu = props.menu
 
     return (
-        <Layout title="vaccin-hpv-info.fr : Tout savoir sur la vaccination anti HPV"
+        <Layout title="Tout savoir sur la vaccination anti HPV"
                 description={description}
+                canonical="https://vaccin-hpv-info.fr/"
                 menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
 
             <Container

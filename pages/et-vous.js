@@ -24,14 +24,7 @@ const EtVous = (props) => {
     let male_message_to_display = "male";
     let under_11_message_to_display = "under_11";
     let over_20_message_to_display = "over_20";
-    let final_message_to_display = `${values.age_band}_${values.doses}`;
 
-    if (values.parent === true) {
-        male_message_to_display += '_parent'
-        under_11_message_to_display += '_parent'
-        over_20_message_to_display += '_parent'
-        final_message_to_display += '_parent'
-    }
 
     // Conditions
     const is_parent_filled_out = values.parent !== null;
@@ -47,21 +40,36 @@ const EtVous = (props) => {
     const is_under_15 = values.age_band === "under_15";
     const is_under_20 = values.age_band === "under_20";
     const is_over_20 = values.age_band === "over_20";
-    const is_underage_girl = is_female && is_under_11;
-    const is_overage_girl = is_female && is_over_20;
+    const is_underage = is_under_11;
+    const is_overage = is_over_20;
     const is_vaccinable = is_age_band_filled_out && !["under_11", "over_20"].includes(values.age_band);
     const can_have_3_doses = ["under_20", "over_20"].includes(values.age_band);
-    const is_advice_displayed = is_female && is_vaccinable && is_dose_filled_out &&
+    const is_advice_displayed = is_vaccinable && is_dose_filled_out &&
         !(!can_have_3_doses && values.doses === 3);
 
 
+    let final_message_to_display = `${values.age_band}_${values.doses}`;
+
+    if (values.parent === true) {
+        male_message_to_display += '_parent'
+        under_11_message_to_display += '_parent'
+        over_20_message_to_display += '_parent'
+        final_message_to_display += '_parent'
+    }
+
+    if (is_male) {
+        under_11_message_to_display += '_male'
+        over_20_message_to_display += '_male'
+        final_message_to_display += '_male'
+    }
+
     const adviceRef = useRef(null);
 
-    useEffect(() => {
+/*    useEffect(() => {
         if (is_advice_displayed) {
             scrollToRef(adviceRef)
         }
-    }, [is_advice_displayed]);
+    }, [adviceRef]);*/
 
     return (
         <Layout title={RichText.asText(props.et_vous.data.title)}
@@ -134,7 +142,7 @@ const EtVous = (props) => {
                                 </Button>
                             </Button.Group>
 
-                            <Transition visible={is_female} animation='scale' duration={500}>
+                            <Transition visible={is_gender_filled_out} animation='scale' duration={500}>
                                 <div>
                                     <Divider hidden/>
                                     <label>{is_parent ? "Votre fille a:" : "Vous avez:"} </label>
@@ -187,7 +195,7 @@ const EtVous = (props) => {
 
                 <Divider hidden/>
 
-                <Transition visible={is_male} animation='scale' duration={500}>
+{/*                <Transition visible={is_male} animation='scale' duration={500}>
                 {
                     is_male ?
                         <Message error visible={is_male}>
@@ -197,32 +205,36 @@ const EtVous = (props) => {
                         </Message>
                         : <></>
                 }
-                </Transition>
+                </Transition>*/}
 
 
-                <Transition visible={is_underage_girl} animation='scale' duration={500}>
+                <Transition visible={is_underage} animation='scale' duration={500}>
                 {
-                    is_underage_girl ?
-                        <Message error visible={is_underage_girl}
+                    is_underage ?
+                        <Message error visible={is_underage}
                         >{RichText.render(props.et_vous.data[under_11_message_to_display], linkResolver, htmlSerializer)}
                         </Message>
                         : <></>
                 }
                 </Transition>
 
-                <Transition visible={is_overage_girl} animation='scale' duration={500}>
+                <Transition visible={is_overage} animation='scale' duration={500}>
                 {
-                    is_overage_girl ?
+                    is_overage ?
                         <Message
                             error
-                            visible={is_overage_girl}
+                            visible={is_overage}
                         >{RichText.render(props.et_vous.data[over_20_message_to_display], linkResolver, htmlSerializer)}
                         </Message>
                         : <></>
                 }
                 </Transition>
 
-                <Transition visible={is_advice_displayed} animation='scale' duration={500}>
+                <Transition visible={is_advice_displayed}
+                            animation='scale'
+                            duration={500}
+                            //onComplete={() => {scrollToRef(adviceRef)}}
+                >
                     {
                         is_advice_displayed ?
                             <Message info visible={is_advice_displayed} ref={adviceRef}>

@@ -143,7 +143,7 @@ const Index = (props) => {
 
                             <Rail position='left'>
                                 <Card>
-                                    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped
+                                    <Image src='/static/images/benchekroun.jpg' wrapped
                                            ui={false}/>
                                     <Card.Content>
                                         <Card.Header>BENCHEKROUN Mehdi</Card.Header>
@@ -159,7 +159,7 @@ const Index = (props) => {
                                     </Card.Content>
                                 </Card>
                                 <Card>
-                                    <Image src='https://react.semantic-ui.com/images/avatar/large/jenny.jpg' wrapped
+                                    <Image src='/static/images/desmarecaux.jpg' wrapped
                                            ui={false}/>
                                     <Card.Content>
                                         <Card.Header>DESMARECAUX Céline</Card.Header>
@@ -178,7 +178,7 @@ const Index = (props) => {
 
                             <Rail position='right'>
                                 <Card>
-                                    <Image src='https://react.semantic-ui.com/images/avatar/large/elliot.jpg' wrapped
+                                    <Image src='/static/images/favre.jpg' wrapped
                                            ui={false}/>
                                     <Card.Content>
                                         <Card.Header>FAVRE Jonathan</Card.Header>

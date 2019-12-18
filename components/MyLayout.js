@@ -51,11 +51,6 @@ const Layout = props => {
                     cardType: 'summary_large_image',
                 }}*/
             />
-            <Head>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-                {/*<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>*/}
-                <link rel="stylesheet" href="https://use.typekit.net/vhr2nog.css"/>
-            </Head>
             <StateContext.Provider value={{state: state, setState: setState}}>
                 <div ref={main_ref}>
                     <Header

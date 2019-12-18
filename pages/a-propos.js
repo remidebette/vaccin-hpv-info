@@ -42,10 +42,11 @@ const Index = (props) => {
     }
 
     return (
-        <Layout title="vaccin-hpv-info.fr : A propos de nous"
+        <Layout title="A propos de nous"
                 description="Tout sur la vaccination anti-HPV.
                 La création de ce site a été faite en collaboration entre trois internes de médecine générale
                 et leur directeur de thèse."
+                canonical="https://vaccin-hpv-info.fr/a-propos"
                 menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
             <Grid centered columns={3}>
                 <Grid.Column>

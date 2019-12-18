@@ -7,6 +7,7 @@ import {getPreview} from "../utils/api";
 import Prismic from "prismic-javascript";
 import {accessToken} from "../prismic-configuration";
 
+// Also see: https://nextjs.org/docs#dynamic-import
 
 export default function PopUp(props) {
     const [data, setData] = useState(null);

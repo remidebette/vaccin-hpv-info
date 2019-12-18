@@ -27,8 +27,9 @@ const Page = (props) => {
         )
     } else {
         return (
-            <Layout title={"vaccin-hpv-info.fr : " + RichText.asText(props.doc.data.title)}
+            <Layout title={RichText.asText(props.doc.data.title)}
                     description={RichText.asText(props.doc.data.description)}
+                    canonical={"https://vaccin-hpv-info.fr/page/" + props.uid}
                     source_indexes={props.doc.data.sources.split(/\s*,\s*/).map(function (value) {
                         return Number(value) - 1;
                     })}
@@ -93,6 +94,7 @@ Page.getInitialProps = async function (context) {
     return {
         pathname: context.asPath,
         doc: await page,
+        uid: uid,
         ...menu
     }
 }

@@ -194,7 +194,7 @@ const Index = (props) => {
                                     </Card.Content>
                                 </Card>
                                 <Card>
-                                    <Image src='https://react.semantic-ui.com/images/avatar/large/daniel.jpg' wrapped
+                                    <Image src='/static/images/dubois.jpg' wrapped
                                            ui={false}/>
                                     <Card.Content>
                                         <Card.Header>DUBOIS Lucas</Card.Header>

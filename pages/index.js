@@ -1,12 +1,11 @@
-import {Button, Divider, Grid, Image, Icon, Label, Container, Segment} from 'semantic-ui-react';
+import {Button, Divider, Grid, Image, Icon, Container, Segment} from 'semantic-ui-react';
 import React from 'react';
 import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-configuration'
 import Link from "next/link";
 import {RichText} from "prismic-reactjs";
-import {getMenu, getPreview} from "../utils/api";
-import Header from "../components/Header";
+import {getMenu} from "../utils/api";
 import {buttonOverride, layoutStyle} from "../utils/css";
 
 
@@ -71,20 +70,6 @@ const Index = (props) => {
                 className={layoutStyle}
                 //textAlign='justified'
             >
-
-                <style jsx>{`
-                .bckgnd
-                {
-                    background-image: url('static/images/bulle.png');
-                    background-repeat: no-repeat;
-                    background-position: center; 
-                    width: 847px;
-                    height: 124px;
-                }
-
-                `}</style>
-
-
                 <Grid>
                     <Grid.Column textAlign="center">
                         <h1><Image
@@ -105,12 +90,6 @@ const Index = (props) => {
                         </Segment>
 
                         <Divider hidden section/>
-
-                        {/*<Segment className="bckgnd">*/}
-                        {/*    <p>Tout ce que vous voulez savoir sur la vaccination anti-HPV,*/}
-                        {/*        une information claire et concise pour les patients produite par des médecins indépendants.*/}
-                        {/*    </p>*/}
-                        {/*</Segment>*/}
 
                         <Divider hidden/>
 

@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {Button, Container, Divider, Grid, List} from 'semantic-ui-react'
+import {Button, Container, Divider, Grid, Image, List} from 'semantic-ui-react'
 import {css} from 'emotion'
 import {index_style, source_style} from "../utils/css";
 import Link from "next/link";
+import logo from '../icons/logo-kit-medical-light.svg'
 
 const text_style = css`
         /* border-top: 1px solid #DADADA; */
@@ -185,7 +186,18 @@ const Footer = ({source_indexes}) => {
             </p>
         </Container>
         <Grid className={background_image}>
-            <Grid.Column width={8}/>
+            <Grid.Column width={8}>
+                <Divider hidden/>
+                <Divider hidden/>
+                <Divider hidden/>
+                <Container
+                    text
+                    textAlign="right"
+                    className={source_style}
+                >
+                    <p>Référencé par &nbsp; <Image src={logo} inline size="small" href="https://kitmedical.fr"/></p>
+                </Container>
+            </Grid.Column>
             <Grid.Column width={8}>
 
                 <Divider hidden/>

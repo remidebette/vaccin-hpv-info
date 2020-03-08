@@ -195,7 +195,7 @@ const Footer = ({source_indexes}) => {
                     textAlign="right"
                     className={source_style}
                 >
-                    <p>Référencé par &nbsp; <Image src={logo} inline size="small" href="https://kitmedical.fr"/></p>
+                    <p>Référencé par &nbsp; <Link href="https://kitmedical.fr" passHref><Image src={logo} inline size="small" target="_blank"/></Link></p>
                 </Container>
             </Grid.Column>
             <Grid.Column width={8}>

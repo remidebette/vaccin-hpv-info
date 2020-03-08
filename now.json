@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "name": "vaccin-hpv-info",
-  "regions": ["cdg", "bru"],
   "builds": [
     {
       "src": "next.config.js",

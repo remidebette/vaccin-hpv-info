@@ -1,4 +1,5 @@
 const cssLoaderConfig = require('./css-loader-config');
+//const cssLoaderConfig = require("next/dist/build/webpack/config/blocks/css/loaders/global")
 
 module.exports = (nextConfig = {}) => {
   return Object.assign({}, nextConfig, {

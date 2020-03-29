@@ -27,22 +27,14 @@ const Layout = props => {
                     url: props.canonical,
                     title: props.title,
                     description: props.description,
-/*                    images: [
+                    images: [
                         {
-                            url: 'https://www.example.ie/og-image-01.jpg',
-                            width: 800,
-                            height: 600,
-                            alt: 'Og Image Alt',
-                        },
-                        {
-                            url: 'https://www.example.ie/og-image-02.jpg',
-                            width: 900,
-                            height: 800,
-                            alt: 'Og Image Alt Second',
-                        },
-                        {url: 'https://www.example.ie/og-image-03.jpg'},
-                        {url: 'https://www.example.ie/og-image-04.jpg'},
-                    ],*/
+                            url: 'https://vaccin-hpv-info.fr/static/images/cropped-logo.png',
+                            width: 214,
+                            height: 112,
+                            alt:"Vaccin Anti HPV",
+                        }
+                    ],
                     site_name: 'Vaccin HPV Info',
                 }}
 /*                twitter={{

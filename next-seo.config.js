@@ -6,4 +6,7 @@ export default {
     site_name: 'Vaccin HPV Info',
     image: 'https://vaccin-hpv-info.fr/static/images/cropped-logo.png'
   },
+  facebook: {
+    appId: "2575006349404861"
+  }
 };

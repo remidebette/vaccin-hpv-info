@@ -3,6 +3,7 @@ export default {
     type: 'website',
     locale: 'fr_FR',
     url: 'https://vaccin-hpv-info.fr/',
-    site_name: 'Vaccin HPV Info'
+    site_name: 'Vaccin HPV Info',
+    image: 'https://vaccin-hpv-info.fr/static/images/cropped-logo.png'
   },
 };

@@ -5,7 +5,7 @@ import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-configuration'
 import Link from "next/link";
 import {RichText} from "prismic-reactjs";
-import {getMenu} from "../utils/api";
+import {getFAQ, getHome, getMenu} from "../utils/api";
 import {buttonOverride, layoutStyle} from "../utils/css";
 import {CONSTANTS} from "../utils/CONSTANTS";
 
@@ -61,8 +61,8 @@ const Index = (props) => {
     const menu = props.menu
 
     return (
-        <Layout title="Tout savoir sur la vaccination anti HPV"
-                description={description}
+        <Layout title={RichText.asText(props.home.data.title)}
+                description={RichText.asText(props.home.data.description)}
                 canonical={'https://' + props.host + '/'}
                 host={props.host}
                 menu={menu}
@@ -130,10 +130,12 @@ const Index = (props) => {
 Index.getInitialProps = async function (context) {
     const {uid} = context.query
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
+    const home = getHome(API)
     const menu = await getMenu(API)
 
     return {
         pathname: context.asPath,
+        home: await home,
         host: context.req ? context.req.headers.host: CONSTANTS.host,
         ...menu
     }

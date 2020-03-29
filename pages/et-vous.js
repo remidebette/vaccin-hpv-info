@@ -74,8 +74,7 @@ const EtVous = (props) => {
 
     return (
         <Layout title={RichText.asText(props.et_vous.data.title)}
-                description="Tout sur la vaccination anti-HPV. Obtenez des informations personnalisées sous forme d'une
-                synthèse sur votre situation par rapport aux vaccins HPV."
+                description={RichText.asText(props.et_vous.data.description)}
                 canonical={'https://' + props.host + '/et-vous'}
                 source_indexes={[0, 1, 2, 3, 4, 8]}
                 host={props.host}

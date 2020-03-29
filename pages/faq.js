@@ -13,8 +13,7 @@ import {CONSTANTS} from "../utils/CONSTANTS";
 const Index = (props) => {
     return (
         <Layout title={RichText.asText(props.faq.data.title)}
-                description="Tout ce que vous voulez savoir sur la vaccination anti-HPV.
-                Réponses aux idées reçues sur le vaccin anti-HPV"
+                description={RichText.asText(props.faq.data.description)}
                 canonical={'https://' + props.host + '/faq'}
                 source_indexes={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17]}
                 menu={props.menu}

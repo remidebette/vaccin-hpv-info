@@ -21,7 +21,7 @@ const Layout = props => {
             <NextSeo
                 url={'https://' + props.host + '/'}
                 title={props.title}
-                titleTemplate = "vaccin-hpv-info.fr : %s"
+                //titleTemplate = "vaccin-hpv-info.fr : %s"
                 description={props.description}
                 canonical={props.canonical}
                 image={'https://' + props.host + '/static/images/left-cropped-logo.png'}

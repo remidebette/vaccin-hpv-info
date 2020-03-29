@@ -24,7 +24,7 @@ const Layout = props => {
                 titleTemplate = "vaccin-hpv-info.fr : %s"
                 description={props.description}
                 canonical={props.canonical}
-                image={'https://' + props.host + '/static/images/cropped-logo.png'}
+                image={'https://' + props.host + '/static/images/left-cropped-logo.png'}
                 openGraph={{
                     url: props.canonical,
                     title: props.title,

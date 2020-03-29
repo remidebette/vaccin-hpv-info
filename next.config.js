@@ -1,10 +1,11 @@
-const withCSS = require('@zeit/next-css');
-const withLess = require('@zeit/next-less')
+const withLess = require('./next-less');
+// Had to replicate the next-less module as it is broken since the latest Next version
 
 const path = require('path');
 
-module.exports = withCSS(withLess({
+module.exports = withLess({
     target: 'serverless',
+    // reactStrictMode: true, // Currently, semantic-ui-react does not support React Strict Mode
     webpack(config) {
         config.module.rules.push({
             test: /\.(png|svg|eot|otf|ttf|woff|woff2)$/,
@@ -23,4 +24,4 @@ module.exports = withCSS(withLess({
         config.resolve.alias['../semantic-ui/site'] = path.join(__dirname, "/semantic-ui/site");
         return config
     }
-}))
+})

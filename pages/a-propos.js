@@ -7,6 +7,7 @@ import {Container, Divider, Segment, Rail, Grid, Card, Image, Icon, Form, Messag
 import {layoutStyle} from "../utils/css";
 import useForm from "../utils/useForm";
 import Link from "next/link";
+import {CONSTANTS} from "../utils/CONSTANTS";
 
 const mailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -46,8 +47,11 @@ const Index = (props) => {
                 description="Tout sur la vaccination anti-HPV.
                 La création de ce site a été faite en collaboration entre trois internes de médecine générale
                 et leur directeur de thèse."
-                canonical="https://vaccin-hpv-info.fr/a-propos"
-                menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
+                canonical={'https://' + props.host + '/a-propos'}
+                host={props.host}
+                menu={props.menu}
+                page_sections={props.page_sections}
+                pathname={props.pathname}>
             <Grid centered columns={3}>
                 <Grid.Column>
                     <Container
@@ -226,6 +230,7 @@ Index.getInitialProps = async function (context) {
 
     return {
         pathname: context.asPath,
+        host: context.req ? context.req.headers.host: CONSTANTS.host,
         ...menu
     }
 }

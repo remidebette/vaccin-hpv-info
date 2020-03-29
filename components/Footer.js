@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
-import {Button, Container, Divider, Grid, List} from 'semantic-ui-react'
+import {Button, Container, Divider, Grid, Image, List} from 'semantic-ui-react'
 import {css} from 'emotion'
 import {index_style, source_style} from "../utils/css";
+import QRCode from 'qrcode.react';
 import Link from "next/link";
+import logo from '../icons/logo-kit-medical-light.svg'
 
 const text_style = css`
         /* border-top: 1px solid #DADADA; */
@@ -166,7 +168,7 @@ const SourceList = ({source_indexes}) => {
     </List>)
 }
 
-const Footer = ({source_indexes}) => {
+const Footer = ({host, source_indexes}) => {
     const [displaySources, setDisplaySources] = useState(false);
 
     return (<footer
@@ -184,36 +186,60 @@ const Footer = ({source_indexes}) => {
                 PARLEZ-EN À VOTRE MÉDECIN.
             </p>
         </Container>
-        <Grid className={background_image}>
-            <Grid.Column width={8}/>
-            <Grid.Column width={8}>
+        <div className={background_image}>
+            <Container
+                className={source_style}
+            >
+                <Grid>
+                    <Grid.Row>
+                        <Divider hidden/>
+                        <Divider hidden/>
+                        <Divider hidden/>
+                    </Grid.Row>
+                    <Grid.Column width={8}>
+                        <Container fluid textAlign="right" text>
 
-                <Divider hidden/>
-                <Divider hidden/>
-                <Divider hidden/>
-                <Container
-                    text
-                    textAlign="left"
-                    className={source_style}
-                >
-                    {
-                        source_indexes &&
-                        <>
-                            <p onClick={() => setDisplaySources(!displaySources)}>Cliquer pour afficher plus de
-                                sources...</p>
-                            <Divider hidden/>
-                            {displaySources &&
-                            <SourceList source_indexes={source_indexes}/>
+                            <p>
+                                Référencé par &nbsp;
+                                <Link href="https://kitmedical.fr" passHref>
+                                    <Image src={logo} inline size="small" target="_blank"/>
+                                </Link>
+                                <Divider hidden/>
+
+                                Pour accéder à ce site par QR Code, par ici:
+                                <Divider hidden/>
+                                <QRCode value={"https://" + host}/>
+                            </p>
+                        </Container>
+                    </Grid.Column>
+                    <Grid.Column width={8}>
+
+                        <Container text textAlign="left" fluid
+                        >
+                            {
+                                source_indexes &&
+                                <>
+                                    <p onClick={() => setDisplaySources(!displaySources)}>Cliquer pour afficher plus de
+                                        sources...</p>
+                                    <Divider hidden/>
+                                    {displaySources &&
+                                    <SourceList source_indexes={source_indexes}/>
+                                    }
+                                </>
                             }
-                        </>
-                    }
-                    <Divider hidden/>
-                    <Divider hidden/>
-                    <Divider hidden/>
 
-                </Container>
-            </Grid.Column>
-        </Grid>
+                        </Container>
+                    </Grid.Column>
+                    <Grid.Row>
+                        <Divider hidden/>
+                        <Divider hidden/>
+                        <Divider hidden/>
+                    </Grid.Row>
+                </Grid>
+
+            </Container>
+        </div>
+
         {/*        <img
             src="/static/images/bottom.png"
             alt="Pink HPV bottom"

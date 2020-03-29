@@ -7,7 +7,8 @@ import {getMenu} from "../utils/api";
 
 const Error = (props) => {
     return (
-        <Layout menu={props.menu} page_sections={props.page_sections}>
+        <Layout menu={props.menu} page_sections={props.page_sections}
+                host={props.host}>
             <div className='not-found'>
                 <Head><title>Error!</title></Head>
                 <h1>{props.statusCode

@@ -33,6 +33,16 @@ const getPage = async (uid, API) => {
     }
 }
 
+const getHome = async (API) => {
+    try {
+        console.log(`Fetched home`)
+        return await API.getSingle('homepage')
+    } catch (error) {
+        console.error(error)
+        return error
+    }
+}
+
 const getFAQ = async (API) => {
     try {
         console.log(`Fetched faq`)
@@ -67,4 +77,4 @@ const getPreview = async (uid, API) => {
     }
 }
 
-export {getPage, getMenu, getFAQ, getEtVous, getPreview}
+export {getPage, getMenu, getHome, getFAQ, getEtVous, getPreview}

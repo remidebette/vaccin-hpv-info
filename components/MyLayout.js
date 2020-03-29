@@ -19,30 +19,30 @@ const Layout = props => {
     return (
         <>
             <NextSeo
+                url={'https://' + props.host + '/'}
                 title={props.title}
-                titleTemplate = "vaccin-hpv-info.fr : %s"
+                //titleTemplate = "vaccin-hpv-info.fr : %s"
                 description={props.description}
                 canonical={props.canonical}
+                image={'https://' + props.host + '/static/images/left-cropped-logo.png'}
                 openGraph={{
                     url: props.canonical,
                     title: props.title,
                     description: props.description,
-/*                    images: [
+                    images: [
                         {
-                            url: 'https://www.example.ie/og-image-01.jpg',
-                            width: 800,
-                            height: 600,
-                            alt: 'Og Image Alt',
+                            url: 'https://' + props.host + '/static/images/left-cropped-logo.png',
+                            width: 100,
+                            height: 100,
+                            alt:"Vaccin Anti HPV",
                         },
                         {
-                            url: 'https://www.example.ie/og-image-02.jpg',
-                            width: 900,
-                            height: 800,
-                            alt: 'Og Image Alt Second',
-                        },
-                        {url: 'https://www.example.ie/og-image-03.jpg'},
-                        {url: 'https://www.example.ie/og-image-04.jpg'},
-                    ],*/
+                            url: 'https://' + props.host + '/static/images/cropped-logo.png',
+                            width: 214,
+                            height: 112,
+                            alt:"Vaccin Anti HPV",
+                        }
+                    ],
                     site_name: 'Vaccin HPV Info',
                 }}
 /*                twitter={{
@@ -63,7 +63,7 @@ const Layout = props => {
                     {props.children}
 
 
-                    <Footer source_indexes={props.source_indexes ? props.source_indexes : null}/>
+                    <Footer host={props.host} source_indexes={props.source_indexes ? props.source_indexes : null}/>
                 </div>
             </StateContext.Provider>
         </>

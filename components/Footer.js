@@ -185,47 +185,54 @@ const Footer = ({source_indexes}) => {
                 PARLEZ-EN À VOTRE MÉDECIN.
             </p>
         </Container>
-        <Grid className={background_image}>
-            <Grid.Column width={8}>
-                <Divider hidden/>
-                <Divider hidden/>
-                <Divider hidden/>
-                <Container
-                    text
-                    textAlign="right"
-                    className={source_style}
-                >
-                    <p>Référencé par &nbsp; <Link href="https://kitmedical.fr" passHref><Image src={logo} inline size="small" target="_blank"/></Link></p>
-                </Container>
-            </Grid.Column>
-            <Grid.Column width={8}>
+        <div className={background_image}>
+            <Container
+                className={source_style}
+            >
+                <Grid>
+                    <Grid.Row>
+                        <Divider hidden/>
+                        <Divider hidden/>
+                        <Divider hidden/>
+                    </Grid.Row>
+                    <Grid.Column width={8}>
+                        <Container fluid textAlign="right" text>
 
-                <Divider hidden/>
-                <Divider hidden/>
-                <Divider hidden/>
-                <Container
-                    text
-                    textAlign="left"
-                    className={source_style}
-                >
-                    {
-                        source_indexes &&
-                        <>
-                            <p onClick={() => setDisplaySources(!displaySources)}>Cliquer pour afficher plus de
-                                sources...</p>
-                            <Divider hidden/>
-                            {displaySources &&
-                            <SourceList source_indexes={source_indexes}/>
+                            <p>Référencé par &nbsp;
+                                <Link href="https://kitmedical.fr" passHref>
+                                    <Image src={logo} inline size="small" target="_blank"/>
+                                </Link>
+                            </p>
+                        </Container>
+                    </Grid.Column>
+                    <Grid.Column width={8}>
+
+                        <Container text textAlign="left" fluid
+                        >
+                            {
+                                source_indexes &&
+                                <>
+                                    <p onClick={() => setDisplaySources(!displaySources)}>Cliquer pour afficher plus de
+                                        sources...</p>
+                                    <Divider hidden/>
+                                    {displaySources &&
+                                    <SourceList source_indexes={source_indexes}/>
+                                    }
+                                </>
                             }
-                        </>
-                    }
-                    <Divider hidden/>
-                    <Divider hidden/>
-                    <Divider hidden/>
 
-                </Container>
-            </Grid.Column>
-        </Grid>
+                        </Container>
+                    </Grid.Column>
+                    <Grid.Row>
+                        <Divider hidden/>
+                        <Divider hidden/>
+                        <Divider hidden/>
+                    </Grid.Row>
+                </Grid>
+
+            </Container>
+        </div>
+
         {/*        <img
             src="/static/images/bottom.png"
             alt="Pink HPV bottom"

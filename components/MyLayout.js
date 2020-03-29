@@ -31,6 +31,12 @@ const Layout = props => {
                     description: props.description,
                     images: [
                         {
+                            url: 'https://' + props.host + '/static/images/left-cropped-logo.png',
+                            width: 100,
+                            height: 100,
+                            alt:"Vaccin Anti HPV",
+                        },
+                        {
                             url: 'https://' + props.host + '/static/images/cropped-logo.png',
                             width: 214,
                             height: 112,

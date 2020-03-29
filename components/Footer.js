@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {Button, Container, Divider, Grid, Image, List} from 'semantic-ui-react'
 import {css} from 'emotion'
 import {index_style, source_style} from "../utils/css";
+import QRCode from 'qrcode.react';
 import Link from "next/link";
 import logo from '../icons/logo-kit-medical-light.svg'
 
@@ -167,7 +168,7 @@ const SourceList = ({source_indexes}) => {
     </List>)
 }
 
-const Footer = ({source_indexes}) => {
+const Footer = ({host, source_indexes}) => {
     const [displaySources, setDisplaySources] = useState(false);
 
     return (<footer
@@ -198,10 +199,16 @@ const Footer = ({source_indexes}) => {
                     <Grid.Column width={8}>
                         <Container fluid textAlign="right" text>
 
-                            <p>Référencé par &nbsp;
+                            <p>
+                                Référencé par &nbsp;
                                 <Link href="https://kitmedical.fr" passHref>
                                     <Image src={logo} inline size="small" target="_blank"/>
                                 </Link>
+                                <Divider hidden/>
+
+                                Pour accéder à ce site par QR Code, par ici:
+                                <Divider hidden/>
+                                <QRCode value={"https://" + host}/>
                             </p>
                         </Container>
                     </Grid.Column>

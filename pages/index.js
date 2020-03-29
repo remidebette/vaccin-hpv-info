@@ -7,6 +7,7 @@ import Link from "next/link";
 import {RichText} from "prismic-reactjs";
 import {getMenu} from "../utils/api";
 import {buttonOverride, layoutStyle} from "../utils/css";
+import {CONSTANTS} from "../utils/CONSTANTS";
 
 
 const button_icons = {
@@ -62,8 +63,12 @@ const Index = (props) => {
     return (
         <Layout title="Tout savoir sur la vaccination anti HPV"
                 description={description}
-                canonical="https://vaccin-hpv-info.fr/"
-                menu={menu} page_sections={props.page_sections} pathname={props.pathname}>
+                canonical={'https://' + props.host + '/'}
+                host={props.host}
+                menu={menu}
+                page_sections={props.page_sections}
+                pathname={props.pathname}
+        >
 
             <Container
                 //text
@@ -129,6 +134,7 @@ Index.getInitialProps = async function (context) {
 
     return {
         pathname: context.asPath,
+        host: context.req ? context.req.headers.host: CONSTANTS.host,
         ...menu
     }
 }

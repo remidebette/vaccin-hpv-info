@@ -8,15 +8,19 @@ import {RichText} from "prismic-reactjs";
 import Header from "../components/Header";
 import {Container} from "semantic-ui-react";
 import {layoutStyle} from "../utils/css";
+import {CONSTANTS} from "../utils/CONSTANTS";
 
 const Index = (props) => {
     return (
         <Layout title={RichText.asText(props.faq.data.title)}
                 description="Tout ce que vous voulez savoir sur la vaccination anti-HPV.
                 Réponses aux idées reçues sur le vaccin anti-HPV"
-                canonical="https://vaccin-hpv-info.fr/faq"
+                canonical={'https://' + props.host + '/faq'}
                 source_indexes={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17]}
-                menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
+                menu={props.menu}
+                host={props.host}
+                page_sections={props.page_sections}
+                pathname={props.pathname}>
 
                 <Container
                     text
@@ -42,6 +46,7 @@ Index.getInitialProps = async function (context) {
 
     return {
         pathname: context.asPath,
+        host: context.req ? context.req.headers.host: CONSTANTS.host,
         faq: await faq,
         ...menu
     }

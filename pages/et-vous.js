@@ -8,6 +8,7 @@ import {getEtVous, getMenu} from "../utils/api";
 import {RichText} from "prismic-reactjs";
 import {htmlSerializer} from "../utils/htmlSerializer";
 import {layoutStyle} from "../utils/css";
+import {CONSTANTS} from "../utils/CONSTANTS";
 
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetBottom);
@@ -75,9 +76,12 @@ const EtVous = (props) => {
         <Layout title={RichText.asText(props.et_vous.data.title)}
                 description="Tout sur la vaccination anti-HPV. Obtenez des informations personnalisées sous forme d'une
                 synthèse sur votre situation par rapport aux vaccins HPV."
-                canonical="https://vaccin-hpv-info.fr/et-vous"
+                canonical={'https://' + props.host + '/et-vous'}
                 source_indexes={[0, 1, 2, 3, 4, 8]}
-                menu={props.menu} page_sections={props.page_sections} pathname={props.pathname}>
+                host={props.host}
+                menu={props.menu}
+                page_sections={props.page_sections}
+                pathname={props.pathname}>
 
             <Container
                 text
@@ -256,6 +260,7 @@ EtVous.getInitialProps = async function (context) {
 
     return {
         pathname: context.asPath,
+        host: context.req ? context.req.headers.host: CONSTANTS.host,
         et_vous: await et_vous,
         ...menu
     }

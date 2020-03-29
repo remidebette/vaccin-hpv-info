@@ -13,6 +13,7 @@ import {useRouter} from "next/router";
 import Header from "../components/Header";
 import {Container} from "semantic-ui-react";
 import {layoutStyle} from "../utils/css";
+import {CONSTANTS} from "../utils/CONSTANTS";
 
 
 const Page = (props) => {
@@ -29,11 +30,15 @@ const Page = (props) => {
         return (
             <Layout title={RichText.asText(props.doc.data.title)}
                     description={RichText.asText(props.doc.data.description)}
-                    canonical={"https://vaccin-hpv-info.fr/page/" + props.uid}
+                    canonical={'https://' + props.host + '/page/' + props.uid}
                     source_indexes={props.doc.data.sources.split(/\s*,\s*/).map(function (value) {
                         return Number(value) - 1;
                     })}
-                    menu={props.menu} page_sections={props.page_sections} uid={uid} pathname={props.pathname}>
+                    menu={props.menu}
+                    host={props.host}
+                    page_sections={props.page_sections}
+                    uid={uid}
+                    pathname={props.pathname}>
 
                 <Container
                     text
@@ -94,6 +99,7 @@ Page.getInitialProps = async function (context) {
     return {
         pathname: context.asPath,
         doc: await page,
+        host: context.req ? context.req.headers.host: CONSTANTS.host,
         uid: uid,
         ...menu
     }

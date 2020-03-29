@@ -19,17 +19,19 @@ const Layout = props => {
     return (
         <>
             <NextSeo
+                url={'https://' + props.host + '/'}
                 title={props.title}
                 titleTemplate = "vaccin-hpv-info.fr : %s"
                 description={props.description}
                 canonical={props.canonical}
+                image={'https://' + props.host + '/static/images/cropped-logo.png'}
                 openGraph={{
                     url: props.canonical,
                     title: props.title,
                     description: props.description,
                     images: [
                         {
-                            url: 'https://vaccin-hpv-info.fr/static/images/cropped-logo.png',
+                            url: 'https://' + props.host + '/static/images/cropped-logo.png',
                             width: 214,
                             height: 112,
                             alt:"Vaccin Anti HPV",

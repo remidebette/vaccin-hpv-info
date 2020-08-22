@@ -2,17 +2,20 @@ import {Predicates} from "prismic-javascript";
 
 const getMenu = async (API) => {
     try {
-        console.log(`Fetched menu`)
         const menu = API.getSingle('menu')
         const page_sections =  await API.query(
             Predicates.at("document.type", 'page'),
             {fetch: 'page_content.section_title'}
             )
-
-        return {
+        
+        const out = {
             menu: await menu,
             page_sections: page_sections.results
         }
+        console.log(`Fetched menu`)
+
+        return out
+
     } catch (error) {
         console.error(error)
         return error

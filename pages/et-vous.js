@@ -252,16 +252,18 @@ const EtVous = (props) => {
 };
 
 
-EtVous.getInitialProps = async function (context) {
+export const getStaticProps = async function () {
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const et_vous = getEtVous(API)
     const menu = await getMenu(API)
 
     return {
-        pathname: context.asPath,
-        host: context.req ? context.req.headers.host: CONSTANTS.host,
-        et_vous: await et_vous,
-        ...menu
+        props: {
+            pathname: "/et-vous",
+            host: CONSTANTS.host,
+            et_vous: await et_vous,
+            ...menu
+        }
     }
 }
 

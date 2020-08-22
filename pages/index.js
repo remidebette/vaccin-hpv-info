@@ -127,17 +127,18 @@ const Index = (props) => {
 };
 
 
-Index.getInitialProps = async function (context) {
-    const {uid} = context.query
+export const getStaticProps = async function () {
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const home = getHome(API)
     const menu = await getMenu(API)
 
     return {
-        pathname: context.asPath,
-        home: await home,
-        host: context.req ? context.req.headers.host: CONSTANTS.host,
-        ...menu
+        props: {
+            pathname: "/index",
+            home: await home,
+            host: CONSTANTS.host,
+            ...menu
+        }
     }
 }
 

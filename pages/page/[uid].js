@@ -5,15 +5,15 @@ import Prismic from 'prismic-javascript'
 //import ApolloClient, { gql }  from "apollo-boost";
 import {accessToken, apiEndpoint} from 'prismic-configuration'
 import {RichText} from 'prismic-reactjs'
-import Error from "./_error";
-import Layout from "../components/MyLayout";
-import SliceZone from "../components/slices/SliceZone";
-import {getMenu, getPage} from "../utils/api";
+import Error from "../_error";
+import Layout from "../../components/MyLayout";
+import SliceZone from "../../components/slices/SliceZone";
+import {getMenu, getPage} from "../../utils/api";
 import {useRouter} from "next/router";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import {Container} from "semantic-ui-react";
-import {layoutStyle} from "../utils/css";
-import {CONSTANTS} from "../utils/CONSTANTS";
+import {layoutStyle} from "../../utils/css";
+import {CONSTANTS} from "../../utils/CONSTANTS";
 
 
 const Page = (props) => {
@@ -27,10 +27,11 @@ const Page = (props) => {
             <Error statusCode='404' menu={props.menu} page_sections={props.page_sections}/>
         )
     } else {
+        const pathname = '/page/' + props.uid;
         return (
             <Layout title={RichText.asText(props.doc.data.title)}
                     description={RichText.asText(props.doc.data.description)}
-                    canonical={'https://' + props.host + '/page/' + props.uid}
+                    canonical={'https://' + props.host + pathname}
                     source_indexes={props.doc.data.sources.split(/\s*,\s*/).map(function (value) {
                         return Number(value) - 1;
                     })}
@@ -38,7 +39,7 @@ const Page = (props) => {
                     host={props.host}
                     page_sections={props.page_sections}
                     uid={uid}
-                    pathname={props.pathname}>
+                    pathname={router.asPath}>
 
                 <Container
                     text
@@ -54,8 +55,23 @@ const Page = (props) => {
     }
 };
 
-Page.getInitialProps = async function (context) {
-    const {uid} = context.query;
+export const getStaticPaths = async function () {
+    const API = await Prismic.getApi(apiEndpoint, { accessToken })
+    const menu = await getMenu(API);
+    const paths = menu.page_sections.map(section => {
+        return {
+            params: {
+                uid: section.uid
+            }
+        }
+    })
+    return {
+        paths,
+        fallback: false
+    }
+}
+
+export const getStaticProps = async function ({params}) {
     // The following is for when working in local...
     // const req = context.req || null;
     // const params = req ? req.query : null;
@@ -92,16 +108,17 @@ Page.getInitialProps = async function (context) {
 //     }).then(result => console.log(result));
 
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
-    const page = getPage(uid, API)
+    const page = getPage(params.uid, API)
     const menu = await getMenu(API)
 
 
     return {
-        pathname: context.asPath,
-        doc: await page,
-        host: context.req ? context.req.headers.host: CONSTANTS.host,
-        uid: uid,
-        ...menu
+        props: {
+            doc: await page,
+            host: CONSTANTS.host,
+            uid: params.uid,
+            ...menu
+        }
     }
 }
 

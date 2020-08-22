@@ -43,14 +43,14 @@
     "watch": "jest --no-cache --watch ./*",
     "lint": "eslint .",
     "lint-test": "eslint . && jest --no-cache ./* ",
-    "now-dev": "now dev",
+    "vercel-dev": "vercel dev",
     "node-dev": "nodemon server.js",
     "dev": "next",
     "debbug": "NODE_OPTIONS=\"--inspect\" next",
     "node-debbug": "nodemon --inspect server.js",
     "build": "next build",
     "start": "next start",
-    "deploy": "now"
+    "deploy": "vercel"
   },
   "dependencies": {
     "@emotion/core": "^10.0.27",
@@ -58,7 +58,7 @@
     "emotion": "^10.0.27",
     "isomorphic-unfetch": "^3.0.0",
     "less": "^3.11.1",
-    "next": "^9.3.2",
+    "next": "^9.5.2",
     "next-seo": "^4.4.0",
     "prismic-javascript": "^2.2.0",
     "prismic-reactjs": "^1.2.0",

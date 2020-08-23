@@ -202,7 +202,7 @@ const Footer = ({host, source_indexes}) => {
                             <p>
                                 Référencé par &nbsp;
                                 <Link href="https://kitmedical.fr" passHref>
-                                    <Image src={logo} inline size="small" rel="noopener" target="_blank"/>
+                                    <Image src={logo} inline size="small" rel="noopener" target="_blank" alt="Kit Medical"/>
                                 </Link>
                                 <Divider hidden/>
 

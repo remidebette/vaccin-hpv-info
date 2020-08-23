@@ -19,7 +19,7 @@ const logo_style = css`
         `
 
 const background_image = css`
-        background-image: url("/static/images/bottom.png");
+        background-image: url("/images/bottom.png");
         background-position: top;
         background-size: 45%;
         background-repeat: no-repeat;
@@ -241,7 +241,7 @@ const Footer = ({host, source_indexes}) => {
         </div>
 
         {/*        <img
-            src="/static/images/bottom.png"
+            src="/images/bottom.png"
             alt="Pink HPV bottom"
             className="footer-logo"
         />*/}

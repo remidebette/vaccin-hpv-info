@@ -146,8 +146,8 @@ const Index = (props) => {
 
                             <Rail position='left'>
                                 <Card>
-                                    <Image src='/static/images/benchekroun.jpg' wrapped
-                                           ui={false}/>
+                                    <Image src='/images/benchekroun.jpg' wrapped
+                                        ui={false} alt="Benchekroun Mehdi"/>
                                     <Card.Content>
                                         <Card.Header>BENCHEKROUN Mehdi</Card.Header>
                                         <Card.Description>
@@ -162,8 +162,8 @@ const Index = (props) => {
                                     </Card.Content>
                                 </Card>
                                 <Card>
-                                    <Image src='/static/images/desmarecaux.jpg' wrapped
-                                           ui={false}/>
+                                    <Image src='/images/desmarecaux.jpg' wrapped
+                                        ui={false} alt="Desmarecaux Celine"/>
                                     <Card.Content>
                                         <Card.Header>DESMARECAUX Céline</Card.Header>
                                         <Card.Description>
@@ -181,8 +181,8 @@ const Index = (props) => {
 
                             <Rail position='right'>
                                 <Card>
-                                    <Image src='/static/images/favre.jpg' wrapped
-                                           ui={false}/>
+                                    <Image src='/images/favre.jpg' wrapped
+                                        ui={false} alt="Favre Jonathan"/>
                                     <Card.Content>
                                         <Card.Header>FAVRE Jonathan</Card.Header>
                                         <Card.Description>
@@ -197,8 +197,8 @@ const Index = (props) => {
                                     </Card.Content>
                                 </Card>
                                 <Card>
-                                    <Image src='/static/images/dubois.jpg' wrapped
-                                           ui={false}/>
+                                    <Image src='/images/dubois.jpg' wrapped
+                                           ui={false} alt="Dubois Lucas"/>
                                     <Card.Content>
                                         <Card.Header>DUBOIS Lucas</Card.Header>
                                         <Card.Description>

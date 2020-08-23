@@ -24,20 +24,20 @@ const Layout = props => {
                 //titleTemplate = "vaccin-hpv-info.fr : %s"
                 description={props.description}
                 canonical={props.canonical}
-                image={'https://' + props.host + '/static/images/left-cropped-logo.png'}
+                image={'https://' + props.host + '/images/left-cropped-logo.png'}
                 openGraph={{
                     url: props.canonical,
                     title: props.title,
                     description: props.description,
                     images: [
                         {
-                            url: 'https://' + props.host + '/static/images/left-cropped-logo.png',
+                            url: 'https://' + props.host + '/images/left-cropped-logo.png',
                             width: 100,
                             height: 100,
                             alt:"Vaccin Anti HPV",
                         },
                         {
-                            url: 'https://' + props.host + '/static/images/cropped-logo.png',
+                            url: 'https://' + props.host + '/images/cropped-logo.png',
                             width: 214,
                             height: 112,
                             alt:"Vaccin Anti HPV",

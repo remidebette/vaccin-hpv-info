@@ -78,7 +78,7 @@ const Index = (props) => {
                 <Grid>
                     <Grid.Column textAlign="center">
                         <h1><Image
-                            src="/static/images/logo.png"
+                            src="/images/logo.png"
                             alt="Page d'accueil du site Vaccin Anti HPV"
                             centered={false}
                         />

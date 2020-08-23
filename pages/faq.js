@@ -1,14 +1,13 @@
 import React from 'react';
 import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint} from 'prismic-configuration'
-import {getFAQ, getMenu} from "../utils/api";
+import {getFAQ, getMenu} from "utils/api";
 import FAQSlice from "components/slices/faqSlice";
 import Layout from "components/MyLayout"
 import {RichText} from "prismic-reactjs";
-import Header from "../components/Header";
 import {Container} from "semantic-ui-react";
-import {layoutStyle} from "../utils/css";
-import { CONSTANTS } from '../utils/CONSTANTS';
+import {layoutStyle} from "utils/css";
+import { CONSTANTS } from 'utils/CONSTANTS';
 
 const Index = (props) => {
     return (

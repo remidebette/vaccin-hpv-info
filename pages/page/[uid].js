@@ -6,14 +6,13 @@ import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint} from 'prismic-configuration'
 import {RichText} from 'prismic-reactjs'
 import Error from "../_error";
-import Layout from "../../components/MyLayout";
-import SliceZone from "../../components/slices/SliceZone";
-import {getMenu, getPage} from "../../utils/api";
+import Layout from "components/MyLayout";
+import SliceZone from "components/slices/SliceZone";
+import {getMenu, getPage} from "utils/api";
 import {useRouter} from "next/router";
-import Header from "../../components/Header";
 import {Container} from "semantic-ui-react";
-import {layoutStyle} from "../../utils/css";
-import { CONSTANTS } from '../../utils/CONSTANTS';
+import {layoutStyle} from "utils/css";
+import { CONSTANTS } from 'utils/CONSTANTS';
 
 
 const Page = (props) => {

@@ -4,11 +4,11 @@ import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint, linkResolver} from 'prismic-configuration'
 import {Button, Container, Divider, Header, Icon, Message, Segment, Transition} from 'semantic-ui-react'
 import useForm from "utils/useForm";
-import {getEtVous, getMenu} from "../utils/api";
+import {getEtVous, getMenu} from "utils/api";
 import {RichText} from "prismic-reactjs";
-import {htmlSerializer} from "../utils/htmlSerializer";
-import {layoutStyle} from "../utils/css";
-import { CONSTANTS } from '../utils/CONSTANTS';
+import {htmlSerializer} from "utils/htmlSerializer";
+import {layoutStyle} from "utils/css";
+import { CONSTANTS } from 'utils/CONSTANTS';
 
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetBottom);

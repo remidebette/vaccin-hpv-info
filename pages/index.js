@@ -5,9 +5,9 @@ import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-configuration'
 import Link from "next/link";
 import {RichText} from "prismic-reactjs";
-import {getFAQ, getHome, getMenu} from "../utils/api";
-import {buttonOverride, layoutStyle} from "../utils/css";
-import { CONSTANTS } from '../utils/CONSTANTS';
+import {getHome, getMenu} from "utils/api";
+import {buttonOverride, layoutStyle} from "utils/css";
+import { CONSTANTS } from 'utils/CONSTANTS';
 
 
 const button_icons = {

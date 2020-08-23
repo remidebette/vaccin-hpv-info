@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import {css} from 'emotion'
 import {Container, Dropdown, Icon, Menu, Sticky, Popup} from 'semantic-ui-react'
-import {noBoxShadow} from "../utils/css";
-import {hrefResolver, linkResolver} from "../prismic-configuration";
+import {noBoxShadow} from "utils/css";
+import {hrefResolver, linkResolver} from "prismic-configuration";
 import {RichText} from "prismic-reactjs";
 
 const linkStyle = css`

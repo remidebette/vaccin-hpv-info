@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import {Button, Container, Divider, Grid, Image, List} from 'semantic-ui-react'
+import {Container, Divider, Grid, Image, List} from 'semantic-ui-react'
 import {css} from 'emotion'
-import {index_style, source_style} from "../utils/css";
+import {index_style, source_style} from "utils/css";
 import QRCode from 'qrcode.react';
 import Link from "next/link";
-import logo from '../icons/logo-kit-medical-light.svg'
+import logo from 'icons/logo-kit-medical-light.svg'
 
 const text_style = css`
         /* border-top: 1px solid #DADADA; */

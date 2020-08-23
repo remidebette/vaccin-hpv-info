@@ -1,7 +1,7 @@
 import React from 'react'
 import App from 'next/app'
 import {DefaultSeo} from 'next-seo';
-import SEO from '../next-seo.config';
+import SEO from 'next-seo.config';
 import Head from "next/head";
 
 class MyApp extends App {

@@ -2,8 +2,8 @@ import React from 'react'
 import Head from 'next/head'
 import Layout from "components/MyLayout";
 import Prismic from "prismic-javascript";
-import {accessToken, apiEndpoint} from "../prismic-configuration";
-import {getMenu} from "../utils/api";
+import {accessToken, apiEndpoint} from "prismic-configuration";
+import {getMenu} from "utils/api";
 
 const Error = (props) => {
     return (

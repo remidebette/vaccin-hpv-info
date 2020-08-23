@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Layout from "components/MyLayout";
 import Prismic from "prismic-javascript";
 import {accessToken, apiEndpoint} from "prismic-configuration";
-import {getMenu} from "utils/api";
+import {getMenu, getPageSections} from "utils/api";
 
 const Error = (props) => {
     return (
@@ -32,9 +32,14 @@ const Error = (props) => {
 
 Error.getInitialProps = async function ({res, err}) {
     const statusCode = res ? res.statusCode : err ? err.statusCode : null;
-    const API = await Prismic.getApi(apiEndpoint, {accessToken});
-    const menu = await getMenu(API);
-    return {statusCode, ...menu}
+    const API = await Prismic.getApi(apiEndpoint, { accessToken });
+    const menu = getMenu(API);
+    const page_sections = getPageSections(API);
+
+    return {
+        statusCode,
+        menu: await menu,
+        page_sections: await page_sections}
 }
 
 export default Error

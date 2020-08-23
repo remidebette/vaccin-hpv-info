@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint} from 'prismic-configuration'
-import {getMenu} from "utils/api";
+import {getMenu, getPageSections} from "utils/api";
 import {Container, Divider, Segment, Rail, Grid, Card, Image, Icon, Form, Message} from "semantic-ui-react";
 import {layoutStyle} from "utils/css";
 import useForm from "utils/useForm";
@@ -224,14 +224,16 @@ const Index = (props) => {
 
 
 export const getStaticProps = async function () {
-    const API = await Prismic.getApi(apiEndpoint, {accessToken})
-    const menu = await getMenu(API)
+    const API = await Prismic.getApi(apiEndpoint, { accessToken })
+    const menu = getMenu(API);
+    const page_sections = getPageSections(API);
 
     return {
         props: {
             pathname: "/a-propos",
             host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
-            ...menu
+            menu: await menu,
+            page_sections: await page_sections
         },
         revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }

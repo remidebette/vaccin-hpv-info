@@ -8,7 +8,7 @@ import {RichText} from 'prismic-reactjs'
 import Error from "../_error";
 import Layout from "components/MyLayout";
 import SliceZone from "components/slices/SliceZone";
-import {getMenu, getPage} from "utils/api";
+import {getPageSections, getMenu, getPage} from "utils/api";
 import {useRouter} from "next/router";
 import {Container} from "semantic-ui-react";
 import {layoutStyle} from "utils/css";
@@ -56,8 +56,8 @@ const Page = (props) => {
 
 export const getStaticPaths = async function () {
     const API = await Prismic.getApi(apiEndpoint, { accessToken })
-    const menu = await getMenu(API);
-    const paths = menu.page_sections.map(section => {
+    const page_sections = await getPageSections(API);
+    const paths = page_sections.map(section => {
         return {
             params: {
                 uid: section.uid
@@ -106,9 +106,10 @@ export const getStaticProps = async function ({params}) {
 // `
 //     }).then(result => console.log(result));
 
-    const API = await Prismic.getApi(apiEndpoint, {accessToken})
-    const page = getPage(params.uid, API)
-    const menu = await getMenu(API)
+    const API = await Prismic.getApi(apiEndpoint, {accessToken});
+    const page = getPage(params.uid, API);
+    const menu = getMenu(API);
+    const page_sections = getPageSections(API);
 
 
     return {
@@ -116,7 +117,8 @@ export const getStaticProps = async function ({params}) {
             doc: await page,
             host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
             uid: params.uid,
-            ...menu
+            menu: await menu,
+            page_sections: await page_sections
         },
         revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }

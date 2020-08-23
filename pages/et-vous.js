@@ -4,7 +4,7 @@ import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint, linkResolver} from 'prismic-configuration'
 import {Button, Container, Divider, Header, Icon, Message, Segment, Transition} from 'semantic-ui-react'
 import useForm from "utils/useForm";
-import {getEtVous, getMenu} from "utils/api";
+import {getEtVous, getMenu, getPageSections} from "utils/api";
 import {RichText} from "prismic-reactjs";
 import {htmlSerializer} from "utils/htmlSerializer";
 import {layoutStyle} from "utils/css";
@@ -255,14 +255,16 @@ const EtVous = (props) => {
 export const getStaticProps = async function () {
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const et_vous = getEtVous(API)
-    const menu = await getMenu(API)
+    const menu = getMenu(API);
+    const page_sections = getPageSections(API);
 
     return {
         props: {
             pathname: "/et-vous",
             host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
             et_vous: await et_vous,
-            ...menu
+            menu: await menu,
+            page_sections: await page_sections
         },
         revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }

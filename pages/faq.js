@@ -1,7 +1,7 @@
 import React from 'react';
 import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint} from 'prismic-configuration'
-import {getFAQ, getMenu} from "utils/api";
+import {getFAQ, getMenu, getPageSections} from "utils/api";
 import FAQSlice from "components/slices/faqSlice";
 import Layout from "components/MyLayout"
 import {RichText} from "prismic-reactjs";
@@ -39,14 +39,16 @@ const Index = (props) => {
 export const getStaticProps = async function () {
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const faq = getFAQ(API)
-    const menu = await getMenu(API)
+    const menu = getMenu(API);
+    const page_sections = getPageSections(API);
 
     return {
         props: {
             pathname: "/faq",
             host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
             faq: await faq,
-            ...menu
+            menu: await menu,
+            page_sections: await page_sections
         },
         revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }

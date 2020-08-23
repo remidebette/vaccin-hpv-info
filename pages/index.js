@@ -5,7 +5,7 @@ import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint, linkResolver} from 'prismic-configuration'
 import Link from "next/link";
 import {RichText} from "prismic-reactjs";
-import {getHome, getMenu} from "utils/api";
+import {getHome, getMenu, getPageSections} from "utils/api";
 import {buttonOverride, layoutStyle} from "utils/css";
 import { CONSTANTS } from 'utils/CONSTANTS';
 
@@ -130,14 +130,16 @@ const Index = (props) => {
 export const getStaticProps = async function () {
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const home = getHome(API)
-    const menu = await getMenu(API)
+    const menu = getMenu(API);
+    const page_sections = getPageSections(API);
 
     return {
         props: {
             pathname: "/index",
             home: await home,
             host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
-            ...menu
+            menu: await menu,
+            page_sections: await page_sections
         },
         revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }

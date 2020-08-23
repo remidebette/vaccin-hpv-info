@@ -1,16 +1,15 @@
 import React from 'react';
-import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint} from 'prismic-configuration'
 import {getMenu, getPageSections} from "utils/api";
 import {Container, Divider, Segment, Rail, Grid, Card, Image, Icon, Form, Message} from "semantic-ui-react";
 import {layoutStyle} from "utils/css";
 import useForm from "utils/useForm";
-import { CONSTANTS } from 'utils/CONSTANTS';
+import {CONSTANTS} from 'utils/CONSTANTS';
 
 const mailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const Index = (props) => {
+const Index = () => {
     const initialState = {
         "mail": undefined,
         "subject": undefined,
@@ -42,198 +41,195 @@ const Index = (props) => {
     }
 
     return (
-        <Layout title="A propos de nous"
-                description="Tout sur la vaccination anti-HPV.
-                La création de ce site a été faite en collaboration entre trois internes de médecine générale
-                et leur directeur de thèse."
-                canonical={'https://' + props.host + '/a-propos'}
-                host={props.host}
-                menu={props.menu}
-                page_sections={props.page_sections}
-                pathname={props.pathname}>
-            <Grid centered columns={3}>
-                <Grid.Column>
-                    <Container
-                        //text
-                        className={layoutStyle}
-                        textAlign='justified'
-                    >
-                        <h1>A propos de nous</h1>
+        <Grid centered columns={3}>
+            <Grid.Column>
+                <Container
+                    //text
+                    className={layoutStyle}
+                    textAlign='justified'
+                >
+                    <h1>A propos de nous</h1>
 
-                        <Divider hidden/>
+                    <Divider hidden/>
 
-                        <Segment basic>
-                            <p>La création de ce site a pour but de donner une information claire, précise et simple sur
-                                la
-                                vaccination contre HPV.
-                                Sa création et son évaluation ont fait l'objet d'un travail de thèse en médecine
-                                général.
-                                Il a été créé en collaboration entre trois internes de médecine générale et leur
-                                directeur de
-                                thèse.</p>
+                    <Segment basic>
+                        <p>La création de ce site a pour but de donner une information claire, précise et simple sur
+                            la
+                            vaccination contre HPV.
+                            Sa création et son évaluation ont fait l'objet d'un travail de thèse en médecine
+                            général.
+                            Il a été créé en collaboration entre trois internes de médecine générale et leur
+                            directeur de
+                            thèse.</p>
 
-                            <p>
-                                Les références proviennent des recommandations nationales, de sociétés savantes ou
-                                fédérations, de
-                                méta-analyses et d’articles disponibles dans les différents liens.
-                            </p>
-                            <p>
-                                Vaccin-HPV-Info a été élaboré en collaboration par :
-                                BENCHEKROUN Mehdi, DESMARECAUX Céline, DUBOIS Lucas et FAVRE Jonathan
-                            </p>
-                            <p>
-                                Financement :
-                                Le projet est auto-financé.
-                                Le site n’accueille aucune forme de publicité.
-                                Les auteurs n’ont pas de conflit d’intérêt.
-                            </p>
+                        <p>
+                            Les références proviennent des recommandations nationales, de sociétés savantes ou
+                            fédérations, de
+                            méta-analyses et d’articles disponibles dans les différents liens.
+                        </p>
+                        <p>
+                            Vaccin-HPV-Info a été élaboré en collaboration par :
+                            BENCHEKROUN Mehdi, DESMARECAUX Céline, DUBOIS Lucas et FAVRE Jonathan
+                        </p>
+                        <p>
+                            Financement :
+                            Le projet est auto-financé.
+                            Le site n’accueille aucune forme de publicité.
+                            Les auteurs n’ont pas de conflit d’intérêt.
+                        </p>
 
-                            <Divider/>
+                        <Divider/>
 
-                            <h2>Contactez nous</h2>
-                            <p>
-                                Vous pouvez nous contacter directement par mail à &nbsp;
-                                <a href="mailto:contact@vaccin-hpv-info.fr"><Icon fitted name='mail'/>contact@vaccin-hpv-info.fr</a>
-                                &nbsp;ou à l'aide du formulaire ci-dessous qui ouvrira le client mail de votre appareil.
-                            </p>
+                        <h2>Contactez nous</h2>
+                        <p>
+                            Vous pouvez nous contacter directement par mail à &nbsp;
+                            <a href="mailto:contact@vaccin-hpv-info.fr"><Icon fitted name='mail'/>contact@vaccin-hpv-info.fr</a>
+                            &nbsp;ou à l'aide du formulaire ci-dessous qui ouvrira le client mail de votre appareil.
+                        </p>
 
-                            {!values.sent && <Form>
-                                {/*                                <Form.Input label='Votre nom et prénom' placeholder='Votre nom'
+                        {!values.sent && <Form>
+                            {/*                                <Form.Input label='Votre nom et prénom' placeholder='Votre nom'
                                             name='name' value={values.name}
                                             error={isErrorName} onChange={handleChange}/>*/}
-                                <Form.Input label='Adresse mail' placeholder='Adresse mail'
-                                            name='mail' value={values.mail}
-                                            error={isErrorMail} onChange={handleChange}/>
+                            <Form.Input label='Adresse mail' placeholder='Adresse mail'
+                                        name='mail' value={values.mail}
+                                        error={isErrorMail} onChange={handleChange}/>
 
-                                <Form.Input fluid label='Sujet' placeholder='Sujet'
-                                            name="subject" value={values.subject}
-                                            error={isErrorSubject} onChange={handleChange}/>
+                            <Form.Input fluid label='Sujet' placeholder='Sujet'
+                                        name="subject" value={values.subject}
+                                        error={isErrorSubject} onChange={handleChange}/>
 
-                                <Form.TextArea label='Votre message'
-                                               placeholder='Dites nous en plus...'
-                                               rows={10}
-                                               name="message" value={values.message}
-                                               error={isErrorMessage} onChange={handleChange}
-                                />
+                            <Form.TextArea label='Votre message'
+                                           placeholder='Dites nous en plus...'
+                                           rows={10}
+                                           name="message" value={values.message}
+                                           error={isErrorMessage} onChange={handleChange}
+                            />
 
-                                <Form.Button size="large" disabled={!isButtonActive}
-                                             onClick={handleSubmit}>Envoi</Form.Button>
-                            </Form>}
-
-
-                            {values.sent && <>
-                                <Message>
-                                    <Message.Header>Nous avons ouvert votre éditeur de mail !</Message.Header>
-                                    <p>
-                                        Pensez à vérifiez vos mails pour notre réponse.
-                                    </p>
-                                </Message>
-
-                                <Divider hidden/>
-                                <Divider hidden/>
-                                <Divider hidden/>
-                                <Divider hidden/>
-                                <Divider hidden/>
-                                <Divider hidden/>
-                                <Divider hidden/>
-                                <Divider hidden/>
-                                <Divider hidden/>
-                                <Divider hidden/>
-                                <Divider hidden/>
-                                <Divider hidden/>
-                            </>}
+                            <Form.Button size="large" disabled={!isButtonActive}
+                                         onClick={handleSubmit}>Envoi</Form.Button>
+                        </Form>}
 
 
-                            <Rail position='left'>
-                                <Card>
-                                    <Image src='/images/benchekroun.jpg' wrapped
-                                        ui={false} alt="Benchekroun Mehdi"/>
-                                    <Card.Content>
-                                        <Card.Header>BENCHEKROUN Mehdi</Card.Header>
-                                        <Card.Description>
-                                            Interne en médecine générale
-                                        </Card.Description>
-                                    </Card.Content>
-                                    <Card.Content extra>
-                                        <a>
-                                            <Icon name='hospital'/>
-                                            Faculté de médecine de Lille
-                                        </a>
-                                    </Card.Content>
-                                </Card>
-                                <Card>
-                                    <Image src='/images/desmarecaux.jpg' wrapped
-                                        ui={false} alt="Desmarecaux Celine"/>
-                                    <Card.Content>
-                                        <Card.Header>DESMARECAUX Céline</Card.Header>
-                                        <Card.Description>
-                                            Interne en médecine générale
-                                        </Card.Description>
-                                    </Card.Content>
-                                    <Card.Content extra>
-                                        <a>
-                                            <Icon name='hospital'/>
-                                            Faculté de médecine de Lille
-                                        </a>
-                                    </Card.Content>
-                                </Card>
-                            </Rail>
+                        {values.sent && <>
+                            <Message>
+                                <Message.Header>Nous avons ouvert votre éditeur de mail !</Message.Header>
+                                <p>
+                                    Pensez à vérifiez vos mails pour notre réponse.
+                                </p>
+                            </Message>
 
-                            <Rail position='right'>
-                                <Card>
-                                    <Image src='/images/favre.jpg' wrapped
-                                        ui={false} alt="Favre Jonathan"/>
-                                    <Card.Content>
-                                        <Card.Header>FAVRE Jonathan</Card.Header>
-                                        <Card.Description>
-                                            Chef de clinique des universités
-                                        </Card.Description>
-                                    </Card.Content>
-                                    <Card.Content extra>
-                                        <a>
-                                            <Icon name='hospital'/>
-                                            Faculté de médecine de Lille
-                                        </a>
-                                    </Card.Content>
-                                </Card>
-                                <Card>
-                                    <Image src='/images/dubois.jpg' wrapped
-                                           ui={false} alt="Dubois Lucas"/>
-                                    <Card.Content>
-                                        <Card.Header>DUBOIS Lucas</Card.Header>
-                                        <Card.Description>
-                                            Interne en médecine générale
-                                        </Card.Description>
-                                    </Card.Content>
-                                    <Card.Content extra>
-                                        <a>
-                                            <Icon name='hospital'/>
-                                            Faculté de médecine de Lille
-                                        </a>
-                                    </Card.Content>
-                                </Card>
-                            </Rail>
-                        </Segment>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                        </>}
 
-                    </Container>
-                </Grid.Column>
-            </Grid>
-        </Layout>
+
+                        <Rail position='left'>
+                            <Card>
+                                <Image src='/images/benchekroun.jpg' wrapped
+                                       ui={false} alt="Benchekroun Mehdi"/>
+                                <Card.Content>
+                                    <Card.Header>BENCHEKROUN Mehdi</Card.Header>
+                                    <Card.Description>
+                                        Interne en médecine générale
+                                    </Card.Description>
+                                </Card.Content>
+                                <Card.Content extra>
+                                    <a>
+                                        <Icon name='hospital'/>
+                                        Faculté de médecine de Lille
+                                    </a>
+                                </Card.Content>
+                            </Card>
+                            <Card>
+                                <Image src='/images/desmarecaux.jpg' wrapped
+                                       ui={false} alt="Desmarecaux Celine"/>
+                                <Card.Content>
+                                    <Card.Header>DESMARECAUX Céline</Card.Header>
+                                    <Card.Description>
+                                        Interne en médecine générale
+                                    </Card.Description>
+                                </Card.Content>
+                                <Card.Content extra>
+                                    <a>
+                                        <Icon name='hospital'/>
+                                        Faculté de médecine de Lille
+                                    </a>
+                                </Card.Content>
+                            </Card>
+                        </Rail>
+
+                        <Rail position='right'>
+                            <Card>
+                                <Image src='/images/favre.jpg' wrapped
+                                       ui={false} alt="Favre Jonathan"/>
+                                <Card.Content>
+                                    <Card.Header>FAVRE Jonathan</Card.Header>
+                                    <Card.Description>
+                                        Chef de clinique des universités
+                                    </Card.Description>
+                                </Card.Content>
+                                <Card.Content extra>
+                                    <a>
+                                        <Icon name='hospital'/>
+                                        Faculté de médecine de Lille
+                                    </a>
+                                </Card.Content>
+                            </Card>
+                            <Card>
+                                <Image src='/images/dubois.jpg' wrapped
+                                       ui={false} alt="Dubois Lucas"/>
+                                <Card.Content>
+                                    <Card.Header>DUBOIS Lucas</Card.Header>
+                                    <Card.Description>
+                                        Interne en médecine générale
+                                    </Card.Description>
+                                </Card.Content>
+                                <Card.Content extra>
+                                    <a>
+                                        <Icon name='hospital'/>
+                                        Faculté de médecine de Lille
+                                    </a>
+                                </Card.Content>
+                            </Card>
+                        </Rail>
+                    </Segment>
+
+                </Container>
+            </Grid.Column>
+        </Grid>
     )
 };
 
 
 export const getStaticProps = async function () {
-    const API = await Prismic.getApi(apiEndpoint, { accessToken })
+    const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const menu = getMenu(API);
     const page_sections = getPageSections(API);
+
+    const fetched = {
+        menu: await menu,
+        page_sections: await page_sections
+    }
 
     return {
         props: {
             pathname: "/a-propos",
-            host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
-            menu: await menu,
-            page_sections: await page_sections
+            title: "A propos de nous",
+            description: "Tout sur la vaccination anti-HPV. " +
+                "La création de ce site a été faite en collaboration entre trois internes de médecine générale " +
+                "et leur directeur de thèse.",
+            ...fetched
         },
         revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }

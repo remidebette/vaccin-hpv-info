@@ -168,7 +168,7 @@ const SourceList = ({source_indexes}) => {
     </List>)
 }
 
-const Footer = ({host, source_indexes}) => {
+const Footer = ({qr_code_url, source_indexes}) => {
     const [displaySources, setDisplaySources] = useState(false);
 
     return (<footer
@@ -208,7 +208,7 @@ const Footer = ({host, source_indexes}) => {
 
                                 Pour accéder à ce site par QR Code, par ici:
                                 <Divider hidden/>
-                                <QRCode value={"https://" + host}/>
+                                <QRCode value={qr_code_url}/>
                             </p>
                         </Container>
                     </Grid.Column>

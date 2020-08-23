@@ -4,6 +4,7 @@ export const noBoxShadow = css`
 box-shadow: none !important;
 border: none !important;
 margin-bottom: 0em !important;
+border-radius: 0em !important;
 `;
 
 export const layoutStyle = css`

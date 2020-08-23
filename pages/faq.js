@@ -1,53 +1,52 @@
 import React from 'react';
 import Prismic from 'prismic-javascript'
 import {accessToken, apiEndpoint} from 'prismic-configuration'
-import {getFAQ, getMenu} from "../utils/api";
+import {getFAQ, getMenu, getPageSections} from "utils/api";
 import FAQSlice from "components/slices/faqSlice";
-import Layout from "components/MyLayout"
 import {RichText} from "prismic-reactjs";
-import Header from "../components/Header";
 import {Container} from "semantic-ui-react";
-import {layoutStyle} from "../utils/css";
-import {CONSTANTS} from "../utils/CONSTANTS";
+import {layoutStyle} from "utils/css";
+import {CONSTANTS} from 'utils/CONSTANTS';
 
 const Index = (props) => {
     return (
-        <Layout title={RichText.asText(props.faq.data.title)}
-                description={RichText.asText(props.faq.data.description)}
-                canonical={'https://' + props.host + '/faq'}
-                source_indexes={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17]}
-                menu={props.menu}
-                host={props.host}
-                page_sections={props.page_sections}
-                pathname={props.pathname}>
-
-                <Container
-                    text
-                    className={layoutStyle}
-                    textAlign='justified'
-                >
+        <Container
+            text
+            className={layoutStyle}
+            textAlign='justified'
+        >
             <h1>{RichText.asText(props.faq.data.title)}</h1>
 
             {props.faq.data.page_content.map((slice, index) => {
-            return <FAQSlice slice={slice} key={'slice-' + index}/>})
+                return <FAQSlice slice={slice} key={'slice-' + index}/>
+            })
             }
-                </Container>
-        </Layout>
+        </Container>
     )
 };
 
 
-Index.getInitialProps = async function (context) {
-    const { uid } = context.query
+export const getStaticProps = async function () {
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const faq = getFAQ(API)
-    const menu = await getMenu(API)
+    const menu = getMenu(API);
+    const page_sections = getPageSections(API);
+
+    const fetched = {
+        faq: await faq,
+        menu: await menu,
+        page_sections: await page_sections
+    }
 
     return {
-        pathname: context.asPath,
-        host: context.req ? context.req.headers.host: CONSTANTS.host,
-        faq: await faq,
-        ...menu
+        props: {
+            pathname: "/faq",
+            title: RichText.asText(fetched.faq.data.title),
+            description: RichText.asText(fetched.faq.data.description),
+            source_indexes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17],
+            ...fetched
+        },
+        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }
 }
 

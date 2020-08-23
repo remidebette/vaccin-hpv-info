@@ -1,13 +1,12 @@
 import {Button, Divider, Grid, Image, Icon, Container, Segment} from 'semantic-ui-react';
 import React from 'react';
-import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
-import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-configuration'
+import {accessToken, apiEndpoint, linkResolver} from 'prismic-configuration'
 import Link from "next/link";
 import {RichText} from "prismic-reactjs";
-import {getFAQ, getHome, getMenu} from "../utils/api";
-import {buttonOverride, layoutStyle} from "../utils/css";
-import {CONSTANTS} from "../utils/CONSTANTS";
+import {getHome, getMenu, getPageSections} from "utils/api";
+import {buttonOverride, layoutStyle} from "utils/css";
+import {CONSTANTS} from 'utils/CONSTANTS';
 
 
 const button_icons = {
@@ -46,12 +45,12 @@ const IndexButton = React.forwardRef((props, ref) => {
 const menuHome = (menu_links) => {
     return menu_links.map((menuLink) => {
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
-                    <IndexButton
-                        icon={button_icons[menuLink.link.uid]}
-                    >
-                        {RichText.asText(menuLink.label).toUpperCase()}
-                    </IndexButton>
+            <Link href={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
+                <IndexButton
+                    icon={button_icons[menuLink.link.uid]}
+                >
+                    {RichText.asText(menuLink.label).toUpperCase()}
+                </IndexButton>
             </Link>
         );
     });
@@ -61,83 +60,83 @@ const Index = (props) => {
     const menu = props.menu
 
     return (
-        <Layout title={RichText.asText(props.home.data.title)}
-                description={RichText.asText(props.home.data.description)}
-                canonical={'https://' + props.host + '/'}
-                host={props.host}
-                menu={menu}
-                page_sections={props.page_sections}
-                pathname={props.pathname}
+
+        <Container
+            //text
+            className={layoutStyle}
+            //textAlign='justified'
         >
+            <Grid>
+                <Grid.Column textAlign="center">
+                    <h1><Image
+                        src="/images/logo.png"
+                        alt="Page d'accueil du site Vaccin Anti HPV"
+                        centered={false}
+                    />
+                    </h1>
+                    <Divider hidden/>
+                    <Segment
+                        inverted
+                        color="pink"
+                        className="top-arrow"
+                        compact
+                    >
+                        {description.toUpperCase()}
 
-            <Container
-                //text
-                className={layoutStyle}
-                //textAlign='justified'
-            >
-                <Grid>
-                    <Grid.Column textAlign="center">
-                        <h1><Image
-                            src="/static/images/logo.png"
-                            alt="Page d'accueil du site Vaccin Anti HPV"
-                            centered={false}
-                        />
-                        </h1>
-                        <Divider hidden/>
-                        <Segment
-                            inverted
-                            color="pink"
-                            className="top-arrow"
-                            compact
+                    </Segment>
+
+                    <Divider hidden section/>
+
+                    <Divider hidden/>
+
+                    {menu ? menuHome(menu.data.menu_links) : null}
+
+                    <Divider hidden/>
+
+                    <Link href="/et-vous" passHref>
+                        <IndexButton
+                            icon='clipboard list'
                         >
-                            {description.toUpperCase()}
+                            ET VOUS ? (SIMULATION)
+                        </IndexButton>
+                    </Link>
 
-                        </Segment>
-
-                        <Divider hidden section/>
-
-                        <Divider hidden/>
-
-                        {menu ? menuHome(menu.data.menu_links) : null}
-
-                        <Divider hidden/>
-
-                        <Link href="/et-vous" passHref>
-                                <IndexButton
-                                    icon='clipboard list'
-                                >
-                                    ET VOUS ? (SIMULATION)
-                                </IndexButton>
-                        </Link>
-
-                        <Link href="/faq" passHref>
-                                <IndexButton
-                                    icon='doctor'
-                                    width="9em"
-                                >
-                                    IDÉES <br/>
-                                    REÇUES
-                                </IndexButton>
-                        </Link>
-                    </Grid.Column>
-                </Grid>
-            </Container>
-        </Layout>
+                    <Link href="/faq" passHref>
+                        <IndexButton
+                            icon='doctor'
+                            width="9em"
+                        >
+                            IDÉES <br/>
+                            REÇUES
+                        </IndexButton>
+                    </Link>
+                </Grid.Column>
+            </Grid>
+        </Container>
     )
 };
 
 
-Index.getInitialProps = async function (context) {
-    const {uid} = context.query
+export const getStaticProps = async function () {
     const API = await Prismic.getApi(apiEndpoint, {accessToken})
     const home = getHome(API)
-    const menu = await getMenu(API)
+    const menu = getMenu(API);
+    const page_sections = getPageSections(API);
+
+    const fetched = {
+        home: await home,
+        menu: await menu,
+        page_sections: await page_sections
+    }
 
     return {
-        pathname: context.asPath,
-        home: await home,
-        host: context.req ? context.req.headers.host: CONSTANTS.host,
-        ...menu
+        props: {
+            pathname: "/",
+            title: RichText.asText(fetched.home.data.title),
+            description: RichText.asText(fetched.home.data.description),
+            ...fetched
+        },
+        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }
 }
 

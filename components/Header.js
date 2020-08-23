@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import {css} from 'emotion'
-import {Container, Dropdown, Icon, Menu, Sticky, Popup} from 'semantic-ui-react'
-import {noBoxShadow} from "../utils/css";
-import {hrefResolver, linkResolver} from "../prismic-configuration";
+import {Container, Icon, Menu, Sticky, Popup} from 'semantic-ui-react'
+import {noBoxShadow} from "utils/css";
+import {linkResolver} from "prismic-configuration";
 import {RichText} from "prismic-reactjs";
 
 const linkStyle = css`
@@ -142,7 +142,7 @@ const menuLinks = (menu_links, pages_sections, uid) => {
 
         const trigger = (
             <Menu.Item active={uid === menuLink.link.uid}>
-                <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref>
+                <Link href={linkResolver(menuLink.link)} passHref>
                     <span>
                         <Icon name={menuLink.icon}/>{RichText.asText(menuLink.label)}
                     </span>
@@ -165,8 +165,7 @@ const menuLinks = (menu_links, pages_sections, uid) => {
                 <Menu vertical fluid borderless>
                     {page_sections.data.page_content.map((section) => (
                         <Link
-                            href={hrefResolver(menuLink.link, {default_section: section.primary.section_id})}
-                            as={linkResolver(menuLink.link, {default_section: section.primary.section_id})}
+                            href={linkResolver(menuLink.link, {default_section: section.primary.section_id})}
                             passHref
                             key={menuLink.link.id + "-" + section.primary.section_id}>
                             <Menu.Item style={item_style}>

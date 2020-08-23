@@ -3,9 +3,9 @@ import {RichText} from 'prismic-reactjs'
 import {apiEndpoint, linkResolver} from 'prismic-configuration'
 import {htmlSerializer} from 'utils/htmlSerializer'
 import {Header, Image, Placeholder, Popup} from 'semantic-ui-react'
-import {getPreview} from "../utils/api";
+import {getPreview} from "utils/api";
 import Prismic from "prismic-javascript";
-import {accessToken} from "../prismic-configuration";
+import {accessToken} from "prismic-configuration";
 
 // Also see: https://nextjs.org/docs#dynamic-import
 
@@ -38,12 +38,12 @@ export default function PopUp(props) {
                     </Placeholder.Paragraph>
                 </Placeholder>
             ) : (
-                <>
-                    <Image src={data.image.url} alt={data.image.alt}/>
-                    <Header as="h2">{data.preview_title.length > 0 ? data.preview_title[0].text : null}</Header>
-                    {RichText.render(data.rich_text, linkResolver, htmlSerializer).props.children}
-                </>
-            )}
+                    <>
+                        <Image src={data.image.url} alt={data.image.alt}/>
+                        <Header as="h2">{data.preview_title.length > 0 ? data.preview_title[0].text : null}</Header>
+                        {RichText.render(data.rich_text, linkResolver, htmlSerializer).props.children}
+                    </>
+                )}
         </Popup>
     )
 }

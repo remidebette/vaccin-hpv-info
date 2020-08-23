@@ -2,7 +2,7 @@ import React from 'react'
 import {Elements} from 'prismic-reactjs';
 import {hrefResolver, linkResolver} from 'prismic-configuration'
 import Router from 'next/router'
-import PopUp from "../components/popup";
+import PopUp from "components/popup";
 import {Image} from 'semantic-ui-react';
 
 const onClickHandler = function (href, as) {

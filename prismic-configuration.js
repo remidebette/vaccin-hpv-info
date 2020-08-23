@@ -32,18 +32,5 @@ module.exports = {
       str += `?${obj_to_query(additional)}`
     }
     return str
-  },
-
-  // Additional helper function for Next/Link component
-  hrefResolver: function (doc, additional) {
-    let str = "/"
-    if (doc.type === 'page') {
-      str = `/page?uid=${doc.uid}`
-    }
-
-    if (additional) {
-      str += `&${obj_to_query(additional)}`
-    }
-    return str
   }
 }

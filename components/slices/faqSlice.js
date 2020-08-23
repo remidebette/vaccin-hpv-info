@@ -32,7 +32,7 @@ const FAQSlice = ({slice}) => {
                 </LabelledDiv>
                 <br/>
                 <Link href={slice.primary.link}>
-                    <a target="_blank">
+                    <a rel="noopener" target="_blank">
                         Pour en savoir plus
                     </a>
                 </Link>

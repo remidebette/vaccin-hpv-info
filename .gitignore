@@ -512,3 +512,5 @@ MigrationBackup/
 
 
 .now
+.vercel
+.env*.local

@@ -13,11 +13,8 @@ const GalleryItem = ({ slice }) => (
         {RichText.asText(item.link_label) !== '' ? (
           <p className='gallery-link'>
             <NextLink
-              as={internalLink
-                ? linkResolver(item.link)
-                : ''}
               href={internalLink
-                ? `/page?uid=${item.link.uid}`
+                ? linkResolver(item.link)
                 : Link.url(item.link, linkResolver)}
               passHref
             >

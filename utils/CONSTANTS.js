@@ -1,3 +1,4 @@
 export const CONSTANTS = {
-    host: 'vaccin-hpv-info.fr'
+    hostname: 'vaccin-hpv-info.fr',
+    revalidate: 300
 }

@@ -13,7 +13,7 @@ import {useRouter} from "next/router";
 import Header from "../../components/Header";
 import {Container} from "semantic-ui-react";
 import {layoutStyle} from "../../utils/css";
-import {CONSTANTS} from "../../utils/CONSTANTS";
+import { CONSTANTS } from '../../utils/CONSTANTS';
 
 
 const Page = (props) => {
@@ -115,10 +115,11 @@ export const getStaticProps = async function ({params}) {
     return {
         props: {
             doc: await page,
-            host: CONSTANTS.host,
+            host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
             uid: params.uid,
             ...menu
-        }
+        },
+        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }
 }
 

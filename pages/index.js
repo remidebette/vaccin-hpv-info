@@ -7,7 +7,7 @@ import Link from "next/link";
 import {RichText} from "prismic-reactjs";
 import {getFAQ, getHome, getMenu} from "../utils/api";
 import {buttonOverride, layoutStyle} from "../utils/css";
-import {CONSTANTS} from "../utils/CONSTANTS";
+import { CONSTANTS } from '../utils/CONSTANTS';
 
 
 const button_icons = {
@@ -136,9 +136,10 @@ export const getStaticProps = async function () {
         props: {
             pathname: "/index",
             home: await home,
-            host: CONSTANTS.host,
+            host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
             ...menu
-        }
+        },
+        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }
 }
 

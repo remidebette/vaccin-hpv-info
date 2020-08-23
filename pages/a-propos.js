@@ -6,7 +6,7 @@ import {getMenu} from "../utils/api";
 import {Container, Divider, Segment, Rail, Grid, Card, Image, Icon, Form, Message} from "semantic-ui-react";
 import {layoutStyle} from "../utils/css";
 import useForm from "../utils/useForm";
-import {CONSTANTS} from "../utils/CONSTANTS";
+import { CONSTANTS } from '../utils/CONSTANTS';
 
 const mailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -230,9 +230,10 @@ export const getStaticProps = async function () {
     return {
         props: {
             pathname: "/a-propos",
-            host: CONSTANTS.host,
+            host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
             ...menu
-        }
+        },
+        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }
 }
 

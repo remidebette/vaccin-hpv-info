@@ -8,7 +8,7 @@ import {getEtVous, getMenu} from "../utils/api";
 import {RichText} from "prismic-reactjs";
 import {htmlSerializer} from "../utils/htmlSerializer";
 import {layoutStyle} from "../utils/css";
-import {CONSTANTS} from "../utils/CONSTANTS";
+import { CONSTANTS } from '../utils/CONSTANTS';
 
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetBottom);
@@ -260,10 +260,11 @@ export const getStaticProps = async function () {
     return {
         props: {
             pathname: "/et-vous",
-            host: CONSTANTS.host,
+            host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
             et_vous: await et_vous,
             ...menu
-        }
+        },
+        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }
 }
 

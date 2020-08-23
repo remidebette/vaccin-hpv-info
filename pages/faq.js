@@ -8,7 +8,7 @@ import {RichText} from "prismic-reactjs";
 import Header from "../components/Header";
 import {Container} from "semantic-ui-react";
 import {layoutStyle} from "../utils/css";
-import {CONSTANTS} from "../utils/CONSTANTS";
+import { CONSTANTS } from '../utils/CONSTANTS';
 
 const Index = (props) => {
     return (
@@ -45,10 +45,11 @@ export const getStaticProps = async function () {
     return {
         props: {
             pathname: "/faq",
-            host: CONSTANTS.host,
+            host: process.env.NEXT_PUBLIC_HOSTNAME || CONSTANTS.hostname,
             faq: await faq,
             ...menu
-        }
+        },
+        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
     }
 }
 

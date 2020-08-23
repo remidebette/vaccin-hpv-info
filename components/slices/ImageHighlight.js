@@ -14,11 +14,8 @@ const ImageHighlight = ({ slice }) => {
           {RichText.asText(slice.primary.link_label) !== '' ? (
             <p>
               <NextLink
-                as={internalLink
-                  ? linkResolver(slice.primary.link)
-                  : ''}
                 href={internalLink
-                  ? `/page?uid=${slice.primary.link.uid}`
+                  ? linkResolver(slice.primary.link)
                   : Link.url(slice.primary.link, linkResolver)}
                 passHref
               >

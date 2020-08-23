@@ -2,7 +2,7 @@ import {Button, Divider, Grid, Image, Icon, Container, Segment} from 'semantic-u
 import React from 'react';
 import Layout from 'components/MyLayout'
 import Prismic from 'prismic-javascript'
-import {accessToken, apiEndpoint, hrefResolver, linkResolver} from 'prismic-configuration'
+import {accessToken, apiEndpoint, linkResolver} from 'prismic-configuration'
 import Link from "next/link";
 import {RichText} from "prismic-reactjs";
 import {getHome, getMenu} from "utils/api";
@@ -46,7 +46,7 @@ const IndexButton = React.forwardRef((props, ref) => {
 const menuHome = (menu_links) => {
     return menu_links.map((menuLink) => {
         return (
-            <Link href={hrefResolver(menuLink.link)} as={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
+            <Link href={linkResolver(menuLink.link)} passHref key={menuLink.link.id}>
                     <IndexButton
                         icon={button_icons[menuLink.link.uid]}
                     >

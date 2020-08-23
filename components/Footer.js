@@ -40,7 +40,7 @@ const source_content = [
         papillomavirus humains. Rapport. &nbsp;
         <Link
             href="https://www.hcsp.fr/Explore.cgi/Telecharger?NomFichier=hcspr20170210_previnfecthpvplacegardasil9.pdf">
-            <a target="_blank">
+            <a rel="noopener" target="_blank">
                 [Internet]
             </a>
         </Link>.
@@ -65,7 +65,7 @@ const source_content = [
         France : tendances de l’incidence et de la mortalité jusqu’en 2018. BEH - Santé Publique France &nbsp;
         <Link
             href="http://beh.santepubliquefrance.fr/beh/2019/22-23/2019_22-23_1.html">
-            <a target="_blank">
+            <a rel="noopener" target="_blank">
                 [Internet]
             </a>
         </Link>.
@@ -76,7 +76,7 @@ const source_content = [
         restent la priorité &nbsp;
         <Link
             href="https://www.has-sante.fr/jcms/c_2797450/fr/cancer-du-col-de-l-uterus-une-meilleure-couverture-vaccinale-et-un-depistage-renforce-restent-la-priorite">
-            <a target="_blank">
+            <a rel="noopener" target="_blank">
                 [Internet]
             </a>
         </Link>.
@@ -101,7 +101,7 @@ const source_content = [
         &nbsp;
         <Link
             href="https://ansm.sante.fr/S-informer/Points-d-information-Points-d-information/Le-PRAC-conclut-a-l-absence-de-lien-entre-la-vaccination-contre-le-HPV-et-la-survenue-de-syndrome-regional-douloureux-complexe-CRPS-et-le-syndrome-de-tachycardie-posturale-orthostatique-POTS-Point-d-Information">
-            <a target="_blank">
+            <a rel="noopener" target="_blank">
                 [Internet]
             </a>
         </Link>.
@@ -113,7 +113,7 @@ const source_content = [
         Solidarité Santé gouv. &nbsp;
         <Link
             href="https://solidarites-sante.gouv.fr/IMG/pdf/calendrier_vaccinal_mars_2019.pdf">
-            <a target="_blank">
+            <a rel="noopener" target="_blank">
                 « Calendrier vaccinal »
             </a>
         </Link> &nbsp; (Mars 2019)
@@ -122,7 +122,7 @@ const source_content = [
         Organisation Mondiale de la Santé. &nbsp;
         <Link
             href="https://www.who.int/fr/news-room/fact-sheets/detail/human-papillomavirus-(hpv)-and-cervical-cancer">
-            <a target="_blank">
+            <a rel="noopener" target="_blank">
                 « HPV et cancer cervical »
             </a>
         </Link>
@@ -131,7 +131,7 @@ const source_content = [
         Vaccination info service. &nbsp;
         <Link
             href="https://vaccination-info-service.fr/Les-maladies-et-leurs-vaccins/Infections-a-Papillomavirus-humains-HPV">
-            <a target="_blank">
+            <a rel="noopener" target="_blank">
                 « Infections à Papillomavirus humain »
             </a>
         </Link>
@@ -140,7 +140,7 @@ const source_content = [
     <>
         <Link
             href="https://lecrat.fr/">
-            <a target="_blank">
+            <a rel="noopener" target="_blank">
                 Le Centre de Référence sur les Agents Tératogènes
             </a>
         </Link>
@@ -149,7 +149,7 @@ const source_content = [
         Société de Colposcopie. &nbsp;
         <Link
             href="http://www.societe-colposcopie.com/sites/default/files/papillomavirus_les_gynecologues_font_la_guerre_aux_fausses_infos_sur_le_vaccin_contre_le_cancer_du_col_de_luterus.pdf">
-            <a target="_blank">
+            <a rel="noopener" target="_blank">
                 « Les gynécologues font la guerre aux fausses infos sur le vaccin contre le cancer du col de l'utérus. »
             </a>
         </Link>
@@ -202,7 +202,7 @@ const Footer = ({host, source_indexes}) => {
                             <p>
                                 Référencé par &nbsp;
                                 <Link href="https://kitmedical.fr" passHref>
-                                    <Image src={logo} inline size="small" target="_blank"/>
+                                    <Image src={logo} inline size="small" rel="noopener" target="_blank"/>
                                 </Link>
                                 <Divider hidden/>
 

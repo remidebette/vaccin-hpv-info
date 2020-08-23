@@ -6,7 +6,6 @@ import {getMenu} from "../utils/api";
 import {Container, Divider, Segment, Rail, Grid, Card, Image, Icon, Form, Message} from "semantic-ui-react";
 import {layoutStyle} from "../utils/css";
 import useForm from "../utils/useForm";
-import Link from "next/link";
 import {CONSTANTS} from "../utils/CONSTANTS";
 
 const mailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

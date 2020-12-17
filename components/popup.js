@@ -6,8 +6,15 @@ import {Header, Image, Placeholder, Popup} from 'semantic-ui-react'
 import {getPreview} from "utils/api";
 import Prismic from "prismic-javascript";
 import {accessToken} from "prismic-configuration";
+//import useSWR from 'swr'
 
 // Also see: https://nextjs.org/docs#dynamic-import
+
+async function fetcher (uid) {
+    const API = await Prismic.getApi(apiEndpoint, {accessToken});
+    return await getPreview(uid, API)
+}
+
 
 export default function PopUp(props) {
     const [data, setData] = useState(null);
@@ -16,16 +23,15 @@ export default function PopUp(props) {
         <Popup
             trigger={props.children}
             onOpen={async () => {
-                const API = await Prismic.getApi(apiEndpoint, {accessToken});
                 setData(
-                    await getPreview(props.uid, API)
+                    await fetcher(props.uid)
                 )
             }}
             popperDependencies={[!!data]}
             inverted
         >
             {data === null ? (
-                <Placeholder style={{minWidth: '200px'}}>
+                <Placeholder style={{minWidth: '200px'}} inverted>
                     <Placeholder.Image/>
                     <Placeholder.Header>
                         <Placeholder.Line/>
@@ -38,12 +44,12 @@ export default function PopUp(props) {
                     </Placeholder.Paragraph>
                 </Placeholder>
             ) : (
-                    <>
-                        <Image src={data.image.url} alt={data.image.alt}/>
-                        <Header as="h2">{data.preview_title.length > 0 ? data.preview_title[0].text : null}</Header>
-                        {RichText.render(data.rich_text, linkResolver, htmlSerializer).props.children}
-                    </>
-                )}
+                <>
+                    <Image src={data.image.url} alt={data.image.alt}/>
+                    <Header as="h2">{data.preview_title.length > 0 ? data.preview_title[0].text : null}</Header>
+                    {RichText.render(data.rich_text, linkResolver, htmlSerializer).props.children}
+                </>
+            )}
         </Popup>
     )
 }

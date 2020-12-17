@@ -18,9 +18,9 @@
       "runtimeExecutable": "yarn",
       "cwd": "${workspaceFolder}",
       "runtimeArgs": [
-        "debbug"
+        "debug"
       ],
-      "port": 9229,
+      "port": 9300,
       "console": "integratedTerminal"
     }
   ],

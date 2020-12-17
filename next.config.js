@@ -1,3 +1,5 @@
+const withOptimizedImages = require('next-optimized-images');
+
 const withLess = require('./next-less');
 // Had to replicate the next-less module as it is broken since the latest Next version
 

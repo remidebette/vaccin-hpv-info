@@ -115,7 +115,7 @@ export const getStaticProps = async function ({params}) {
             }),
             ...fetched
         },
-        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
+        revalidate: Number(process.env.REVALIDATE_TIME_SECONDS) || CONSTANTS.revalidate
     }
 }
 

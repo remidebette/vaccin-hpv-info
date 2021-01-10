@@ -231,7 +231,7 @@ export const getStaticProps = async function () {
                 "et leur directeur de thèse.",
             ...fetched
         },
-        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
+        revalidate: Number(process.env.REVALIDATE_TIME_SECONDS) || CONSTANTS.revalidate
     }
 }
 

@@ -261,7 +261,7 @@ export const getStaticProps = async function () {
             source_indexes: [0, 1, 2, 3, 4, 8],
             ...fetched
         },
-        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
+        revalidate: Number(process.env.REVALIDATE_TIME_SECONDS) || CONSTANTS.revalidate
     }
 }
 

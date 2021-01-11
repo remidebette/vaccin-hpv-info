@@ -26,6 +26,7 @@ function MyApp({Component, pageProps}) {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
                 {/*<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>*/}
                 <link rel="stylesheet" href="https://use.typekit.net/vhr2nog.css"/>
+                <link rel="preload" href="/_next/static/icons.woff2" as="font" type="font/woff2" crossorigin>
             </Head>
             <DefaultSeo {...SEO} />
             {

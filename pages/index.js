@@ -136,7 +136,7 @@ export const getStaticProps = async function () {
             description: RichText.asText(fetched.home.data.description),
             ...fetched
         },
-        revalidate: process.env.REVALIDATE_TIME_SECONDS || CONSTANTS.revalidate
+        revalidate: Number(process.env.REVALIDATE_TIME_SECONDS) || CONSTANTS.revalidate
     }
 }
 

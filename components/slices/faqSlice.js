@@ -2,7 +2,7 @@ import React from 'react'
 import {RichText} from 'prismic-reactjs'
 import {linkResolver} from 'prismic-configuration'
 import {htmlSerializer} from 'utils/htmlSerializer'
-import {Accordion, Label, Message} from 'semantic-ui-react'
+import {Label, Message} from 'semantic-ui-react'
 import Link from "next/link";
 
 const LabelledDiv = (props) => {
@@ -11,6 +11,8 @@ const LabelledDiv = (props) => {
         [],
         [<Label basic color='red' horizontal>FAUX</Label>, ...props.children[0].props.children]
     )
+
+    // TODO: The following list does not apparently have keys
 
     return (
         <div>

@@ -14,8 +14,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Next: via Yarn",
-      "runtimeExecutable": "yarn",
+      "name": "Next: via pnpm",
+      "runtimeExecutable": "pnpm",
       "cwd": "${workspaceFolder}",
       "runtimeArgs": [
         "debug"

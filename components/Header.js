@@ -1,183 +1,107 @@
-import React from 'react';
-import Link from 'next/link';
-import {css} from 'emotion'
-import {Container, Icon, Menu, Sticky, Popup} from 'semantic-ui-react'
-import {noBoxShadow} from "utils/css";
-import {linkResolver} from "prismic-configuration";
-import {RichText} from "prismic-reactjs";
+'use client'
 
-const linkStyle = css`
-    margin-right: 15px
-`;
+import Link from 'next/link'
+import {usePathname} from 'next/navigation'
+import Container from '@/components/ui/Container'
+import Icon from '@/components/ui/Icon'
+import Popup from '@/components/ui/Popup'
+import {cn} from '@/components/ui/cn'
 
-const navStyle = css`
-    float: right;
-`
+const menu = 'flex max-tablet:flex-col min-h-[2em] font-bebas font-normal bg-pink'
+const menuContainer = 'flex items-[inherit] [flex-direction:inherit] max-tablet:w-full! max-tablet:mx-0!'
+const leftMenu = 'flex m-0 mr-auto! max-tablet:mr-0! max-tablet:flex-col'
+const rightMenu = 'flex m-0 ml-auto! max-tablet:ml-0! max-tablet:flex-col'
+const item = cn(
+    'relative flex flex-none items-center align-middle leading-none normal-case no-underline font-normal select-none max-tablet:w-full!',
+    'transition-[background,box-shadow,color] duration-100 ease-[ease] [-webkit-tap-highlight-color:transparent]',
+)
+const linkItem = 'cursor-pointer hover:bg-[rgba(0,0,0,.05)] hover:text-white active:bg-[rgba(255,255,255,.08)] active:text-white'
+const primaryItem = cn(item, 'py-[.5em] px-[1.14286em] bg-transparent text-[rgba(255,255,255,.9)]')
+const headerItem = cn(primaryItem, linkItem, 'm-0 font-bold')
+const secondaryItem = cn(
+    item, linkItem,
+    'self-center my-0 mx-[.357143em] py-[.785715em] px-[.928572em] rounded-[.285715rem] shadow-none border-none',
+    'bg-none text-[rgba(255,255,255,.7)]! hover:text-white! transition-[color]',
+)
+const activeItem = 'bg-[rgba(0,0,0,.1)]! hover:bg-[rgba(0,0,0,.1)]! text-white!'
+const itemIcon = 'opacity-90 mr-[.357143em]'
+const dropdownItem = cn(
+    item, 'block py-[.9em] px-[1.14em] w-full bg-none text-[rgba(0,0,0,.87)] text-[1.5rem]',
+    'hover:bg-[rgba(0,0,0,.03)] hover:text-[rgba(0,0,0,.95)] active:bg-[rgba(0,0,0,.03)] active:text-[rgba(0,0,0,.95)]',
+    'first:rounded-t-[.285715rem] last:rounded-b-[.285715rem]',
+)
 
-const navUlStyle = css`
-    margin: 0px
-`
-
-const navLiStyle = css`
-    display: inline-block;
-    margin-left: 40px
-`
-
-const menuStyle = css`
-border: 1px solid rgb(221, 221, 221); 
-box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px; 
-background-color: rgb(255, 255, 255);
-`
-
-const menu_style = css`
-        /* max-width: 700px; */
-        /* margin: 0 auto; */
-        color: #9A9A9A !important;
-        font-family: century-gothic, sans-serif;
-        font-size: 16px;
-        font-style: italic;
-        text-align: left;
-        `
-
-const item_style = {padding: '0.9em 1.14em'};
-
-const Header = (props) => {
-    const menu = props.menu
-    const page_sections = props.page_sections
+// `links` are the pages of the Prismic menu: {uid, href, label, icon, sections: [{href, title}]}
+export default function Header({links}) {
+    const pathname = usePathname()
+    const uid = pathname.startsWith('/page/') ? decodeURIComponent(pathname.slice('/page/'.length)) : undefined
 
     return (
-        <Sticky context={props.context}>
-            <Menu
-                //fixed='top'
-                borderless
-                stackable
-                className={noBoxShadow}
-                inverted
-                color="pink"
-                size="large"
-            >
-                <Container>
-
-                    <Menu.Menu position="left">
-                        <Link href="/">
-                            <Menu.Item
-                                header
-                                //color="white"
-                            >
-                                <Icon name="home"/>
-                                <strong>VACCIN HPV INFO
-                                    {/*<br/> Acceuil*/}
-                                </strong>
-                            </Menu.Item>
+        <div className="sticky top-0 z-[800]">
+            <div className={cn(menu, 'text-[1.8rem]')}>
+                <Container className={menuContainer}>
+                    <div className={leftMenu}>
+                        <Link href="/" className={headerItem}>
+                            <Icon name="home" className={itemIcon}/>
+                            <strong>VACCIN HPV INFO</strong>
                         </Link>
+                    </div>
 
-                    </Menu.Menu>
-
-                    <Menu.Item position="left"
-                        //text
-                        //className={menu_style}
-                    >
+                    <div className={cn(primaryItem, 'mr-auto! max-tablet:mr-0! font-century text-[1.2rem] italic text-left')}>
                         TOUT CE QUE VOUS VOULEZ SAVOIR SUR LA VACCINATION ANTI-HPV
-                    </Menu.Item>
+                    </div>
 
-                    <Menu.Menu position="right">
-
-                        <Link href="/a-propos">
-                            <Menu.Item header>
-                                À PROPOS DE NOUS
-                            </Menu.Item>
+                    <div className={rightMenu}>
+                        <Link href="/a-propos" className={headerItem}>
+                            À PROPOS DE NOUS
                         </Link>
-                    </Menu.Menu>
+                    </div>
                 </Container>
-            </Menu>
+            </div>
 
-            {props.pathname !== "/" ?
-                <Menu
-                    //pointing
-                    secondary
-                    stackable
-                    inverted
-                    //compact
-                    color="pink"
-                    //size="large"
-                    //className={menuStyle}
-                >
-                    <Container>
-                        <Menu.Menu position="left">
-                            {menu ? menuLinks(menu.data.menu_links, page_sections, props.uid) : null}
-                        </Menu.Menu>
-
-                        <Menu.Menu position="right">
-                            <Link href="/et-vous">
-                                <Menu.Item
-                                    key="et-vous"
-                                    active={props.pathname === "/et-vous"}
+            {pathname !== '/' &&
+                <div className={cn(menu, 'text-[1.5rem] -mx-[.357143em]')}>
+                    <Container className={menuContainer}>
+                        <div className={leftMenu}>
+                            {links.map(link => (
+                                <Popup
+                                    key={link.uid}
+                                    placement="bottom-start"
+                                    hoverable
+                                    pinned
+                                    hoverOnly
+                                    className="w-max"
+                                    trigger={
+                                        <Link href={link.href} className={cn(secondaryItem, uid === link.uid && activeItem)}>
+                                            {/* The span keeps the icon on the text line (inline layout, not flex items) */}
+                                            <span><Icon name={link.icon}/>{link.label}</span>
+                                        </Link>
+                                    }
                                 >
-                                    <Icon name="clipboard list"/>Et vous? (Simulation)
-                                </Menu.Item>
-                            </Link>
+                                    <div className="block w-full rounded-[.285715rem] bg-white font-bebas font-normal shadow-[0_1px_2px_0_rgba(34,36,38,.15)]">
+                                        {link.sections.map(section => (
+                                            <Link key={section.href} href={section.href} className={dropdownItem}>
+                                                {section.title}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </Popup>
+                            ))}
+                        </div>
 
-
-                            <Link href="/faq">
-                                <Menu.Item
-                                    active={props.pathname === "/faq"}
-                                >
-                                    <Icon name="doctor"/>
-                                    Idées reçues
-                                </Menu.Item>
+                        <div className={rightMenu}>
+                            <Link href="/et-vous" className={cn(secondaryItem, pathname === '/et-vous' && activeItem)}>
+                                <Icon name="clipboard list" className={cn(itemIcon, pathname === '/et-vous' && 'opacity-100')}/>
+                                Et vous? (Simulation)
                             </Link>
-                        </Menu.Menu>
+                            <Link href="/faq" className={cn(secondaryItem, pathname === '/faq' && activeItem)}>
+                                <Icon name="doctor" className={cn(itemIcon, pathname === '/faq' && 'opacity-100')}/>
+                                Idées reçues
+                            </Link>
+                        </div>
                     </Container>
-                </Menu> : null}
-        </Sticky>
-    );
+                </div>
+            }
+        </div>
+    )
 }
-
-const menuLinks = (menu_links, pages_sections, uid) => {
-
-    return menu_links.map((menuLink) => {
-        let page_sections = pages_sections.find((element) => {
-            return element.uid === menuLink.link.uid
-        })
-
-        const trigger = (
-            <Menu.Item active={uid === menuLink.link.uid}>
-                <Link href={linkResolver(menuLink.link)} passHref>
-                    <span>
-                        <Icon name={menuLink.icon}/>{RichText.asText(menuLink.label)}
-                    </span>
-                </Link>
-            </Menu.Item>
-        )
-
-        return (
-            <Popup
-                basic
-                flowing
-                hoverable
-                position="bottom left"
-                on="hover"
-                pinned
-                trigger={trigger}
-                key={menuLink.link.id}
-                style={{padding: '0'}}
-            >
-                <Menu vertical fluid borderless>
-                    {page_sections.data.page_content.map((section) => (
-                        <Link
-                            href={linkResolver(menuLink.link, {default_section: section.primary.section_id})}
-                            passHref
-                            key={menuLink.link.id + "-" + section.primary.section_id}>
-                            <Menu.Item style={item_style}>
-                                {RichText.asText(section.primary.section_title)}
-                            </Menu.Item>
-                        </Link>
-                    ))
-                    }
-                </Menu>
-            </Popup>
-        );
-    });
-}
-
-export default Header

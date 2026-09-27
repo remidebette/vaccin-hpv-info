@@ -1,56 +1,28 @@
-import React, {Fragment} from 'react'
-import {default as NextLink} from 'next/link'
-import {Link, RichText} from 'prismic-reactjs'
-import {linkResolver} from 'prismic-configuration'
+import Link from 'next/link'
+import * as prismic from '@prismicio/client'
+import {PrismicRichText} from '@prismicio/react'
+import {linkResolver} from '@/prismic-configuration'
 
-const ImageHighlight = ({ slice }) => {
-  let internalLink = slice.primary.link.link_type === 'Document'
-  return (
-    <Fragment>
-      <section className='highlight content-section'>
-        <div className='highlight-left'>
-          {RichText.render(slice.primary.title, linkResolver)}
-          {RichText.render(slice.primary.headline, linkResolver)}
-          {RichText.asText(slice.primary.link_label) !== '' ? (
-            <p>
-              <NextLink
-                href={internalLink
-                  ? linkResolver(slice.primary.link)
-                  : Link.url(slice.primary.link, linkResolver)}
-                passHref
-              >
-                <a>{RichText.asText(slice.primary.link_label)}</a>
-              </NextLink>
-            </p>
-          ) : ''}
-        </div>
-        <div className='highlight-right'>
-          <img src={slice.primary.featured_image.url} alt={slice.primary.featured_image.alt} />
-        </div>
-      </section>
-      <style jsx>{`
-        .highlight {
-          position: relative;
-          overflow: auto;
-        }
-        .highlight-left {
-          width: 43%;
-          float: left;
-        }
-        .highlight-right {
-          width: 48%;
-          float: right;
-        }
-        @media (max-width: 767px) {
-          .highlight-left,
-          .highlight-right {
-            width: 100%;
-            float: none;
-          }
-        }
-      `}</style>
-    </Fragment>
-  )
+const ImageHighlight = ({slice}) => {
+    const internalLink = slice.primary.link.link_type === 'Document'
+    return (
+        <section className="relative overflow-auto content-section">
+            <div className="w-[43%] float-left max-tablet:w-full max-tablet:float-none">
+                <PrismicRichText field={slice.primary.title} linkResolver={linkResolver}/>
+                <PrismicRichText field={slice.primary.headline} linkResolver={linkResolver}/>
+                {prismic.asText(slice.primary.link_label) !== '' ? (
+                    <p>
+                        <Link href={internalLink ? linkResolver(slice.primary.link) : prismic.asLink(slice.primary.link, {linkResolver})}>
+                            {prismic.asText(slice.primary.link_label)}
+                        </Link>
+                    </p>
+                ) : ''}
+            </div>
+            <div className="w-[48%] float-right max-tablet:w-full max-tablet:float-none">
+                <img src={slice.primary.featured_image.url} alt={slice.primary.featured_image.alt}/>
+            </div>
+        </section>
+    )
 }
 
 export default ImageHighlight

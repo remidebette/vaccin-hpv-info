@@ -54,10 +54,12 @@ export default function PreviewPopup({uid, children}) {
                 <>
                     <img src={data.image.url} alt={data.image.alt}
                          className="relative block align-middle max-w-full bg-transparent"/>
-                    <h2 className="font-lato font-bold p-0 mt-[calc(2rem-.142858em)] mb-[1rem] text-[1.14286em] leading-[1.2] text-white normal-case border-none">
+                    <h2 className="font-lato font-bold p-0 mt-[calc(2rem-.142858em)] mb-[1rem] last:mb-0 text-[1.14286em] leading-[1.2] text-white normal-case border-none">
                         {data.preview_title.length > 0 ? data.preview_title[0].text : null}
                     </h2>
-                    <PrismicRichText field={data.rich_text} components={richTextComponents}/>
+                    {/* Like the previous renderer, an empty paragraph still follows the title (and keeps its margin) */}
+                    <PrismicRichText field={data.rich_text} components={richTextComponents}
+                                     fallback={data.rich_text.length > 0 && <p/>}/>
                 </>
             )}
         </Popup>

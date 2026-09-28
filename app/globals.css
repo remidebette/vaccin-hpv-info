@@ -6,13 +6,14 @@
     --font-sans: var(--font-lato), ui-sans-serif, system-ui, sans-serif;
     --font-heading: var(--font-bebas), var(--font-lato), sans-serif;
 
-    /* Brand colors: white text on them passes WCAG AA (≥ 4.5:1) */
+    /* Accent pink of links and buttons: it passes WCAG AA (≥ 4.5:1) with white */
     --color-brand: #c2185b;
     --color-brand-dark: #ad1457;
-    --color-brand-darker: #880e4f;
-    /* Pastel pink of the logo and illustrations, for decoration only (too light behind text) */
+    /* Pastel pink of the logo, behind the header, the home banner and the popups */
     --color-brand-pastel: #ffbbc5;
     --color-brand-50: #fff0f3;
+    /* Text on the pastel pink (7.6:1, white would only give 1.6:1) */
+    --color-plum: #6b0a3c;
 
     --animate-appear: appear 0.3s ease-out;
 
@@ -39,6 +40,20 @@
             background: #fff url("/images/background.png") no-repeat center / cover fixed;
         }
     }
+}
+
+/* Colors of the typography plugin for rich text on the pastel pink */
+@utility prose-plum {
+    --tw-prose-body: var(--color-plum);
+    --tw-prose-headings: var(--color-plum);
+    --tw-prose-links: var(--color-plum);
+    --tw-prose-bold: var(--color-plum);
+    --tw-prose-counters: var(--color-plum);
+    --tw-prose-bullets: var(--color-plum);
+    --tw-prose-quotes: var(--color-plum);
+    --tw-prose-quote-borders: var(--color-plum);
+    --tw-prose-hr: var(--color-plum);
+    --tw-prose-captions: var(--color-plum);
 }
 
 /* Links of the site (header menus and buttons excepted) */

@@ -23,15 +23,15 @@ export default function PreviewPopup({uid, children}) {
         >
             {data === null ? (
                 <div className="animate-pulse space-y-3" aria-label="Chargement">
-                    <div className="h-32 rounded bg-white/30"/>
-                    <div className="h-4 w-2/3 rounded bg-white/30"/>
-                    <div className="h-3 rounded bg-white/30"/>
+                    <div className="h-32 rounded bg-white/50"/>
+                    <div className="h-4 w-2/3 rounded bg-white/50"/>
+                    <div className="h-3 rounded bg-white/50"/>
                 </div>
             ) : (
                 <>
                     <img src={data.image.url} alt={data.image.alt ?? ''} className="w-full rounded"/>
                     <p className="mt-3 font-bold">{prismic.asText(data.preview_title)}</p>
-                    <RichText field={data.rich_text} invert className="prose-sm mt-1"/>
+                    <RichText field={data.rich_text} plum className="prose-sm mt-1"/>
                 </>
             )}
         </Popup>

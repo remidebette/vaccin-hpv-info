@@ -48,10 +48,10 @@ export default function Popup({trigger, onOpen, children}) {
                     <div
                         ref={setFloating}
                         style={floatingStyles}
-                        className="z-50 w-72 max-w-[calc(100vw-1rem)] rounded-lg bg-brand p-4 text-white shadow-xl"
+                        className="z-50 w-72 max-w-[calc(100vw-1rem)] rounded-lg bg-brand-pastel p-4 text-plum shadow-xl"
                         {...getFloatingProps()}
                     >
-                        <FloatingArrow ref={setArrowElement} context={context} className="fill-brand"/>
+                        <FloatingArrow ref={setArrowElement} context={context} className="fill-brand-pastel"/>
                         {children}
                     </div>
                 </FloatingPortal>

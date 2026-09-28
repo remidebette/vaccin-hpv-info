@@ -10,10 +10,10 @@ const components = {
         : null,
 }
 
-// Prismic rich text with the site's typography. `invert` is for text on a pink background.
-export default function RichText({field, invert, className = ''}) {
+// Prismic rich text with the site's typography. `plum` is for text on the pastel pink background.
+export default function RichText({field, plum, className = ''}) {
     return (
-        <div className={`prose max-w-none prose-img:mx-auto prose-h1:text-2xl prose-h1:font-bold prose-h2:text-xl prose-h3:text-lg ${invert ? 'prose-invert' : 'prose-neutral prose-a:text-brand'} ${className}`}>
+        <div className={`prose max-w-none prose-img:mx-auto prose-h1:text-2xl prose-h1:font-bold prose-h2:text-xl prose-h3:text-lg ${plum ? 'prose-plum' : 'prose-neutral prose-a:text-brand'} ${className}`}>
             <PrismicRichText field={field} linkResolver={linkResolver} internalLinkComponent={Link} components={components}/>
         </div>
     )

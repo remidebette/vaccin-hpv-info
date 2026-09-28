@@ -37,7 +37,7 @@ export default async function Index() {
                     <Image src={logo} alt="Vaccin HPV Info" loading="eager" className="h-auto w-64 sm:w-auto"/>
                 </h1>
 
-                <p className="relative mx-auto mt-10 max-w-3xl rounded-2xl bg-brand px-6 py-5 text-center font-heading text-2xl leading-snug tracking-wide text-white sm:text-3xl before:absolute before:-top-2 before:left-[10%] before:size-5 before:rotate-45 before:bg-brand">
+                <p className="relative mx-auto mt-10 max-w-3xl rounded-2xl bg-brand-pastel px-6 py-5 text-center font-heading text-2xl leading-snug tracking-wide text-plum sm:text-3xl before:absolute before:-top-2 before:left-[10%] before:size-5 before:rotate-45 before:bg-brand-pastel">
                     Tout ce que vous voulez savoir sur la vaccination anti-HPV, une information claire et concise pour
                     les patients produite par des médecins indépendants.
                 </p>

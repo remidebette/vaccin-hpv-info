@@ -1,44 +1,43 @@
-import React from 'react'
-import {RichText} from 'prismic-reactjs'
-import {linkResolver} from 'prismic-configuration'
-import {htmlSerializer} from 'utils/htmlSerializer'
-import {Label, Message} from 'semantic-ui-react'
-import Link from "next/link";
+import * as prismic from '@prismicio/client'
+import {PrismicRichText} from '@prismicio/react'
+import {linkResolver} from '@/prismic-configuration'
+import {richTextComponents} from '@/utils/richText'
+import Message, {MessageHeader} from '@/components/ui/Message'
 
-const LabelledDiv = (props) => {
-    const new_first = React.cloneElement(
-        props.children[0],
-        [],
-        [<Label basic color='red' horizontal>FAUX</Label>, ...props.children[0].props.children]
-    )
+const FalseLabel = () => (
+    <span className="inline-block leading-none align-baseline mr-[.5em] py-[.4em] px-[.833em] min-w-[3em] text-center text-[.857143rem] font-bold normal-case rounded-[.285715rem] bg-white text-red border border-red transition-[background] duration-100 ease-[ease]">
+        FAUX
+    </span>
+)
 
-    // TODO: The following list does not apparently have keys
-
+// The answer starts with a "FAUX" label in its first paragraph
+const LabelledRichText = ({field}) => {
+    const [first, ...rest] = field
     return (
         <div>
-            {
-                [new_first, props.children.slice(1, new_first.length)]
-            }
+            <PrismicRichText
+                field={[first]}
+                linkResolver={linkResolver}
+                components={{...richTextComponents, paragraph: ({children}) => <p><FalseLabel/>{children}</p>}}
+            />
+            <PrismicRichText field={rest} linkResolver={linkResolver} components={richTextComponents}/>
         </div>
     )
 }
 
 const FAQSlice = ({slice}) => {
+    const link = slice.primary.link
     return (
         <Message>
-            <Message.Content>
-                <Message.Header as="h2" >{slice.primary.question.length > 0 ? slice.primary.question[0].text : null}</Message.Header>
+            <div>
+                <MessageHeader as="h2">{slice.primary.question.length > 0 ? slice.primary.question[0].text : null}</MessageHeader>
                 <br/>
-                <LabelledDiv>
-                    {RichText.render(slice.primary.rich_text, linkResolver, htmlSerializer).props.children}
-                </LabelledDiv>
+                <LabelledRichText field={slice.primary.rich_text}/>
                 <br/>
-                <Link href={slice.primary.link}>
-                    <a rel="noopener" target="_blank">
-                        Pour en savoir plus
-                    </a>
-                </Link>
-            </Message.Content>
+                <a href={typeof link === 'string' ? link : prismic.asLink(link, {linkResolver})} rel="noopener" target="_blank">
+                    Pour en savoir plus
+                </a>
+            </div>
         </Message>
     )
 }

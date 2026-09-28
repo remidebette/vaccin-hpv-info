@@ -1,91 +1,34 @@
-import {Predicates} from "prismic-javascript";
+import * as prismic from '@prismicio/client'
+import {enableAutoPreviews} from '@prismicio/next'
+import {apiEndpoint} from '@/prismic-configuration'
+import {CONSTANTS} from '@/utils/CONSTANTS'
 
-async function getMenu (API) {
-    try {
-        const menu = await API.getSingle('menu')
-        console.log(`Prismic: Fetched menu`)
-
-        return menu
-
-    } catch (error) {
-        console.error(error)
-        return error
-    }
+// Server-side Prismic client. Pages are statically generated and refreshed at most every
+// REVALIDATE_TIME_SECONDS (incremental static regeneration); draft content is served during previews.
+export function createClient() {
+    const client = prismic.createClient(apiEndpoint, {
+        fetchOptions: {next: {revalidate: Number(process.env.REVALIDATE_TIME_SECONDS) || CONSTANTS.revalidate}},
+    })
+    enableAutoPreviews({client})
+    return client
 }
 
-async function getPageSections (API) {
-    try {
-        const page_sections = await API.query(
-            Predicates.at("document.type", 'page'),
-            { fetch: 'page_content.section_title' }
-        )
+export const getMenu = () => createClient().getSingle('menu')
 
-        console.log(`Prismic: Fetched page sections`)
-
-        return page_sections.results
-
-    } catch (error) {
-        console.error(error)
-        return error
-    }
+// Section titles of every page, to build the header drop-down menus.
+export async function getPageSections() {
+    const pages = await createClient().getAllByType('page')
+    return pages.map(page => ({
+        uid: page.uid,
+        sections: page.data.page_content.filter(slice => slice.slice_type === 'text_section').map(slice => ({
+            id: slice.primary.section_id,
+            title: prismic.asText(slice.primary.section_title),
+        })),
+    }))
 }
 
-
-async function getPage (uid, API) {
-    try {
-        const res_page = await API.getByUID('page', uid)
-
-        console.log(`Prismic: Fetched page: ${uid}`)
-
-        return res_page
-    } catch (error) {
-        console.error(error)
-        return error
-    }
-}
-
-async function getHome (API) {
-    try {
-        console.log(`Prismic: Fetched home`)
-        return await API.getSingle('homepage')
-    } catch (error) {
-        console.error(error)
-        return error
-    }
-}
-
-async function getFAQ (API) {
-    try {
-        console.log(`Prismic: Fetched faq`)
-        return await API.getSingle('faq')
-    } catch (error) {
-        console.error(error)
-        return error
-    }
-}
-
-async function getEtVous (API) {
-    try {
-        console.log(`Prismic: Fetched et_vous`)
-        return await API.getSingle('et_vous')
-    } catch (error) {
-        console.error(error)
-        return error
-    }
-}
-
-async function getPreview (uid, API) {
-    try {
-        const res_preview = await API.getByUID('preview', uid)
-
-        console.log(`Prismic: Fetched preview: ${uid}`)
-
-        return res_preview.data
-
-    } catch (error) {
-        console.error(error)
-        return error
-    }
-}
-
-export {getPage, getMenu, getPageSections, getHome, getFAQ, getEtVous, getPreview}
+export const getPage = (uid) => createClient().getByUID('page', uid)
+export const getAllPages = () => createClient().getAllByType('page')
+export const getHome = () => createClient().getSingle('homepage')
+export const getFAQ = () => createClient().getSingle('faq')
+export const getEtVous = () => createClient().getSingle('et_vous')

@@ -9,9 +9,8 @@ const useForm = (initialState, callback) => {
       callback();
   };
 
-  const handleChange = (event, data) => {
-    // event.persist();
-    setValues(values => ({ ...values, [data.name]: data.value }));
+  const handleChange = (name, value) => {
+    setValues(values => ({ ...values, [name]: value }));
   };
 
   return {

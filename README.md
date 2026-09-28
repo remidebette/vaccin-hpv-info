@@ -12,21 +12,26 @@ This is shared as an example of a Next.js + Prismic architecture
 
 - The best way to handle state in React.
 
-**Next.js**
+**Next.js (App Router)**
 
-- Makes the Server Side Rendering and development of React apps a pleasure.
+- Pages are React Server Components, statically generated and refreshed in the background
+  (incremental static regeneration).
 
 **Prismic CMS**
 
 - Almost all the content of the website can be modified on the CMS with no redevelopment.
+- Prismic previews: set the preview URL of the repository to `/preview`.
 
-**Semantic UI React**
+**Tailwind CSS**
 
-- The composable front end framework Semantic UI adapted for React.
+- Utility-first styling. The small set of UI components in `components/ui` (buttons, menus, messages,
+  popups...) reproduces the look of the Semantic UI theme the site was designed with.
+- Popups are positioned with [Floating UI](https://floating-ui.com/).
 
-**Next SEO**
+**SEO**
 
-- Populate each page header metadata with name, description, image, etc.
+- Each page header gets its title, description, canonical URL and Open Graph image from the
+  Next.js Metadata API.
 
 **Deployment**
 
@@ -34,10 +39,12 @@ This is shared as an example of a Next.js + Prismic architecture
 
 ## Installation
 
+Requires Node.js 22 or later and [pnpm](https://pnpm.io/) (`corepack enable` installs the version the project pins).
+
 Clone the repository and install the dependencies:
 
 ```shell
-git clone https://github.com/remidebette/vaccin-hpv-info && yarn && yarn dev
+git clone https://github.com/remidebette/vaccin-hpv-info && cd vaccin-hpv-info && pnpm install && pnpm dev
 ```
 
 ## Usage
@@ -47,28 +54,37 @@ git clone https://github.com/remidebette/vaccin-hpv-info && yarn && yarn dev
 Serve with hot reload at localhost:3000.
 
 ```
-yarn dev
+pnpm dev
+```
+
+Lint the code:
+
+```
+pnpm lint
 ```
 
 ### Build
 
-Build for production: next.js automatically renders static HTML pages when possible. Then if you deploy on Vercel you can have both statically rendered pages and server-side rendered pages (as lambdas functions).
+Build for production: pages are rendered to static HTML and regenerated at most every
+`REVALIDATE_TIME_SECONDS` seconds (see `.env.production`) when the content changes on Prismic.
 
 ```
-yarn build
+pnpm build
 ```
 
-Launch a server for server-side rendering (after building the application):
+Launch the production server (after building the application):
 
 ```
-npm start
+pnpm start
 ```
 
-Generate a fully static project with pre-rendered pages to put directly on a server or any static website hosting platform. Note that you lose the possibility to have server-side rendered pages. With Vercel you should not have to run this command.
+### Configuration
 
-```
-yarn export
-```
+| Variable | Description |
+| --- | --- |
+| `NEXT_PUBLIC_HOSTNAME` | Host name used in canonical URLs and the QR code (defaults to `vaccin-hpv-info.fr`) |
+| `REVALIDATE_TIME_SECONDS` | Maximum age of a statically generated page, in seconds (defaults to 300) |
+| `NEXT_PUBLIC_PRISMIC_ENDPOINT` | Optional Prismic API endpoint, to use another repository than `anti-hpv` |
 
 ## License
 

@@ -1,174 +1,111 @@
 'use client'
 
-import {PrismicRichText} from '@prismicio/react'
-import {linkResolver} from '@/prismic-configuration'
-import Button, {ButtonGroup, ButtonIcon, ButtonOr} from '@/components/ui/Button'
-import Divider from '@/components/ui/Divider'
+import {Fragment, useState} from 'react'
+import RichText from '@/components/RichText'
+import Button from '@/components/ui/Button'
+import Icon from '@/components/ui/Icon'
 import Message from '@/components/ui/Message'
-import Transition from '@/components/ui/Transition'
-import useForm from '@/utils/useForm'
-import {richTextComponents} from '@/utils/richText'
 
-// Button of an answer: green when selected
-const Choice = ({selected, onClick, children}) => (
-    <Button grouped size="large" color={selected ? 'positive' : undefined} onClick={onClick}>
-        {children}
-    </Button>
-)
+// A question and its answers, shown as toggle buttons
+function Question({label, options, value, onChange}) {
+    return (
+        <fieldset className="mt-8 text-center motion-safe:animate-appear">
+            <legend className="mx-auto mb-3 font-bold">{label}</legend>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+                {options.map((option, index) => (
+                    <Fragment key={String(option.value)}>
+                        {index > 0 && options.length === 2 && <span className="text-sm text-neutral-600">ou</span>}
+                        <Button
+                            variant="choice"
+                            selected={option.value === value}
+                            aria-pressed={option.value === value}
+                            onClick={() => onChange(option.value)}
+                        >
+                            {option.icon && <Icon name={option.icon} className={option.iconClass}/>}
+                            {option.label}
+                        </Button>
+                    </Fragment>
+                ))}
+            </div>
+        </fieldset>
+    )
+}
 
 // Personalised advice: the answers to a few questions select one of the messages of the et_vous document
 export default function Simulation({data}) {
-    const initialState = {
-        "parent": null,
-        "gender": "",
-        "age_band": "",
-        "doses": ""
-    };
+    const [parent, setParent] = useState(null)
+    const [gender, setGender] = useState(null)
+    const [ageBand, setAgeBand] = useState(null)
+    const [doses, setDoses] = useState(null)
 
-    const {values, handleChange} = useForm(initialState, null);
-    const choose = (name, value) => () => handleChange(name, value)
-    let under_11_message_to_display = "under_11";
-    let over_20_message_to_display = "over_20";
+    const isVaccinable = ageBand === 'under_15' || ageBand === 'under_20'
+    const canHave3Doses = ageBand === 'under_20' || ageBand === 'over_20'
+    const isAdviceDisplayed = isVaccinable && doses !== null && (canHave3Doses || doses !== 3)
 
-
-    // Conditions
-    const is_parent_filled_out = values.parent !== null;
-    const is_gender_filled_out = values.gender !== "";
-    const is_dose_filled_out = values.doses !== "";
-
-    const is_parent = values.parent === true;
-    const is_child = values.parent === false;
-    const is_male = values.gender === "male";
-    const is_female = values.gender === "female";
-    const is_under_11 = values.age_band === "under_11";
-    const is_under_15 = values.age_band === "under_15";
-    const is_under_20 = values.age_band === "under_20";
-    const is_over_20 = values.age_band === "over_20";
-    const is_underage = is_under_11;
-    const is_overage = is_over_20;
-    const is_vaccinable = values.age_band !== "" && !["under_11", "over_20"].includes(values.age_band);
-    const can_have_3_doses = ["under_20", "over_20"].includes(values.age_band);
-    const is_advice_displayed = is_vaccinable && is_dose_filled_out &&
-        !(!can_have_3_doses && values.doses === 3);
-
-
-    let final_message_to_display = `${values.age_band}_${values.doses}`;
-
-    if (values.parent === true) {
-        under_11_message_to_display += '_parent'
-        over_20_message_to_display += '_parent'
-        final_message_to_display += '_parent'
-    }
-
-    if (is_male) {
-        under_11_message_to_display += '_male'
-        over_20_message_to_display += '_male'
-        final_message_to_display += '_male'
-    }
-
-    const richText = (field) => <PrismicRichText field={field} linkResolver={linkResolver} components={richTextComponents}/>
+    // Name of the et_vous field holding the message, e.g. "under_15_2_parent_male"
+    const suffix = (parent ? '_parent' : '') + (gender === 'male' ? '_male' : '')
+    const message =
+        ageBand === 'under_11' || ageBand === 'over_20' ? {variant: 'error', field: ageBand + suffix}
+        : isAdviceDisplayed ? {variant: 'info', field: `${ageBand}_${doses}${suffix}`}
+        : null
 
     return (
         <>
-            <Divider hidden/>
-            <p>
-                Cette page vous permet d&apos;obtenir des informations personnalisées sous forme d&apos;une synthèse sur votre
-                situation par rapport aux vaccins HPV, répondez simplement aux questions.
-                Aucune conservation des données n&apos;est réalisée.
-            </p>
+            <Question
+                label="Vous recherchez des informations pour :"
+                value={parent}
+                onChange={setParent}
+                options={[
+                    {value: false, label: 'Vous-même', icon: 'hand point up'},
+                    {value: true, label: 'Votre enfant', icon: 'child'},
+                ]}
+            />
 
-            <Divider hidden/>
+            {parent !== null &&
+                <Question
+                    label={parent ? 'Votre enfant est :' : 'Vous êtes :'}
+                    value={gender}
+                    onChange={setGender}
+                    options={[
+                        {value: 'female', label: 'Une fille', icon: 'female'},
+                        {value: 'male', label: 'Un garçon', icon: 'male'},
+                    ]}
+                />
+            }
 
-            <div className="relative my-[1rem] p-[1em] text-center text-[1rem]">
-                <label> Vous recherchez des informations pour: </label>
-                <ButtonGroup>
-                    <Choice selected={is_child} onClick={choose('parent', false)}>
-                        <ButtonIcon name="hand point up"/> Vous-même
-                    </Choice>
-                    <ButtonOr size="large"/>
-                    <Choice selected={is_parent} onClick={choose('parent', true)}>
-                        <ButtonIcon name="child"/> Votre enfant
-                    </Choice>
-                </ButtonGroup>
+            {gender !== null &&
+                <Question
+                    label={!parent ? 'Vous avez :' : gender === 'male' ? 'Votre fils a :' : 'Votre fille a :'}
+                    value={ageBand}
+                    onChange={setAgeBand}
+                    options={[
+                        {value: 'under_11', label: 'Moins de 11 ans', icon: 'child', iconClass: 'text-sm'},
+                        {value: 'under_15', label: '11 - 14 ans', icon: 'child', iconClass: 'text-base'},
+                        {value: 'under_20', label: '15 - 19 ans', icon: 'child', iconClass: 'text-xl'},
+                        {value: 'over_20', label: 'Plus de 20 ans', icon: 'child', iconClass: 'text-2xl'},
+                    ]}
+                />
+            }
 
-                <Transition visible={is_parent_filled_out}>
-                    <div>
+            {isVaccinable &&
+                <Question
+                    label="Vaccin :"
+                    value={doses}
+                    onChange={setDoses}
+                    options={[
+                        {value: 0, label: gender === 'male' ? 'Jamais vacciné' : 'Jamais vaccinée'},
+                        {value: 1, label: '1 dose'},
+                        {value: 2, label: '2 doses'},
+                        ...(canHave3Doses ? [{value: 3, label: '3 doses'}] : []),
+                    ]}
+                />
+            }
 
-                        <Divider hidden/>
-                        <label> {is_parent ? "Votre enfant est:" : "Vous êtes:"} </label>
-                        <ButtonGroup>
-                            <Choice selected={is_female} onClick={choose('gender', 'female')}>
-                                <ButtonIcon name="female"/> Une fille
-                            </Choice>
-                            <ButtonOr size="large"/>
-                            <Choice selected={is_male} onClick={choose('gender', 'male')}>
-                                <ButtonIcon name="male"/> Un garçon
-                            </Choice>
-                        </ButtonGroup>
-
-                        <Transition visible={is_gender_filled_out}>
-                            <div>
-                                <Divider hidden/>
-                                <label>{is_parent ? "Votre fille a:" : "Vous avez:"} </label>
-                                <ButtonGroup>
-                                    <Choice selected={is_under_11} onClick={choose('age_band', 'under_11')}>
-                                        <ButtonIcon name="child" size="small"/>Moins de 11 ans
-                                    </Choice>
-                                    <Choice selected={is_under_15} onClick={choose('age_band', 'under_15')}>
-                                        <ButtonIcon name="child"/>11 - 14 ans
-                                    </Choice>
-                                    <Choice selected={is_under_20} onClick={choose('age_band', 'under_20')}>
-                                        <ButtonIcon name="child" size="large"/>15 - 19 ans
-                                    </Choice>
-                                    <Choice selected={is_over_20} onClick={choose('age_band', 'over_20')}>
-                                        <ButtonIcon name="child" size="large"/>Plus de 20 ans
-                                    </Choice>
-                                </ButtonGroup>
-
-                                <Transition visible={is_vaccinable}>
-                                    <div>
-                                        <Divider hidden/>
-                                        <label> Vaccin: </label>
-                                        <ButtonGroup>
-                                            <Choice selected={values.doses === 0} onClick={choose('doses', 0)}>
-                                                Jamais vaccinée
-                                            </Choice>
-                                            <Choice selected={values.doses === 1} onClick={choose('doses', 1)}>
-                                                1 dose
-                                            </Choice>
-                                            <Choice selected={values.doses === 2} onClick={choose('doses', 2)}>
-                                                2 doses
-                                            </Choice>
-                                            {
-                                                can_have_3_doses &&
-                                                <Choice selected={values.doses === 3} onClick={choose('doses', 3)}>
-                                                    3 doses
-                                                </Choice>
-                                            }
-                                        </ButtonGroup>
-
-                                    </div>
-                                </Transition>
-                            </div>
-                        </Transition>
-                    </div>
-                </Transition>
-            </div>
-
-            <Divider hidden/>
-
-            {/* The messages disappear at once when the answers change, and only appear with an animation */}
-            <Transition visible={is_underage} animateOut={false}>
-                <Message variant="error">{richText(data[under_11_message_to_display])}</Message>
-            </Transition>
-
-            <Transition visible={is_overage} animateOut={false}>
-                <Message variant="error">{richText(data[over_20_message_to_display])}</Message>
-            </Transition>
-
-            <Transition visible={is_advice_displayed} animateOut={false}>
-                <Message variant="info">{richText(data[final_message_to_display])}</Message>
-            </Transition>
+            {message &&
+                <Message key={message.field} variant={message.variant} className="mt-10 motion-safe:animate-appear" role="status">
+                    <RichText field={data[message.field]}/>
+                </Message>
+            }
         </>
     )
 }

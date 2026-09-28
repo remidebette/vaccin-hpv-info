@@ -5,7 +5,7 @@ const eslintConfig = [
     ...nextCoreWebVitals,
     {
         rules: {
-            // Images come from Prismic or /public and are rendered as plain <img> to keep the original layout.
+            // Photos and the logo go through next/image; small images from Prismic and SVGs stay plain <img>.
             '@next/next/no-img-element': 'off',
         },
     },

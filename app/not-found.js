@@ -2,17 +2,17 @@ import Link from 'next/link'
 import Footer from '@/components/Footer'
 
 export const metadata = {
-    title: 'Error!',
+    title: 'Page introuvable',
 }
 
 export default function NotFound() {
     return (
         <>
-            <div className="flex flex-col justify-center items-center h-[42vw]">
-                <h1>404 Error</h1>
-                <h2>Document not found</h2>
-                <p><Link href="/">Return to homepage</Link></p>
-            </div>
+            <main className="mx-auto flex min-h-[50vh] max-w-3xl flex-col items-center justify-center px-4 py-16 text-center">
+                <h1 className="text-3xl font-bold">Page introuvable</h1>
+                <p className="mt-4">Cette page n&apos;existe pas ou a été déplacée.</p>
+                <Link href="/" className="link mt-6">Retour à l&apos;accueil</Link>
+            </main>
             <Footer/>
         </>
     )

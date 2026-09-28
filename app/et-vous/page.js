@@ -1,7 +1,6 @@
 import * as prismic from '@prismicio/client'
 import Footer from '@/components/Footer'
 import Simulation from '@/components/Simulation'
-import Container from '@/components/ui/Container'
 import {getEtVous} from '@/utils/api'
 import {pageMetadata} from '@/utils/seo'
 
@@ -19,12 +18,15 @@ export default async function EtVous() {
 
     return (
         <>
-            <Container text justified className="pt-[2em] pb-[5em]">
-                <h1 className="border-none -mt-[.142858em] p-0 normal-case text-[rgba(0,0,0,.87)]">
-                    {prismic.asText(et_vous.data.title)}
-                </h1>
+            <main className="mx-auto max-w-3xl px-4 py-8">
+                <h1 className="text-3xl font-bold">{prismic.asText(et_vous.data.title)}</h1>
+                <p className="mt-4">
+                    Cette page vous permet d&apos;obtenir des informations personnalisées sous forme d&apos;une synthèse
+                    sur votre situation par rapport aux vaccins HPV, répondez simplement aux questions.
+                    Aucune conservation des données n&apos;est réalisée.
+                </p>
                 <Simulation data={et_vous.data}/>
-            </Container>
+            </main>
             <Footer source_indexes={[0, 1, 2, 3, 4, 8]}/>
         </>
     )

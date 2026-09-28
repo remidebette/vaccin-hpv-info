@@ -1,28 +1,22 @@
-import Link from 'next/link'
+import {PrismicLink} from '@prismicio/react'
 import * as prismic from '@prismicio/client'
-import {PrismicRichText} from '@prismicio/react'
+import Link from 'next/link'
+import RichText from '@/components/RichText'
 import {linkResolver} from '@/prismic-configuration'
 
-const ImageHighlight = ({slice}) => {
-    const internalLink = slice.primary.link.link_type === 'Document'
-    return (
-        <section className="relative overflow-auto content-section">
-            <div className="w-[43%] float-left max-tablet:w-full max-tablet:float-none">
-                <PrismicRichText field={slice.primary.title} linkResolver={linkResolver}/>
-                <PrismicRichText field={slice.primary.headline} linkResolver={linkResolver}/>
-                {prismic.asText(slice.primary.link_label) !== '' ? (
-                    <p>
-                        <Link href={internalLink ? linkResolver(slice.primary.link) : prismic.asLink(slice.primary.link, {linkResolver})}>
-                            {prismic.asText(slice.primary.link_label)}
-                        </Link>
-                    </p>
-                ) : ''}
-            </div>
-            <div className="w-[48%] float-right max-tablet:w-full max-tablet:float-none">
-                <img src={slice.primary.featured_image.url} alt={slice.primary.featured_image.alt}/>
-            </div>
-        </section>
-    )
-}
+const ImageHighlight = ({slice}) => (
+    <section className="grid items-center gap-6 px-5 py-6 sm:grid-cols-2">
+        <div>
+            <RichText field={slice.primary.title}/>
+            <RichText field={slice.primary.headline}/>
+            {prismic.isFilled.link(slice.primary.link) && prismic.asText(slice.primary.link_label) &&
+                <PrismicLink field={slice.primary.link} linkResolver={linkResolver} internalComponent={Link} className="link">
+                    {prismic.asText(slice.primary.link_label)}
+                </PrismicLink>
+            }
+        </div>
+        <img src={slice.primary.featured_image.url} alt={slice.primary.featured_image.alt ?? ''} className="w-full rounded"/>
+    </section>
+)
 
 export default ImageHighlight

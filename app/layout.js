@@ -1,4 +1,4 @@
-import {Lato} from 'next/font/google'
+import {Bebas_Neue, Lato} from 'next/font/google'
 import {draftMode} from 'next/headers'
 import * as prismic from '@prismicio/client'
 import {PrismicPreview} from '@prismicio/next'
@@ -12,7 +12,13 @@ const lato = Lato({
     weight: ['400', '700'],
     style: ['normal', 'italic'],
     subsets: ['latin'],
-    variable: '--next-font-lato',
+    variable: '--font-lato',
+})
+
+const bebasNeue = Bebas_Neue({
+    weight: '400',
+    subsets: ['latin'],
+    variable: '--font-bebas',
 })
 
 export const metadata = defaultMetadata
@@ -29,7 +35,8 @@ async function getMenuLinks() {
             icon,
             sections: page.sections.map(section => ({
                 title: section.title,
-                href: linkResolver(link, {default_section: section.id}),
+                // The anchor scrolls to the section the page opens
+                href: linkResolver(link, {default_section: section.id}) + (section.id ? `#${section.id}` : ''),
             })),
         }
     })
@@ -40,15 +47,10 @@ export default async function RootLayout({children}) {
     const {isEnabled: isPreview} = await draftMode()
 
     return (
-        <html lang="fr" className={lato.variable}>
-            <head>
-                <link rel="stylesheet" href="https://use.typekit.net/vhr2nog.css"/>
-            </head>
+        <html lang="fr" className={`${lato.variable} ${bebasNeue.variable}`}>
             <body>
-                <div>
-                    <Header links={links}/>
-                    {children}
-                </div>
+                <Header links={links}/>
+                {children}
                 {isPreview && <PrismicPreview repositoryName={repositoryName}/>}
             </body>
         </html>

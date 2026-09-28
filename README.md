@@ -24,9 +24,21 @@ This is shared as an example of a Next.js + Prismic architecture
 
 **Tailwind CSS**
 
-- Utility-first styling. The small set of UI components in `components/ui` (buttons, menus, messages,
-  popups...) reproduces the look of the Semantic UI theme the site was designed with.
-- Popups are positioned with [Floating UI](https://floating-ui.com/).
+- Utility-first styling. The brand colors, fonts and animations are design tokens declared in
+  `app/globals.css`, and the few shared UI components (buttons, messages, popups, icons) live in `components/ui`.
+- Rich text from Prismic is styled with the [typography plugin](https://github.com/tailwindlabs/tailwindcss-typography).
+- Popups are positioned with [Floating UI](https://floating-ui.com/). The accordion sections are native
+  `<details>` elements, and the header menus need no JavaScript on large screens.
+
+**Fonts**
+
+- Lato and Bebas Neue are self-hosted with `next/font`: no third-party request, no layout shift, and
+  `font-synthesis: none` keeps the browser from faking bold or italic styles, which blurs the text.
+
+**Accessibility**
+
+- Texts meet the WCAG AA contrast ratio.
+- The menus, accordion, popups, simulation and contact form can be used with the keyboard and screen readers.
 
 **SEO**
 

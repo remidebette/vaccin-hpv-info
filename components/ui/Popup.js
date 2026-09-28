@@ -2,51 +2,42 @@
 
 import {cloneElement, useState} from 'react'
 import {
+    arrow,
     autoUpdate,
     flip,
+    FloatingArrow,
     FloatingPortal,
     offset,
-    safePolygon,
+    shift,
     useClick,
     useDismiss,
     useFloating,
+    useFocus,
     useHover,
     useInteractions,
+    useRole,
 } from '@floating-ui/react'
-import {cn} from './cn'
 
-const floatingHeight = {name: 'floatingHeight', fn: ({rects}) => ({data: {height: rects.floating.height}})}
-
-const arrow = {
-    top: 'before:bottom-[-.307143em] before:left-[1em]',
-    bottom: 'before:top-[-.307143em] before:left-[1em]',
-}
-
-// Popup anchored to `trigger`, opened on hover (and on click unless `hoverOnly`), rendered in a portal.
-// `hoverable` keeps it open while the pointer moves into it; `pinned` never flips it to the other side.
-// `inverted` gives the pink popup with an arrow, otherwise it is a plain white box.
-export default function Popup({trigger, children, placement = 'top-start', hoverable, pinned, hoverOnly, inverted, onOpen, className}) {
+// Pink bubble shown above `trigger` on hover, keyboard focus or tap.
+export default function Popup({trigger, onOpen, children}) {
     const [open, setOpen] = useState(false)
-    const {refs: {setReference, setFloating}, x, y, strategy, middlewareData, context, placement: actualPlacement} = useFloating({
+    const [arrowElement, setArrowElement] = useState(null)
+    const {refs: {setReference, setFloating}, floatingStyles, context} = useFloating({
         open,
         onOpenChange(isOpen) {
             setOpen(isOpen)
-            if (isOpen && onOpen) onOpen()
+            if (isOpen) onOpen?.()
         },
-        placement,
-        middleware: [offset(10), !pinned && flip(), floatingHeight],
+        placement: 'top-start',
+        middleware: [offset(10), flip(), shift({padding: 8}), arrow({element: arrowElement})],
         whileElementsMounted: autoUpdate,
     })
-    // Positioned like Semantic UI's Popper setup: the edge facing the trigger is snapped to the pixel grid
-    // (a popup above its trigger grows upwards) and only whole pixels go through the transform, which
-    // keeps the same text rendering.
-    const height = middlewareData.floatingHeight?.height ?? 0
-    const top = actualPlacement.startsWith('top') ? Math.round(y + height) - height : Math.round(y)
-    const floatingStyles = {position: strategy, left: 0, top, transform: `translateX(${Math.round(x)}px)`}
     const {getReferenceProps, getFloatingProps} = useInteractions([
-        useHover(context, {delay: {open: 50, close: 70}, handleClose: hoverable ? safePolygon() : null}),
-        useClick(context, {enabled: !hoverOnly}),
+        useHover(context, {delay: {open: 50, close: 100}}),
+        useFocus(context),
+        useClick(context),
         useDismiss(context),
+        useRole(context),
     ])
 
     return (
@@ -54,23 +45,14 @@ export default function Popup({trigger, children, placement = 'top-start', hover
             {cloneElement(trigger, {ref: setReference, ...getReferenceProps(trigger.props)})}
             {open && (
                 <FloatingPortal>
-                    <div ref={setFloating} style={floatingStyles} className="z-[1900] flex" {...getFloatingProps()}>
-                        {/* Own compositing layer, like Semantic UI popups (same text rendering) */}
-                        <div
-                            className={cn(
-                                'min-w-min text-[1rem] leading-[1.4285em] font-normal not-italic rounded-[.285715rem] [transform:translateZ(0)] backface-hidden',
-                                inverted
-                                    ? cn(
-                                        'max-w-[250px] py-[.833em] px-[1em] bg-pink text-white',
-                                        'before:absolute before:z-[2] before:w-[.714286em] before:h-[.714286em] before:rotate-45 before:bg-pink',
-                                        arrow[actualPlacement.split('-')[0]],
-                                    )
-                                    : 'bg-white text-[rgba(0,0,0,.87)] border border-[#d4d4d5] shadow-[0_2px_4px_0_rgba(34,36,38,.12),0_2px_10px_0_rgba(34,36,38,.15)]',
-                                className,
-                            )}
-                        >
-                            {children}
-                        </div>
+                    <div
+                        ref={setFloating}
+                        style={floatingStyles}
+                        className="z-50 w-72 max-w-[calc(100vw-1rem)] rounded-lg bg-brand p-4 text-white shadow-xl"
+                        {...getFloatingProps()}
+                    >
+                        <FloatingArrow ref={setArrowElement} context={context} className="fill-brand"/>
+                        {children}
                     </div>
                 </FloatingPortal>
             )}

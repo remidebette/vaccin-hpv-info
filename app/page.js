@@ -1,29 +1,20 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import * as prismic from '@prismicio/client'
 import Footer from '@/components/Footer'
-import {buttonClasses, LabeledIcon} from '@/components/ui/Button'
-import Container from '@/components/ui/Container'
-import Divider from '@/components/ui/Divider'
+import Icon from '@/components/ui/Icon'
 import {linkResolver} from '@/prismic-configuration'
 import {getHome, getMenu} from '@/utils/api'
 import {pageMetadata} from '@/utils/seo'
+import logo from '@/public/images/logo.png'
 
-const button_icons = {
-    'informations-generales': 'suitcase',
-    'effets_secondaires': 'pills',
-    'transmission': 'heartbeat',
-}
-const description = 'Tout ce que vous voulez savoir sur la vaccination anti-HPV, ' +
-    'une information claire et concise pour les patients produite par ' +
-    'des médecins indépendants.'
-
-const IndexButton = ({href, icon, children}) => (
+const HomeLink = ({href, icon, children}) => (
     <Link
         href={href}
-        className={buttonClasses({color: 'grey', size: 'massive', compact: true, labeled: true, className: 'w-[9em] text-right!'})}
+        className="flex w-full items-center gap-5 rounded-2xl bg-neutral-600 px-6 py-4 text-white transition-colors hover:bg-brand sm:w-72"
     >
-        <LabeledIcon name={icon}/>
-        {children}
+        <Icon name={icon} className="text-5xl"/>
+        <span className="font-heading text-3xl leading-none tracking-wide">{children}</span>
     </Link>
 )
 
@@ -41,48 +32,26 @@ export default async function Index() {
 
     return (
         <>
-            <Container className="pt-[2em] pb-[5em]">
-                <div className="flex flex-wrap items-stretch p-0 -m-[1rem]">
-                    <div className="relative inline-block w-full p-[1rem] align-top text-center self-[inherit]">
-                        <h1>
-                            <img
-                                src="/images/logo.png"
-                                alt="Page d'accueil du site Vaccin Anti HPV"
-                                className="relative block align-middle max-w-full bg-transparent"
-                            />
-                        </h1>
-                        <Divider hidden/>
-                        <div className="relative table w-4/5 mx-auto p-[1em] rounded-[15px] bg-pink text-white font-bebas text-[1.8rem] leading-[1.36] tracking-[.48px] before:absolute before:-top-[.307143em] before:left-[10%] before:-ml-[.307143em] before:w-[.714286em] before:h-[.714286em] before:rotate-45 before:bg-pink">
-                            {description.toUpperCase()}
-                        </div>
+            <main className="mx-auto max-w-6xl px-4 py-8">
+                <h1>
+                    <Image src={logo} alt="Vaccin HPV Info" loading="eager" className="h-auto w-64 sm:w-auto"/>
+                </h1>
 
-                        <Divider hidden section/>
+                <p className="relative mx-auto mt-10 max-w-3xl rounded-2xl bg-brand-pastel px-6 py-5 text-center font-heading text-2xl leading-snug tracking-wide text-plum sm:text-3xl before:absolute before:-top-2 before:left-[10%] before:size-5 before:rotate-45 before:bg-brand-pastel">
+                    Tout ce que vous voulez savoir sur la vaccination anti-HPV, une information claire et concise pour
+                    les patients produite par des médecins indépendants.
+                </p>
 
-                        <Divider hidden/>
-
-                        {menu.data.menu_links.map(menuLink => (
-                            <IndexButton
-                                key={menuLink.link.id}
-                                href={linkResolver(menuLink.link)}
-                                icon={button_icons[menuLink.link.uid]}
-                            >
-                                {prismic.asText(menuLink.label).toUpperCase()}
-                            </IndexButton>
-                        ))}
-
-                        <Divider hidden/>
-
-                        <IndexButton href="/et-vous" icon="clipboard list">
-                            ET VOUS ? (SIMULATION)
-                        </IndexButton>
-
-                        <IndexButton href="/faq" icon="doctor">
-                            IDÉES <br/>
-                            REÇUES
-                        </IndexButton>
-                    </div>
-                </div>
-            </Container>
+                <nav aria-label="Rubriques" className="mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-4">
+                    {menu.data.menu_links.map(menuLink => (
+                        <HomeLink key={menuLink.link.id} href={linkResolver(menuLink.link)} icon={menuLink.icon}>
+                            {prismic.asText(menuLink.label)}
+                        </HomeLink>
+                    ))}
+                    <HomeLink href="/et-vous" icon="clipboard list">Et vous ? (simulation)</HomeLink>
+                    <HomeLink href="/faq" icon="doctor">Idées reçues</HomeLink>
+                </nav>
+            </main>
             <Footer/>
         </>
     )

@@ -1,229 +1,62 @@
-/*
- * Tailwind CSS without its Preflight reset: the base layer below reproduces the global styles the site
- * inherited from Semantic UI (normalize.css + Semantic "site" defaults), so the look stays the same.
- *
- * Lengths ported from Semantic UI are fractions of its 14px base (e.g. 11/14 = .785715em), written with the
- * 6 significant digits the CSS minifier keeps and rounded up, so they land on the same pixels as before.
- */
-@layer theme, base, components, utilities;
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities);
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
-    /* Semantic UI breakpoints */
-    --breakpoint-tablet: 768px;
-    --breakpoint-computer: 992px;
-    --breakpoint-large: 1200px;
+    /* Fonts loaded with next/font in app/layout.js */
+    --font-sans: var(--font-lato), ui-sans-serif, system-ui, sans-serif;
+    --font-heading: var(--font-bebas), var(--font-lato), sans-serif;
 
-    --font-lato: var(--next-font-lato), "Helvetica Neue", Arial, Helvetica, sans-serif;
-    /* Adobe Fonts (Typekit) families, loaded in app/layout.js */
-    --font-bebas: bebas-neue, sans-serif;
-    --font-century: century-gothic, sans-serif;
+    /* Accent pink of links and buttons: it passes WCAG AA (≥ 4.5:1) with white */
+    --color-brand: #c2185b;
+    --color-brand-dark: #ad1457;
+    /* Pastel pink of the logo, behind the header, the home banner and the popups */
+    --color-brand-pastel: #ffbbc5;
+    --color-brand-50: #fff0f3;
+    /* Text on the pastel pink (7.6:1, white would only give 1.6:1) */
+    --color-plum: #6b0a3c;
 
-    /* Site palette (formerly the Semantic UI theme variables) */
-    --color-pink: #ffbbc5;
-    --color-grey: #a7a5a7;
-    --color-red: #b33d4e;
-    --color-green: #5fb36f;
-    --color-text: rgb(0 0 0 / 0.87);
-    --color-link: #4183c4;
-    --color-link-hover: #1e70bf;
-    --color-border: rgb(34 36 38 / 0.15);
+    --animate-appear: appear 0.3s ease-out;
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+    }
 }
 
 @layer base {
-    *, ::before, ::after {
-        box-sizing: inherit;
-    }
-
     html {
-        box-sizing: border-box;
-        line-height: 1.15;
-        text-size-adjust: 100%;
-        font-size: 14px;
-    }
-
-    html, body {
-        height: 100%;
+        /* Never fake bold or italic styles that a font does not have (Bebas Neue only has a regular weight) */
+        font-synthesis: none;
     }
 
     body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-        min-width: 320px;
-        background: #fff url("/images/background.png") no-repeat center center fixed;
-        font-family: var(--font-lato);
-        font-size: 14px;
-        line-height: 1.4285em;
-        color: var(--color-text);
+        @apply bg-white text-neutral-900;
     }
 
-    h1, h2, h3, h4, h5 {
-        font-family: var(--font-lato);
-        line-height: 1.28572em;
-        margin: calc(2rem - .142858em) 0 1rem;
-        font-weight: bold;
-        padding: 0;
-    }
-
-    h1 {
-        min-height: 1rem;
-        font-size: 2rem;
-    }
-
-    h2 {
-        font-size: 1.71429rem;
-    }
-
-    h3 {
-        font-size: 1.28572rem;
-    }
-
-    h4 {
-        font-size: 1.07143rem;
-    }
-
-    h5 {
-        font-size: 1rem;
-    }
-
-    h1, h2, h3, h4, h5 {
-        &:first-child {
-            margin-top: 0;
+    @media (min-width: 64rem) {
+        body {
+            background: #fff url("/images/background.png") no-repeat center / cover fixed;
         }
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-
-    p {
-        margin: 0 0 1em;
-        line-height: 1.4285em;
-
-        &:first-child {
-            margin-top: 0;
-        }
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-
-    a {
-        background-color: transparent;
-        color: var(--color-link);
-        text-decoration: none;
-
-        &:hover {
-            color: var(--color-link-hover);
-            text-decoration: none;
-        }
-    }
-
-    strong {
-        font-weight: bolder;
-    }
-
-    img {
-        border-style: none;
-    }
-
-    canvas {
-        display: inline-block;
-    }
-
-    button, input, textarea {
-        font-family: sans-serif;
-        font-size: 100%;
-        line-height: 1.15;
-        margin: 0;
-    }
-
-    button, input {
-        overflow: visible;
-    }
-
-    button {
-        text-transform: none;
-        appearance: button;
-    }
-
-    textarea {
-        overflow: auto;
-    }
-
-    input[type="text"], input[type="email"] {
-        appearance: none;
-    }
-
-    ::selection {
-        background-color: #cce2ff;
-        color: var(--color-text);
-    }
-
-    input::selection, textarea::selection {
-        background-color: rgb(100 100 100 / 0.4);
-        color: var(--color-text);
-    }
-
-    body ::-webkit-scrollbar {
-        appearance: none;
-        width: 10px;
-        height: 10px;
-    }
-
-    body ::-webkit-scrollbar-track {
-        background: rgb(0 0 0 / 0.1);
-        border-radius: 0;
-    }
-
-    body ::-webkit-scrollbar-thumb {
-        cursor: pointer;
-        border-radius: 5px;
-        background: rgb(0 0 0 / 0.25);
-        transition: color 0.2s ease;
-    }
-
-    body ::-webkit-scrollbar-thumb:window-inactive {
-        background: rgb(0 0 0 / 0.15);
-    }
-
-    body ::-webkit-scrollbar-thumb:hover {
-        background: rgb(128 135 139 / 0.8);
     }
 }
 
-/* Enter/leave animations of components/ui/Transition.js (Semantic UI "scale" transition) */
-@keyframes scale-in {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+/* Colors of the typography plugin for rich text on the pastel pink */
+@utility prose-plum {
+    --tw-prose-body: var(--color-plum);
+    --tw-prose-headings: var(--color-plum);
+    --tw-prose-links: var(--color-plum);
+    --tw-prose-bold: var(--color-plum);
+    --tw-prose-counters: var(--color-plum);
+    --tw-prose-bullets: var(--color-plum);
+    --tw-prose-quotes: var(--color-plum);
+    --tw-prose-quote-borders: var(--color-plum);
+    --tw-prose-hr: var(--color-plum);
+    --tw-prose-captions: var(--color-plum);
 }
 
-@keyframes scale-out {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-}
-
-/* Loading shimmer of the link preview placeholder (components/PreviewPopup.js) */
-@keyframes placeholder-shimmer {
-    0% {
-        background-position: -1200px 0;
-    }
-    100% {
-        background-position: 1200px 0;
-    }
+/* Links of the site (header menus and buttons excepted) */
+@utility link {
+    @apply text-brand underline decoration-brand/40 underline-offset-2 hover:decoration-brand;
 }

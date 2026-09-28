@@ -2,7 +2,6 @@ import {notFound} from 'next/navigation'
 import * as prismic from '@prismicio/client'
 import Footer from '@/components/Footer'
 import SliceZone from '@/components/slices/SliceZone'
-import Container from '@/components/ui/Container'
 import {getAllPages, getPage} from '@/utils/api'
 import {pageMetadata} from '@/utils/seo'
 
@@ -40,11 +39,10 @@ export default async function Page({params}) {
 
     return (
         <>
-            <Container text justified className="pt-[2em] pb-[5em]">
-                <h1>{prismic.asText(doc.data.title)}</h1>
-
+            <main className="mx-auto max-w-3xl px-4 py-8">
+                <h1 className="text-3xl font-bold">{prismic.asText(doc.data.title)}</h1>
                 <SliceZone sliceZone={doc.data.page_content}/>
-            </Container>
+            </main>
             <Footer source_indexes={source_indexes}/>
         </>
     )
